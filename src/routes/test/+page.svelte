@@ -6,7 +6,7 @@
 
 <h1>Hi Yves</h1>
 
-<p>This is a sveltekit barebones setup. Some auto generated content below.</p>
+
 
 <div>--------</div>
 <h3>Testdata from subabase:</h3>
@@ -20,6 +20,9 @@
 {/if}
 
 <div>--------</div>
+<p>This is a sveltekit barebones setup. Some auto generated content below.</p>
+<div>--------</div>
+
 <h3>Example blog post:</h3>
 
 <article class="blogpost">
