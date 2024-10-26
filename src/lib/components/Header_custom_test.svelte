@@ -24,11 +24,14 @@
 	});
 </script>
 
-<header class="flex flex-wrap gap-10 items-center pt-6 px-96 max-md:px-5">
+<header class="flex flex-wrap gap-10 items-center pt-6 px-96 max-md:px-5  ">
+	
 	<nav>
-		<ul class="flex flex-wrap gap-10 items-center list-none">
+	
+
+		<ul class="flex flex-wrap gap-10 items-center list-none ">
 			<li>
-				<a href="#unser-futter" class="text-xl font-medium leading-9 text-teal-950">
+				<a href="#unser-futter" class=" text-xl font-medium leading-9 text-teal-950 ">
 					Unser Futter
 				</a>
 			</li>
@@ -37,7 +40,7 @@
 					So funktioniert's
 				</a>
 			</li>
-			<li>
+			<li >
 				<Logo />
 			</li>
 			<li>

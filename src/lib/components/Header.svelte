@@ -1,4 +1,4 @@
-<div class="nav_component">
+<div class="nav_component tw-bg-linen">
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="nav w-nav">
       <div class="container-medium">
         <div class="padding-vertical">

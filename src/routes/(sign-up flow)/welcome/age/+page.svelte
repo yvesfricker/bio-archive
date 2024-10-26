@@ -96,7 +96,7 @@
                     </div>
                   </div>
                   <div class="text-align-center">
-                    <a href="sign-up.html" class="link w-inline-block">
+                    <a href="/welcome/name" class="link w-inline-block">
                       <div class="text-size-medium">Zurück</div>
                     </a>
                   </div>

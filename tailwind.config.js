@@ -6,6 +6,12 @@ const config = {
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	safelist: ["dark"],
 	prefix: 'tw-',
+	screens: {
+		sm: '479px',
+		md: '767px',
+		lg: '991px',
+		xl: '1440px',
+	  },
 	theme: {
 		container: {
 			center: true,
@@ -16,6 +22,9 @@ const config = {
 		},
 		extend: {
 			colors: {
+				yellow: "var(--yellow)",
+				linen: "var(--linen)",
+				"green-40": "var(--green-40",			
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
 				ring: "hsl(var(--ring) / <alpha-value>)",
@@ -56,7 +65,10 @@ const config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: [...fontFamily.sans]
+				Lora: 'Lora', 
+				Nunito: 'Nunito',
+				sans: ['Nunito', ...fontFamily.sans],
+				footer: ['Nunito', ...fontFamily.sans]
 			}
 		}
 	},

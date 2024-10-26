@@ -2,7 +2,7 @@
 
 </script>
 
-<div class="page-wrapper">
+
 	
 	<main id="Weiter" class="main-wrapper">
 		<section class="section_signup-hero">
@@ -61,7 +61,7 @@
 										</div>
 									</div>
 									<div class="text-align-center">
-										<a href="sign-up-3-html.html" class="link w-inline-block">
+										<a href="/welcome/dislikes" class="link w-inline-block">
 											<div class="text-size-medium">Zurück</div>
 										</a>
 									</div>
@@ -94,8 +94,6 @@
 		</section>
 	</main>
 	
-</div>
-
-<style module>
+<style>
 	@import '../../../../bella-natura.webflow.css';
 </style>

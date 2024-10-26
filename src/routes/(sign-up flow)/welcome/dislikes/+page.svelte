@@ -253,12 +253,12 @@
 									</div>
 									<div class="margin-bottom-xxsm">
 										<div class="text-align-center">
-                      <a    href='/welcome/personalized-menu'>
+                      <a    href='/welcome/send-email'>
                         <div class=" button is-submit w-button !tw-pt-[11px]">Weiter</div></a> 
 										</div>
 									</div>
 									<div class="text-align-center">
-										<a href="sign-up-2-html.html" class="link w-inline-block">
+										<a href="/welcome/age" class="link w-inline-block">
 											<div class="text-size-medium">Zurück</div>
 										</a>
 									</div>
