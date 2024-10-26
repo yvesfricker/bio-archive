@@ -38,7 +38,7 @@
 
 .w-checkbox-input--inputType-custom.w--redirected-checked {
   background-color: #3898ec;
-  background-image: url('../static/https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg');
+  background-image: url('./https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1298,7 +1298,7 @@ a {
 }
 
 .section_home-farm-animals {
-  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('../static/images/Picture_cow.webp');
+  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('/images/Picture_cow.webp');
   background-position: 0 0, 0 0, 50%;
   background-repeat: repeat, repeat, no-repeat;
   background-size: auto, auto, cover;
@@ -1828,7 +1828,7 @@ a {
 }
 
 .signup-hero_dislike-img.is-rind {
-  background-image: url('../static/images/Rind_1.svg');
+  background-image: url('/images/Rind_1.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1836,13 +1836,13 @@ a {
 }
 
 .signup-hero_dislike-img.is-rind.w--redirected-checked {
-  background-image: url('../static/images/Rind-red.svg');
+  background-image: url('/images/Rind-red.svg');
   border-width: 2px;
   border-color: #b04545;
 }
 
 .signup-hero_dislike-img.is-huhn {
-  background-image: url('../static/images/Huhn_1.svg');
+  background-image: url('/images/Huhn_1.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1850,12 +1850,12 @@ a {
 }
 
 .signup-hero_dislike-img.is-huhn.w--redirected-checked {
-  background-image: url('../static/images/Huhn-orange.svg');
+  background-image: url('/images/Huhn-orange.svg');
   border-color: #f4a173;
 }
 
 .signup-hero_dislike-img.is-pute {
-  background-image: url('../static/images/Pute_1.svg');
+  background-image: url('/images/Pute_1.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1863,12 +1863,12 @@ a {
 }
 
 .signup-hero_dislike-img.is-pute.w--redirected-checked {
-  background-image: url('../static/images/Turkey-green.svg');
+  background-image: url('/images/Turkey-green.svg');
   border-color: #9b9d70;
 }
 
 .signup-hero_dislike-img.is-schwein {
-  background-image: url('../static/images/Schwein_1.svg');
+  background-image: url('/images/Schwein_1.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1876,7 +1876,7 @@ a {
 }
 
 .signup-hero_dislike-img.is-schwein.w--redirected-checked {
-  background-image: url('../static/images/Pork-pink.svg');
+  background-image: url('/images/Pork-pink.svg');
   border-color: #e47b88;
 }
 
@@ -2178,7 +2178,7 @@ a {
 }
 
 .section_our-food-animals {
-  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('../static/images/Picture_cow.webp');
+  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('/images/Picture_cow.webp');
   background-position: 0 0, 0 0, 50%;
   background-repeat: repeat, repeat, no-repeat;
   background-size: auto, auto, cover;
@@ -2330,7 +2330,7 @@ a {
 }
 
 .slider-block_image {
-  background-image: url('../static/https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg');
+  background-image: url('./https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2340,19 +2340,19 @@ a {
 }
 
 .slider-block_image.is-zicchini {
-  background-image: url('../static/images/_MG_6833.webp');
+  background-image: url('/images/_MG_6833.webp');
 }
 
 .slider-block_image.is-karroten {
-  background-image: url('../static/images/_MG_6734.webp');
+  background-image: url('/images/_MG_6734.webp');
 }
 
 .slider-block_image.is-kurbis {
-  background-image: url('../static/images/_MG_6785.webp');
+  background-image: url('/images/_MG_6785.webp');
 }
 
 .slider-block_image.is-broccoli {
-  background-image: url('../static/images/_MG_6691.webp');
+  background-image: url('/images/_MG_6691.webp');
 }
 
 .slider-block_text {
@@ -2778,7 +2778,7 @@ a {
 
 .testimonials_comma-bot {
   z-index: -1;
-  background-image: url('../static/images/comma-1.svg');
+  background-image: url('/images/comma-1.svg');
   background-position: 50% 20%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2827,7 +2827,7 @@ a {
 }
 
 .section_main {
-  background-image: url('../static/images/hero_background.webp');
+  background-image: url('/images/hero_background.webp');
   background-position: 50% 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2909,7 +2909,7 @@ a {
 }
 
 .section_main-farm {
-  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('../static/images/Picture_cow.webp');
+  background-image: linear-gradient(#dbc4b41a, #dbc4b41a), linear-gradient(#70735080, #70735080), url('/images/Picture_cow.webp');
   background-position: 0 0, 0 0, 50%;
   background-repeat: repeat, repeat, no-repeat;
   background-size: auto, auto, cover;
@@ -3245,7 +3245,7 @@ a {
 
 .popup_checkbox.w--redirected-checked {
   background-color: #fff;
-  background-image: url('../static/images/checked.svg');
+  background-image: url('/images/checked.svg');
   background-position: 50%;
   background-size: auto;
   border-style: none;
