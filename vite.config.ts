@@ -9,5 +9,20 @@ export default {
 	plugins: [
 		sveltekit(),
 		purgeTailwind()
-	]
+	],
+	build: {
+        rollupOptions: {
+            onwarn: (warning, handler) => {
+                const { code, frame } = warning;
+                if (code === "anchor-is-valid" || code === "a11y-autofocus") {
+                    return;
+                }
+                if (code === "css-unused-selector") {
+                    return;
+                }
+                handler(warning);
+            }
+        }
+    },
+	
 } satisfies UserConfig

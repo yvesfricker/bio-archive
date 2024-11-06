@@ -1,0 +1,53 @@
+<script lang="ts">
+	import CatMealI from "./CatMeal.svelte";
+	import type { CatMealStore } from "$lib/types";
+
+	export let meal: CatMealI;
+    export let catMealStore: CatMealStore;
+export let i : number
+
+	// $: localMeal = {
+	// 	id: $catMealStore[i].id,
+	// 	type: $catMealStore[i].type,
+	// 	description: $catMealStore[i].description,
+	// 	portionSize: $catMealStore[i].portionSize,
+	// 	servings: $catMealStore[i].servings
+	// } as CatMealI;
+
+    function capitalizeFirstLetter(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+$: mealType = capitalizeFirstLetter(meal?.type);
+
+
+
+</script>
+<div
+				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b"
+				class="signup-hero_tab-plan-item"
+			>
+				<img
+					sizes="100vw"
+					srcset="images/Huhn-p-500.png 500w, images/Huhn.webp 700w"
+					src="images/Huhn.webp"
+					loading="lazy"
+					alt=""
+					class="signup-hero_tab-plan-image"
+				/>
+				<div class="signup-hero_tab-plan-text-block">
+					<div class="font-weight-bold">
+						<div class="signup-hero_tab-title-tiny">
+							<span class="signup-hero_tab-text-number">{$catMealStore[i]?.servings}</span> x {mealType}
+						</div>
+					</div>
+					<div class="signup-hero_tab-text-sm">Lorem ipsum dolor sit amet.</div>
+				</div>
+				<div class="signup-hero_quantity-btn">
+					<button  class="button is-light-pink w-button"
+                    on:click={() => catMealStore.decrementServingsForMeal(i)}>-</button>
+					<div class="signup-hero_age-text">{$catMealStore[i]?.servings}</div>
+					<button  class="button is-light-pink w-button"
+                    on:click={() => catMealStore.incrementServingsForMeal(i)}>+</button>
+				</div>
+			</div>

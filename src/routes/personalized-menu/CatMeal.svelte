@@ -1,0 +1,47 @@
+<script lang="ts">
+	import type { CatMealI } from '$lib/types';
+
+
+	export let meal: CatMealI;
+
+	$: localMeal = {
+		id: meal.id,
+		type: meal.type,
+		description: meal.description,
+		portionSize: meal.portionSize,
+		servings: meal.servings
+	} as CatMealI;
+
+    function capitalizeFirstLetter(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+$: imageType = capitalizeFirstLetter(localMeal?.type);
+
+console.log('imageType', imageType);
+console.log("meal", meal)
+console.log("localMeal", localMeal)
+</script>
+
+<div
+	fy-element="catOneChickenTrialResult"
+	id="w-node-f4254392-342a-9add-cb7f-ee87be4a054d-78e5fb0b"
+	class="signup-hero_tab-plan-item"
+>
+	<img
+		sizes="(max-width: 767px) 80px, 108px"
+		srcset={`images/${imageType}-p-500.png 500w, images/Huhn.webp 700w`}
+		src="images/Huhn.webp"
+		loading="lazy"
+		alt=""
+		class="signup-hero_tab-plan-image"
+	/>
+	<div class="signup-hero_tab-plan-text-block">
+		<div class="font-weight-bold">
+			<div class="signup-hero_tab-title-tiny">
+				{localMeal.servings} x <span fy-element="catOnePortionSize">{localMeal.portionSize}</span>g {imageType}
+			</div>
+		</div>
+		<div class="signup-hero_tab-text-sm">Bio-Hühnerfleisch mit Karotten</div>
+	</div>
+</div>

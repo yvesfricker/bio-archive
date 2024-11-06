@@ -1,4 +1,45 @@
-<script>
+<script lang="ts">
+	import Cat from './Cat.svelte';
+	import { Cat as CatClass } from './CatClass';
+	import type { CatI, CatDb } from '$lib/types';
+	import { catStore } from '$lib/stores/itemsStores';
+	import { v4 as uuidv4 } from 'uuid';
+
+	let errorMessages = {};
+
+	function validationError(index: string, componentErrorMessages: string[], i) {
+		if (componentErrorMessages?.length > 0) {
+			errorMessages[index] = componentErrorMessages;
+		} else {
+			errorMessages[index] = null;
+		}
+		console.log('componentErrorMessages', componentErrorMessages);
+		console.log('index', i);
+		console.log('id', index);
+	}
+
+	function handleAddCat() {
+		$catStore = [...$catStore, new CatClass({ id: uuidv4() }) as CatI];
+		console.log('in handeAddCat', $catStore);
+	}
+
+	function handleRemoveCatById(id) {
+		$catStore = [...$catStore.filter((cat) => cat.id !== id)];
+		console.log('in handeRemoveCat', $catStore);
+	}
+
+	function handleRemoveLastCat () {
+		$catStore = [...$catStore.slice(0, -1)];
+		console.log('in handeRemoveLastCat', $catStore);
+	}
+
+	$: console.log(
+		Object.values(errorMessages)
+			.map((entries) => entries.flat())
+			.flat()
+	);
+
+	$: console.log($catStore);
 </script>
 
 <main id="Weiter" class="main-wrapper">
@@ -28,165 +69,10 @@
 									</div>
 								</div>
 								<div class="margin-bottom-xxxmedium">
-									<div class="margin-bottom-xxmedium">
-										<div class="signup-hero_item is-vertical-on-tablet">
-											<div class="signup-hero_field-block is-vertical-on-tablet">
-												<div class="signup-hero_field-text">Name:</div>
-												<input
-													fy-element="catOneNameInput"
-													class="signup-hero_form-field w-input"
-													maxlength="256"
-													name="catOneName"
-													data-name="catOneName"
-													placeholder=""
-													type="text"
-													id="catOneName"
-												/>
-											</div>
-											<div class="signup-hero_field-block is-second-step">
-												<div class="signup-hero_field-text">Geschlecht:</div>
-												<div class="signup-hero_item">
-													<label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="male"
-															type="radio"
-															name="catOneGenderGroup"
-															data-name="catOneGenderGroup"
-															fy-element="catOneMaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="male"
-														/><span class="signup-hero_radio-label w-form-label" for="male"
-															>Männlich</span
-														>
-													</label><label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="female"
-															type="radio"
-															name="catOneGenderGroup"
-															data-name="catOneGenderGroup"
-															fy-element="catOneFemaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="female"
-														/><span class="signup-hero_radio-label w-form-label" for="female"
-															>Weiblich</span
-														>
-													</label>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="margin-bottom-xxmedium">
-										<div class="signup-hero_item is-vertical-on-tablet">
-											<div class="signup-hero_field-block is-vertical-on-tablet">
-												<div class="signup-hero_field-text">Name:</div>
-												<input
-													fy-element="catOneNameInput"
-													class="signup-hero_form-field w-input"
-													maxlength="256"
-													name="catOneName-2"
-													data-name="Cat One Name 2"
-													placeholder=""
-													type="text"
-													id="catOneName-2"
-												/>
-											</div>
-											<div class="signup-hero_field-block is-second-step">
-												<div class="signup-hero_field-text">Geschlecht:</div>
-												<div class="signup-hero_item">
-													<label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="male"
-															type="radio"
-															name="catOneGenderGroup"
-															data-name="catOneGenderGroup"
-															fy-element="catOneMaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="male"
-														/><span class="signup-hero_radio-label w-form-label" for="male"
-															>Männlich</span
-														>
-													</label><label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="female"
-															type="radio"
-															name="catOneGenderGroup"
-															data-name="catOneGenderGroup"
-															fy-element="catOneFemaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="female"
-														/><span class="signup-hero_radio-label w-form-label" for="female"
-															>Weiblich</span
-														>
-													</label>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div fy-element="catTwoInputBlock" class="margin-bottom-xxmedium hide">
-										<div class="signup-hero_item is-vertical-on-tablet">
-											<div class="signup-hero_field-block is-vertical-on-tablet">
-												<div class="signup-hero_field-text">Name:</div>
-												<input
-													fy-element="catTwoNameInput"
-													class="signup-hero_form-field w-input"
-													maxlength="256"
-													name="Name-2"
-													data-name="Name 2"
-													placeholder=""
-													type="text"
-													id="Name-2"
-												/>
-											</div>
-											<div class="signup-hero_field-block is-second-step">
-												<div class="signup-hero_field-text">Geschlecht:</div>
-												<div class="signup-hero_item">
-													<label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="male-2"
-															type="radio"
-															name="catTwoGenderGroup"
-															data-name="catTwoGenderGroup"
-															fy-element="catTwoMaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="male"
-														/><span class="signup-hero_radio-label w-form-label" for="male-2"
-															>Männlich</span
-														>
-													</label><label class="signup-hero_radio-button is-white w-radio">
-														<div
-															class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input"
-														></div>
-														<input
-															id="female-2"
-															type="radio"
-															name="catTwoGenderGroup"
-															data-name="catTwoGenderGroup"
-															fy-element="catTwoFemaleRadio"
-															style="opacity:0;position:absolute;z-index:-1"
-															value="female"
-														/><span class="signup-hero_radio-label w-form-label" for="female-2"
-															>Weiblich</span
-														>
-													</label>
-												</div>
-											</div>
-										</div>
-									</div>
+									{#each $catStore as cat, i}
+										<Cat {cat} {validationError} {i} />
+									{/each}
+
 									<div class="margin-bottom-medium">
 										<div class="signup-hero_item">
 											<div class="signup-hero_field-block">
@@ -200,34 +86,39 @@
 										<div
 											id="numberOfCatsLabel"
 											fy-element="numberOfCatsLabel"
-											class="signup-hero_add-remove-text "
+											class="signup-hero_add-remove-text"
 										>
-											1
+											{$catStore.length}
 										</div>
 
-										<div fy-element="incrementCatsButton" href="#" class="button is-white w-button">
+										<button
+											class="button is-white w-button !tw-block"
+											on:click={() => handleAddCat()}
+										>
 											+
-										</div>
+										</button>
 
-										<div fy-element="decrementCatsButton" href="#" class="button is-white w-button">
+										<button fy-element="decrementCatsButton" href="#" class="button is-white w-button"
+										on:click={() => handleRemoveLastCat()}>
 											-
-										</div>
+										</button>
 									</div>
 								</div>
 								<div class="margin-bottom-xsm">
 									<div class="text-align-center">
-										<div
-											fy-element="stepOneErrorLabel"
-											class="signup-hero_error-message text-size-medium"
-										>
-											This is some text inside of a div block.
-										</div>
+										{#each Object.values(errorMessages)
+											.map((entries) => entries.flat())
+											.flat() as errorMessage}
+											<div class="signup-hero_error-message text-size-medium">
+												{errorMessage}
+											</div>
+										{/each}
 									</div>
 								</div>
 								<div class="margin-bottom-xxxhuge">
 									<div class="text-align-center">
-										<a href="/welcome/age">
-											<div class=" button is-submit w-button !tw-pt-[11px]">Weiter</div></a
+										<a href={Object.keys(errorMessages).length > 0 ? null : '/welcome/age'}>
+											<div class=" button is-submit w-button">Weiter</div></a
 										>
 
 										<!-- <input
