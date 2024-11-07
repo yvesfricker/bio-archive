@@ -263,4 +263,4 @@ const catINITSet: CatI[] = [
 
 ];
 
-export const catStore = createCatStore(catINITSet);
+export const catStore = createCatStore(catTestSet);
