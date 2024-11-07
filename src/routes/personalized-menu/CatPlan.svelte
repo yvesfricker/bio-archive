@@ -2,10 +2,15 @@
 	import type { CatDb, CatI } from '$lib/types';
 	import CatMeal from './CatMeal.svelte';
 	import Anpassen from './Anpassen.svelte';
+	import type { CatMealStore, CatStore } from '$lib/stores/itemsStores';
 
 	// export let callBackSetAnpassenDisplay: (i: number) => void
 	export let cat: CatI;
+
 	export let i: number;
+	export let proMonatDisplay: boolean
+
+
 	// export let validationError;
 
 	$: localCat = {
@@ -15,11 +20,14 @@
 		weight: cat.weight,
 		genderMale: cat.genderMale,
 		dislikes: cat.dislikes,
-		meals: cat.meals
+		mealsTest: cat.mealsTest,
+		mealsPromonat: cat.mealsPromonat,
+		portionSize: cat.portionSize
 	} as CatI;
 
-	$: console.log('localcat', localCat);
+	// $: console.log('localcat', localCat);
 
+$: console.log("proMonatDisplay", proMonatDisplay)
 	
 	// console.log("for cat named ", cat?.name, "dislikes", cat?.dislikes)
 
@@ -53,16 +61,40 @@
 		planAnpassenDisplay = false;
 	}
 
-	$: console.log("planAnpassenDisplay", planAnpassenDisplay)
+	
+	function callBackSaveMenuToCat(localCatsMealStore: CatMealStore) {
+		if (proMonatDisplay) {		
+				cat.mealsPromonat = localCatsMealStore;		
+		} else {	
+				cat.mealsTest = localCatsMealStore;		
+		}
+	}
 
-let mealStore = cat.meals
+	// $: console.log("planAnpassenDisplay", planAnpassenDisplay)
+
+
+
+	// const promonat = cat.mealsPromonat
+	// const test = cat.mealsTest
+
+	// $: console.log("promonat", $promonat)
+	// $: console.log("test", $test)
+
+$: mealStore = proMonatDisplay ? cat.mealsPromonat : cat.mealsTest;
+
+// $: console.log("mealStore", $mealStore)
+
+function calculateCatPlanPrice() {
+
+}
+
 </script>
 
 <div class="signup-hero_leo-block">
 	<div class="signup-hero_tab-top is-wrap">
 		<div class="signup-hero_tab-top-text-block">
 			<div class="signup-hero_tab-heading">
-				<span fy-element="catOneNameLabel">{localCat.name}</span>&#x27;s Speiseplan
+				<span fy-element="catOneNameLabel">{cat.name}</span>&#x27;s Speiseplan
 			</div>
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
@@ -72,23 +104,22 @@ let mealStore = cat.meals
 		</button>
 	</div>
 	<div class="signup-hero_tab-top is-wrap is-second-from-top">
-		<div class="text-size-medium">14 Katzenfutter / Zwei Wochen</div>
+		<div class="text-size-medium"> {proMonatDisplay ? "30" : "14"} Katzenfutter / {proMonatDisplay ? "Vier" : "Zwei"} Wochen</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
 		<div class="signup-hero_tab-heading">
-			<span fy-element="catOneNameLabel">0.-</span>
+			<span fy-element="catOneNameLabel">{proMonatDisplay ? cat.mealsPromonatTotalPrice.toFixed(2) : cat.mealsTestTotalPrice.toFixed(2)}</span>
 		</div>
 	</div>
 	<div class="signup-hero_tab-bot">
 		{#each $mealStore as meal}
-			<CatMeal {meal}  />
+			<CatMeal bind:meal={meal} bind:portionSize={localCat.portionSize} />
 		{/each}
 	
 	</div>
 </div>
 
 {#if planAnpassenDisplay}
-<div>Test 0</div>
-<Anpassen {cat} {callBackCloseAnpassenDisplay}  />
+<Anpassen {localCat} {callBackCloseAnpassenDisplay}  {callBackSaveMenuToCat} {proMonatDisplay} catIndex={i}/>
 {/if}
 
 <!-- <style lang="css">  moved this to bella-natura-webflow.css

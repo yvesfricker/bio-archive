@@ -1,4 +1,5 @@
 import type { Writable } from 'svelte/store';
+import type { MealStore } from './stores/itemsStores';
 
 export interface CatDb  {
     id: string
@@ -7,7 +8,6 @@ export interface CatDb  {
     weight: number
     genderMale: boolean 
     dislikes: string[] 
-    meals: CatMealStore
 }
 
 export interface CatI  {
@@ -17,18 +17,21 @@ export interface CatI  {
     weight: number | undefined
     genderMale: boolean | undefined
     dislikes: string[] | undefined
-    meals: CatMealStore
-
+    portionSize: number
+    mealsTest: CatMealStore
+    mealsTestTotalPrice: number
+    mealsPromonat: CatMealStore
+    mealsPromonatTotalPrice: number
 }
 
-export type CatMealStore = Writable<CatMeal[]>
 
 export interface CatMealI {
     id: string
     type: MealType
     description: string
-    portionSize: number
     servings: number
+    selectedServingPrice: number
+    totalMealPrice: number
 }
 
 export enum MealType {

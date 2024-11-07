@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
 import type { CatI, CatMealI, CatMealStore } from '$lib/types.d';
 import { MealType } from '$lib/types.d';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,22 +10,25 @@ const miaMeals: CatMealI[] = [
         id: uuidv4(),
         type: MealType.RIND,
         description: 'Bio-Rindfleisch mit Broccoli',
-        portionSize: 150,
-        servings: 4
+        servings: 4,
+        selectedServingPrice: 3,
+        totalMealPrice: 12
     },
     {
         id: uuidv4(),
         type: MealType.SCHWEIN,
         description: 'Bio-Sweinfleisch',
-        portionSize: 150,
-        servings: 3
+        servings: 3,
+        selectedServingPrice: 3,
+        totalMealPrice: 12
     },
     {
         id: uuidv4(),
         type: MealType.PUTE,
         description: 'Bio-Pute mit Carotten und Vitamine',
-        portionSize: 150,
-        servings: 2
+        servings: 2,
+        selectedServingPrice: 3,
+        totalMealPrice: 12
     },
 
 ]
@@ -36,8 +39,9 @@ const leoMeals: CatMealI[] = [
         id: uuidv4(),
         type: MealType.RIND,
         description: 'Bio-Rindfleisch mit Broccoli',
-        portionSize: 200,
-        servings: 14
+        servings: 14,
+        selectedServingPrice: 3,
+        totalMealPrice: 12
     }
 
 ]
@@ -51,7 +55,72 @@ function createCatStore(init: CatI[] | undefined) {
         // increment: () => update((n) => n + 1),
         // decrement: () => update((n) => n - 1),
         // reset: () => set(0)
+        removeLastCat: () => {
+            update((store) => {
+                return [...store.slice(0, -1)];
+            })
+
+        },
+        addCat: () => {
+            update((store) => {
+                return store.concat({
+                    id: uuidv4(),
+                    name: '',
+                    age: 0,
+                    weight: 0,
+                    genderMale: true,
+                    dislikes: [],
+                    portionSize: 0,
+                    mealsTest: miaMeals,
+                    mealsTestTotalPrice: 0,
+                    mealsPromonat: leoMeals,
+                    mealsPromonatTotalPrice: 0
+                })
+            })
+        },
+        updateTotalMealPriceForCat: (catIndex: number, proMonat: boolean) => {
+            update((store) => {
+                let mealsPrice = 0
+                if (proMonat) {
+                    // console.log("store[catIndex].mealsPromonat", store[catIndex].mealsPromonat)
+                    store[catIndex].mealsPromonat.subscribe((meals) => {
+                        meals.forEach((meal, index) => {
+                            mealsPrice += meal.totalMealPrice
+                        })
+                    })
+
+                    store[catIndex].mealsPromonatTotalPrice = mealsPrice
+                } else {
+                    // console.log("store[catIndex].mealsTest", store[catIndex].mealsTest)
+                    store[catIndex].mealsTest.subscribe((meals) => {
+                        // console.log("meals SGAEWHWE", meals)
+                        meals.forEach((meal, index) => {
+                            mealsPrice += meal.totalMealPrice
+                        })
+                    })
+                    store[catIndex].mealsTestTotalPrice = mealsPrice
+                }
+                return store
+            })
+        },
+        updatePortionSize: (catIndex: number, newPortionSize: number) => {
+            update((store) => {
+                store[catIndex].portionSize = newPortionSize
+                return store
+            })
+        },
     };
+}
+
+export interface CatStore extends Writable<CatI[]> {
+    updateTotalMealPriceForCat: (i: number, newPrice: number, proMonat: boolean) => void
+    updatePortionSize: (catIndex: number, newPortionSize: number) => void
+}
+export interface CatMealStore extends Writable<CatMealI[]> {
+    decrementServingsForMeal: (i: number) => void
+    incrementServingsForMeal: (i: number) => void
+    setNewMenuFromCalculation: (calculatedMenu: { [key: string]: number }, recommendedPotionSize: number) => string
+    updateMealPrice: (newPrice: number) => void
 }
 
 function createMealStore(init: CatMealI[] | undefined) {
@@ -67,11 +136,13 @@ function createMealStore(init: CatMealI[] | undefined) {
             update((store) => {
                 const newMeal = store[i]
                 newMeal.servings = newMeal.servings + 1
+                newMeal.totalMealPrice = newMeal.selectedServingPrice * newMeal.servings
+                console.log("store", store)
                 return store
             })
 
             // console.log("newMeal", newMeal)
-            // console.log("store", store)
+
             // console.log("splice", store.splice(i, 0, newMeal))
             // return store.splice(i, 0, newMeal)})
         },
@@ -80,10 +151,11 @@ function createMealStore(init: CatMealI[] | undefined) {
             update((store) => {
                 const newMeal = store[i]
                 newMeal.servings = newMeal.servings - 1 > -1 ? newMeal.servings - 1 : 0
+                newMeal.totalMealPrice = newMeal.selectedServingPrice * newMeal.servings
                 return store
             })
         },
-        setNewMenuFromCalculation: (calculatedMenu: { [key: string]: number }, recommendedPotionSize: number) => {
+        setNewMenuFromCalculation: (calculatedMenu: { [key: string]: number }, recommendedPotionSize: number, mealPrice: number) => {
             //{ rind: 4, pute: 5, huhn: 5 }
             // {
             //     id: uuidv4(),
@@ -93,27 +165,31 @@ function createMealStore(init: CatMealI[] | undefined) {
             //     servings: 14
             // }
             const menuArray = Object.entries(calculatedMenu)
-            console.log("menuArray", menuArray)
+            // console.log("menuArray", menuArray)
             const newMealStore = menuArray.map(([key, value]) => {
                 return {
                     id: uuidv4(),
                     type: key as MealType,
                     description: '',
                     portionSize: recommendedPotionSize,
-                    servings: value
+                    servings: value,
+                    selectedServingPrice: mealPrice,
+                    totalMealPrice: value * mealPrice
                 }
             })
-            console.log("newMealStore", newMealStore)
+            // console.log("newMealStore", newMealStore)
             update((store) => {
-                return newMealStore
+                store = newMealStore
+                return store
             })
         },
-        updatePortionSize: (i: number, newPortionSize: number) => {
+        updateMealPrice: (newPrice: number) => {
             update((store) => {
                 store.forEach((meal, index) => {
-                    meal.portionSize = newPortionSize
+                    meal.selectedServingPrice = newPrice
+                    meal.totalMealPrice = newPrice * meal.servings
                 })
-             
+
                 return store
             })
         }
@@ -121,9 +197,11 @@ function createMealStore(init: CatMealI[] | undefined) {
     };
 }
 
-const miaMealsStore = createMealStore(miaMeals);
+const miaMealsTestStore = createMealStore(miaMeals);
+const miaMealsPromonatStore = createMealStore(miaMeals);
 
-const leoMealsStore = createMealStore(leoMeals);
+const leoMealsTestStore = createMealStore(leoMeals);
+const leoMealsPromonatStore = createMealStore(leoMeals);
 
 const catTestSet: CatI[] = [
     {
@@ -133,30 +211,56 @@ const catTestSet: CatI[] = [
         weight: 4,
         genderMale: false,
         dislikes: ['pute'],
-        meals: miaMealsStore
+        portionSize: 200,
+        mealsTest: miaMealsTestStore,
+        mealsPromonat: miaMealsPromonatStore,
+        mealsTestTotalPrice: 0,
+        mealsPromonatTotalPrice: 0
     },
     {
         id: uuidv4(),
         name: 'Leo',
         age: 5,
         weight: 9,
+        portionSize: 200,
         genderMale: true,
         dislikes: ['huhn', 'rind'],
-        meals: leoMealsStore
-
+        mealsTest: leoMealsTestStore,
+        mealsPromonat: leoMealsPromonatStore,
+        mealsTestTotalPrice: 0,
+        mealsPromonatTotalPrice: 0
     },
     {
         id: uuidv4(),
         name: 'Luna',
         age: 2,
         weight: 3,
+        portionSize: 200,
         genderMale: false,
         dislikes: ['schwein'],
-        meals: createMealStore()
-
+        mealsTest: createMealStore(undefined),
+        mealsPromonat: createMealStore(undefined),
+        mealsTestTotalPrice: 0,
+        mealsPromonatTotalPrice: 0
     }
 ];
 
 
+const catINITSet: CatI[] = [
+    {
+        id: uuidv4(),
+        name: '',
+        age: 0,
+        weight: 0,
+        genderMale: true,
+        dislikes: [],
+        portionSize: 0,
+        mealsTest: createMealStore(undefined),
+        mealsPromonat: createMealStore(undefined),
+        mealsTestTotalPrice: 0,
+        mealsPromonatTotalPrice: 0
+    },
 
-export const catStore = createCatStore(catTestSet);
+];
+
+export const catStore = createCatStore(catINITSet);

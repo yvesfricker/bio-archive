@@ -1,13 +1,18 @@
 <script lang="ts">
 	import { getPortionSizeFromCatWeight } from '$lib/appLogic/functions';
-	import type { CatI, CatMealStore } from '$lib/types';
+	import type { CatI } from '$lib/types';
+	import { catStore, type CatMealStore } from '$lib/stores/itemsStores';
+
 	import AnpassenMealServingSelector from './AnpassenMealServingSelector.svelte';
-	export let cat: CatI;
+	export let localCat: CatI;
+	export let catIndex: number;
 	export let callBackCloseAnpassenDisplay: () => void;
+	export let callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
+	export let proMonatDisplay: boolean;
 
-	let catMealStore = cat.meals;
+	let catMealStore = proMonatDisplay ? localCat.mealsPromonat : localCat.mealsTest;
 
-	const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
+	const recommendedPotionSize = getPortionSizeFromCatWeight(localCat?.weight!);
 
 	console.log('recommendedPotionSize', recommendedPotionSize);
 
@@ -20,23 +25,33 @@
 		{ size: 400, price: 6.4, checked: false }
 	];
 
-    potionSizesAndPrices.find((potionSizeAndPrice) => {
-        if (potionSizeAndPrice.size === recommendedPotionSize) {
-            potionSizeAndPrice.checked = true;
-        }
-    })
+	potionSizesAndPrices.find((potionSizeAndPrice) => {
+		if (potionSizeAndPrice.size === recommendedPotionSize) {
+			potionSizeAndPrice.checked = true;
+		}
+	});
 
-    function handleClick (i) {
-        console.log('handleClick')
-        potionSizesAndPrices.forEach((potionSizeAndPrice) => {
-            potionSizeAndPrice.checked = false
-        })
-        potionSizesAndPrices[i].checked = true
+	function handleClick(i: number) {
+		console.log('handleClick');
+		potionSizesAndPrices.forEach((potionSizeAndPrice) => {
+			potionSizeAndPrice.checked = false;
+		});
+		potionSizesAndPrices[i].checked = true;
 
-        catMealStore.updatePortionSize(i, potionSizesAndPrices[i].size)
-    }
+		catMealStore.updateMealPrice(potionSizesAndPrices[i].price);
 
-    $: totalTins = $catMealStore.map((meal) => meal.servings).reduce((a, b) => a + b, 0);
+		catStore.updatePortionSize(catIndex, potionSizesAndPrices[i].size);
+		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+	}
+
+	function handleChangeServings() {
+		console.log('handleChangeServings');
+			catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+	}
+
+	$: totalTins = $catMealStore
+		.map((meal: { servings: any }) => meal.servings)
+		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
 <div>Test</div>
@@ -50,7 +65,7 @@
 		</div>
 		<div class="popup_content-block">
 			{#each $catMealStore as meal, i}
-				<AnpassenMealServingSelector {i} {catMealStore} {meal} />
+				<AnpassenMealServingSelector {i} {catMealStore} {meal} {handleChangeServings} />
 			{/each}
 
 			<div
@@ -72,32 +87,41 @@
 							<div class="popup_checkbox-title">{potionSizeAndPrice.size} kcal / Portion</div>
 							<div class="popup_checkbox-title">CHF {potionSizeAndPrice.price.toFixed(2)}</div>
 						</div>
-						<div class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox {potionSizeAndPrice.checked ? 'w--redirected-checked' : ''}"></div>
+						<div
+							class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox {potionSizeAndPrice.checked
+								? 'w--redirected-checked'
+								: ''}"
+						></div>
 						<input
 							id="checkbox-2"
 							type="checkbox"
 							name="checkbox-2"
 							data-name="Checkbox 2"
 							style="opacity:0;position:absolute;z-index:-1"
-                            checked={potionSizeAndPrice.checked}
-                            on:click={() => {
-                                handleClick(i)
-                            }}
-						/><span class="popup_checkbox-title hide w-form-label " for="checkbox-2">Checkbox 2</span
+							checked={potionSizeAndPrice.checked}
+							on:click={() => {
+								handleClick(i);
+							}}
+						/><span class="popup_checkbox-title hide w-form-label" for="checkbox-2">Checkbox 2</span
 						>
 					</label>
 					<div class="popup_checkbox-white-field">
-						<div>{recommendedPotionSize === potionSizeAndPrice.size ? 'Empfohlen für Leo' : ''}</div>
+						<div>
+							{recommendedPotionSize === potionSizeAndPrice.size ? 'Empfohlen für Leo' : ''}
+						</div>
 					</div>
 				</div>
 			{/each}
 			<button
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e10b-78e5fb0b"
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
-				href="#"
 				class="button w-button"
-                on:click={() => {
-                    callBackCloseAnpassenDisplay()}}>Fertig</button>
+				on:click={() => {
+					callBackSaveMenuToCat(catMealStore);
+				
+					callBackCloseAnpassenDisplay();
+				}}>Fertig</button
+			>
 		</div>
 		<button
 			on:click={() => {

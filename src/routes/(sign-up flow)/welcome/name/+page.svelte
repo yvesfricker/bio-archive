@@ -7,20 +7,33 @@
 
 	let errorMessages = {};
 
+	let validationFailed = false;
+
 	function validationError(index: string, componentErrorMessages: string[], i) {
 		if (componentErrorMessages?.length > 0) {
 			errorMessages[index] = componentErrorMessages;
 		} else {
 			errorMessages[index] = null;
 		}
-		console.log('componentErrorMessages', componentErrorMessages);
-		console.log('index', i);
-		console.log('id', index);
+		console.log('parent ErrorMessages', errorMessages);
+		// console.log('index', i);
+		// console.log('id', index);
+
+		const test: number | undefined = Object.values(errorMessages)
+			.map((entries) => entries.flat())
+			.flat().length;
+		console.log('test', test);
+
+		validationFailed = false;
+
+		if (test !== undefined && test > 0) {
+			validationFailed = true;
+		} 
 	}
 
 	function handleAddCat() {
-		$catStore = [...$catStore, new CatClass({ id: uuidv4() }) as CatI];
 		console.log('in handeAddCat', $catStore);
+		catStore.addCat();
 	}
 
 	function handleRemoveCatById(id) {
@@ -28,17 +41,12 @@
 		console.log('in handeRemoveCat', $catStore);
 	}
 
-	function handleRemoveLastCat () {
-		$catStore = [...$catStore.slice(0, -1)];
+	function handleRemoveLastCat() {
 		console.log('in handeRemoveLastCat', $catStore);
+		catStore.removeLastCat();
 	}
 
-	$: console.log(
-		Object.values(errorMessages)
-			.map((entries) => entries.flat())
-			.flat()
-	);
-
+	$: console.log('validationFailed', validationFailed);
 	$: console.log($catStore);
 </script>
 
@@ -69,9 +77,11 @@
 									</div>
 								</div>
 								<div class="margin-bottom-xxxmedium">
-									{#each $catStore as cat, i}
-										<Cat {cat} {validationError} {i} />
-									{/each}
+									{#key $catStore.length}
+										{#each $catStore as cat, i}
+											<Cat {cat} {validationError} {i} />
+										{/each}
+									{/key}
 
 									<div class="margin-bottom-medium">
 										<div class="signup-hero_item">
@@ -98,37 +108,45 @@
 											+
 										</button>
 
-										<button fy-element="decrementCatsButton" href="#" class="button is-white w-button"
-										on:click={() => handleRemoveLastCat()}>
+										<button
+											fy-element="decrementCatsButton"
+											href="#"
+											class="button is-white w-button"
+											on:click={() => handleRemoveLastCat()}
+										>
 											-
 										</button>
 									</div>
 								</div>
 								<div class="margin-bottom-xsm">
 									<div class="text-align-center">
-										{#each Object.values(errorMessages)
-											.map((entries) => entries.flat())
-											.flat() as errorMessage}
-											<div class="signup-hero_error-message text-size-medium">
-												{errorMessage}
-											</div>
-										{/each}
+										{#key errorMessages}
+											{#each Object.values(errorMessages)
+												.map((entries) => entries.flat())
+												.flat() as errorMessage}
+												<div class="signup-hero_error-message text-size-medium">
+													{errorMessage}
+												</div>
+											{/each}
+										{/key}
 									</div>
 								</div>
 								<div class="margin-bottom-xxxhuge">
-									<div class="text-align-center">
-										<a href={Object.keys(errorMessages).length > 0 ? null : '/welcome/age'}>
-											<div class=" button is-submit w-button">Weiter</div></a
-										>
+									{#if !validationFailed}
+										<div class="text-align-center">
+											<a href={'/welcome/age'}>
+												<div class=" button is-submit w-button tw-pt-3">Weiter</div></a
+											>
 
-										<!-- <input
+											<!-- <input
                       type="submit"
                       data-wait="Please wait..."
                       fy-element="stepFourNextButton"
                       class="button is-submit w-button"
                       value="Weiter"
                     /> -->
-									</div>
+										</div>
+									{/if}
 								</div>
 								<div class="text-align-center">
 									<a href="#" class="link w-inline-block">

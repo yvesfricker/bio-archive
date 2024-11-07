@@ -24,7 +24,6 @@ export function getPortionSizeFromCatWeight(weight: number) {
 //Accepts dictionary of meals - this dictionary will have 1,2,3,4 meals in it. Returns dictionary of meals populated for 14 days. function divideMeals IntoDays (meals: { [key: string]: number }, days: number) {
 export function divideMealsIntoDays(meals: { [key: string]: number }, days: number) {
     const mealsArray = Object.values(meals);
-    days = 14;
     const numberOfRecipes = mealsArray.length;
     while (days > 0) {
         const index = days % numberOfRecipes;

@@ -18,6 +18,9 @@
 	let errorMessages = [] as string[];
 
 	function handleUpdate() {
+		// console.log('localcat', localCat);
+		// console.log('local name', localCat.name);
+		// console.log('local name test', localCat.name?.match(/^([A-Za-z])+$/g));
 		errorMessages = [];
 
 		if (localCat.genderMale === undefined) {
@@ -27,16 +30,15 @@
 			errorMessages.push('Please name your cat');
 		}
 
-		if (!localCat.name?.match(/^([A-Za-z])+$/)) {
+		const charTest = localCat.name?.match(/^([A-Za-z])+$/g);
+		if (!charTest?.length > 0) {
 			errorMessages.push(`Name von Katze ${i + 1} darf nur Buchstaben enthalten `);
 		}
 
-		// console.log('local name', localCat.name, value);
 		// console.log('errorMessages', errorMessages);
 
 		validationError(localCat.id, errorMessages, i);
 	}
-
 </script>
 
 <div class="margin-bottom-xxmedium">
@@ -64,37 +66,25 @@
 						class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input {localCat.genderMale
 							? 'w--redirected-checked'
 							: ''}"
-						onclick={() => (localCat.genderMale = true)}
+						onclick={() => {
+							localCat.genderMale = true;
+							handleUpdate();
+						}}
 						aria-label="gender male"
-						onchange={() => handleUpdate()}
 					></button>
-					<input
-						id="male"
-						type="radio"
-						name="catOneGenderGroup"
-						data-name="catOneGenderGroup"
-						fy-element="catOneMaleRadio"
-						style="opacity:0;positionabsolute;z-index:-1"
-						value="male"
-					/><span class="signup-hero_radio-label w-form-label" for="male">Männlich</span>
+					<span class="signup-hero_radio-label w-form-label" for="male">Männlich</span>
 				</label><label class="signup-hero_radio-button is-white w-radio">
 					<button
 						class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input {!localCat.genderMale
 							? 'w--redirected-checked'
 							: ''}"
-						onclick={() => localCat.setFemale()}
+						onclick={() => {
+							localCat.genderMale = false;
+							handleUpdate();
+						}}
 						aria-label="gender female"
-						onchange={() => handleUpdate()}
 					></button>
-					<input
-						id="female"
-						type="radio"
-						name="catOneGenderGroup"
-						data-name="catOneGenderGroup"
-						fy-element="catOneFemaleRadio"
-						style="opacity:0;positionabsolute;z-index:-1"
-						value="female"
-					/><span class="signup-hero_radio-label w-form-label" for="female">Weiblich</span>
+					<span class="signup-hero_radio-label w-form-label" for="female">Weiblich</span>
 				</label>
 			</div>
 		</div>

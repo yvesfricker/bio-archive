@@ -18,32 +18,122 @@
 
 	let proMonatDisplay = false;
 
+	let catLikes = {};
+	let mealsPromonatTotalPrice = 0;
+	let mealsTestTotalPrice = 0;
 
-	let catLikes = {}
+	calculateInitMenu();
+
+	function calculateInitMenu() {
+		$catStore.forEach((cat, index) => {
+			catLikes = {};
+			$typesStore.forEach((like) => {
+				if (!cat?.dislikes?.includes(like)) {
+					catLikes[like] = 0;
+				}
+			});
+			console.log('catLikes', catLikes);
+			const calculatedMenuTest = divideMealsIntoDays(catLikes, 14);
+			catLikes = {};
+			$typesStore.forEach((like) => {
+				if (!cat?.dislikes?.includes(like)) {
+					catLikes[like] = 0;
+				}
+			});
+			const calculatedMenuPromonat = divideMealsIntoDays(catLikes, 30);
+
+			console.log('calculatedMenuTest', calculatedMenuTest);
+			console.log('calculatedMenuPromonat', calculatedMenuPromonat);
+			const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
+
+			const potionSizesAndPrices = [
+				{ size: 150, price: 4.4 },
+				{ size: 200, price: 4.8 },
+				{ size: 250, price: 5.2 },
+				{ size: 300, price: 5.6 },
+				{ size: 350, price: 6.0 },
+				{ size: 400, price: 6.4 }
+			];
+
+			const mealPrice = potionSizesAndPrices.find((potionSizeAndPrice) => {
+				if (potionSizeAndPrice.size === recommendedPotionSize) {
+					return true;
+				}
+			})?.price;
+
+			cat.mealsTest.setNewMenuFromCalculation(calculatedMenuTest, recommendedPotionSize, mealPrice);
+
+			cat.mealsPromonat.setNewMenuFromCalculation(
+				calculatedMenuPromonat,
+				recommendedPotionSize,
+				mealPrice
+			);
+
+			if (mealPrice) {
+				console.log('price to send to update total price', mealPrice);
+
+				catStore.updateTotalMealPriceForCat(index, true);
+				catStore.updateTotalMealPriceForCat(index, false);
+
+				// cat.mealsTestTotalPrice;
+			} else {
+				console.log('Error: dev chore: size not found in table, update table manually');
+			}
+			//
+
+			// console.log('calculatedMenuTest', calculatedMenuTest);
+			// console.log('calculatedMenuPromonat', calculatedMenuPromonat);
+		});
+
+		// console.log('$catStore', $catStore);
+		let thismealsTestTotalPrice = 0;
+		let thismealsPromonatTotalPrice = 0;
+		$catStore.forEach((cat) => {
+			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
+			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
+		});
+
+		console.log('mealsTestTotalPrice', thismealsTestTotalPrice);
+		console.log('mealsPromonatTotalPrice', thismealsTestTotalPrice);
+
+		mealsPromonatTotalPrice = thismealsPromonatTotalPrice;
+		mealsTestTotalPrice = thismealsTestTotalPrice * 0.75;
+	}
+
 	
-	$catStore.forEach((cat) => {
-	
-	catLikes = {}
-	
-		$typesStore.forEach((like) => {
-		if (!cat?.dislikes?.includes(like)) {
-		catLikes[like] = 0
-		}
-	}) 
+	$: mealsPromonatTotalPrice = updateTotalPromonatMealPriceForCat($catStore);
+	$: mealsTestTotalPrice = updateTotalTestMealPriceForCat($catStore);
 
+	function updateTotalTestMealPriceForCat($catStore) {
+		let thismealsTestTotalPrice = 0;
 
-	console.log("catLikes", catLikes)
+		$catStore.forEach((cat) => {
+			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
+		});
+		return thismealsTestTotalPrice * 0.75;
+	}
 
-	const calculatedMenu = divideMealsIntoDays(catLikes, 14);
-	const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
+	function updateTotalPromonatMealPriceForCat($catStore) {
+		let thismealsPromonatTotalPrice = 0;
+		$catStore.forEach((cat) => {
+			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
+		});
+		return thismealsPromonatTotalPrice;
+	}
 
-	cat.meals.setNewMenuFromCalculation(calculatedMenu, recommendedPotionSize);
-	
-	console.log("calculatedMenu", calculatedMenu)
-
-	})
-	
-
+	// const proMonat = $catStore[0].mealsPromonat;
+	// const test = $catStore[0].mealsTest;
+	// console.log('cat promonat', $proMonat);
+	// console.log('cat test', $test);
 </script>
 
 <div class="page-wrapper">
@@ -85,7 +175,7 @@
 											>
 												<div class="signup-hero_tab-heading">Testpreis</div>
 												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">0.-</div>
+													<div class="signup-hero_tab-title-large">{mealsTestTotalPrice.toFixed(2)}</div>
 												</div>
 											</button>
 											<button
@@ -97,7 +187,7 @@
 											>
 												<div class="signup-hero_tab-heading">Pro Monat</div>
 												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">0.-</div>
+													<div class="signup-hero_tab-title-large">{mealsPromonatTotalPrice.toFixed(2)}</div>
 												</div>
 											</button>
 										</div>
@@ -114,7 +204,7 @@
 															Willkommensrabatt
 														</div>
 														{#each $catStore as cat, i}
-															<CatPlan {cat} {i}  />
+															<CatPlan {cat} {i} {proMonatDisplay} />
 														{/each}
 														<div class="text-size-large text-color-white text-align-center">
 															Stimmt etwas nicht?
@@ -127,7 +217,6 @@
 														</a>
 													</div>
 												</div>
-											
 											{/if}
 											{#if proMonatDisplay}
 												<div
@@ -138,12 +227,12 @@
 														<div class="margin-bottom-medium">
 															<div class="text-align-center text-color-white">
 																<div class="signup-hero_tab-title-tiny">
-																	Danach beginnt Ihr Abonnement für 320.- pro Monat
+																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice} pro Monat
 																</div>
 															</div>
 														</div>
 														{#each $catStore as cat, i}
-															<CatPlan {cat} {i} />
+															<CatPlan {cat} {i} {proMonatDisplay} />
 														{/each}
 													</div>
 												</div>
@@ -155,7 +244,9 @@
 												<div class="signup-hero_shipping-item is-margin">
 													<div class="signup-hero_tab-heading">Total</div>
 													<div class="signup-hero_shipping-text-block">
-														<div class="signup-hero_tab-heading">CHF 0</div>
+														<div class="signup-hero_tab-heading">
+															CHF {proMonatDisplay ? mealsPromonatTotalPrice : mealsTestTotalPrice}
+														</div>
 													</div>
 												</div>
 												<div class="signup-hero_shipping-item is-margin">
@@ -187,7 +278,6 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</form>
