@@ -26,15 +26,15 @@
 		// console.log('local name test', localCat.name?.match(/^([A-Za-z])+$/g));
 		errorMessages = [];
 
+		const charTest = localCat.name?.match(/^([A-Za-z])+$/g);
+
+
 		if (localCat.genderMale === undefined) {
 			errorMessages.push('Please select gender');
 		}
-		if (localCat.name === undefined) {
+		if (localCat.name === undefined || localCat.name === '') {
 			errorMessages.push('Please name your cat');
-		}
-
-		const charTest = localCat.name?.match(/^([A-Za-z])+$/g);
-		if (!charTest?.length > 0) {
+		} else if (!charTest?.length > 0) {
 			errorMessages.push(`Name von Katze ${i + 1} darf nur Buchstaben enthalten `);
 		}
 
@@ -47,7 +47,7 @@
 
 		}
 
-		validationError(localCat.id, errorMessages, i);
+		validationError(i, errorMessages, i);
 	}
 
 	function handleUpdateGender() {

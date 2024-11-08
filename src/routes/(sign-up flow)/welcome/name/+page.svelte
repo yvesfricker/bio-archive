@@ -5,30 +5,23 @@
 	import { catStore } from '$lib/stores/itemsStores';
 	import { v4 as uuidv4 } from 'uuid';
 
-	let errorMessages = {};
+	let errorMessages = [];
 
 	let validationFailed = false;
 
-	function validationError(index: string, componentErrorMessages: string[], i) {
+	function validationError(index: number, componentErrorMessages: string[], i) {
 		if (componentErrorMessages?.length > 0) {
 			errorMessages[index] = componentErrorMessages;
 		} else {
-			errorMessages[index] = null;
+			errorMessages[index] = [[]];
 		}
 		console.log('parent ErrorMessages', errorMessages);
 		// console.log('index', i);
 		// console.log('id', index);
 
-		const test: number | undefined = Object.values(errorMessages)
-			.map((entries) => entries.flat())
-			.flat().length;
-		console.log('test', test);
+		validationFailed = errorMessages.flat().some((item) => item !== '' && item.length > 0);
+		console.log('validationFailed', validationFailed);
 
-		validationFailed = false;
-
-		if (test !== undefined && test > 0) {
-			validationFailed = true;
-		} 
 	}
 
 	function handleAddCat() {
@@ -118,23 +111,11 @@
 										</button>
 									</div>
 								</div>
+					
 								<div class="margin-bottom-xsm">
-									<div class="text-align-center">
-										{#key errorMessages}
-											{#each Object.values(errorMessages)
-												.map((entries) => entries.flat())
-												.flat() as errorMessage}
-												<div class="signup-hero_error-message text-size-medium">
-													{errorMessage}
-												</div>
-											{/each}
-										{/key}
-									</div>
-								</div>
-								<div class="margin-bottom-xxxhuge">
-									{#if !validationFailed}
+								
 										<div class="text-align-center">
-											<a href={'/welcome/age'}>
+											<a href={validationFailed ? null : '/welcome/age'}>
 												<div class=" button is-submit w-button tw-pt-3">Weiter</div></a
 											>
 
@@ -146,7 +127,20 @@
                       value="Weiter"
                     /> -->
 										</div>
-									{/if}
+								
+								</div>
+								<div class="margin-bottom-xxxhuge">
+									<div class="text-align-center">
+										{#key errorMessages}
+											{#each errorMessages as errorMessagesSub}
+											{#each errorMessagesSub as errorMessage}
+												<div class="signup-hero_error-message text-size-medium">
+													{errorMessage}
+												</div>
+												{/each}
+											{/each}
+										{/key}
+									</div>
 								</div>
 								<div class="text-align-center">
 									<a href="#" class="link w-inline-block">
