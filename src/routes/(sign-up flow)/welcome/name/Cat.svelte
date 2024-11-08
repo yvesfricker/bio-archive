@@ -16,7 +16,7 @@
 		genderMale: cat.genderMale
 	} as CatI;
 
-	// $: console.log('localcat', localCat);
+	$: console.log('localcat', localCat);
 
 	let errorMessages = [] as string[];
 
@@ -52,9 +52,9 @@
 
 	function handleUpdateGender() {
 		
-		if (localCat.genderMale) {
+		
 				catStore.updateCatGender(i, localCat.genderMale);
-			}
+			
 	}
 </script>
 
