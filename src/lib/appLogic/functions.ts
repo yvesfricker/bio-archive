@@ -1,5 +1,6 @@
 
 export function getPortionSizeFromCatWeight(weight: number) {
+    console.log("checking weight ! ", weight, weight <= 2);
     if (weight <= 2) {
         return 100;
     }
@@ -38,4 +39,9 @@ export function divideMealsIntoDays(meals: { [key: string]: number }, days: numb
 
     return meals;
 
+}
+
+
+export function capitalizeFirstLetter(val) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }

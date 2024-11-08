@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { error } from '@sveltejs/kit';
 	import type { CatDb, CatI } from '$lib/types';
 	import CatMeal from './CatMeal.svelte';
 	import Anpassen from './Anpassen.svelte';
@@ -8,8 +9,9 @@
 	export let cat: CatI;
 
 	export let i: number;
-	export let proMonatDisplay: boolean
-
+	export let proMonatDisplay: boolean;
+	export let errorMessage;
+	export let callBackUpdateErrorMessage: (catIndex: number) => void;
 
 	// export let validationError;
 
@@ -27,10 +29,10 @@
 
 	// $: console.log('localcat', localCat);
 
-$: console.log("proMonatDisplay", proMonatDisplay)
-	
-	// console.log("for cat named ", cat?.name, "dislikes", cat?.dislikes)
+	// $: console.log('proMonatDisplay', proMonatDisplay);
+	$: console.log('errorMessage', errorMessage);
 
+	// console.log("for cat named ", cat?.name, "dislikes", cat?.dislikes)
 
 	//
 	// let errorMessages = [] as string[];
@@ -52,27 +54,24 @@ $: console.log("proMonatDisplay", proMonatDisplay)
 	let anpassenDisplayIndex = 0;
 
 	function callBackSetAnpassenDisplay(index: number) {
-		console.log("set Anpassen display ", index)
+		console.log('set Anpassen display ', index);
 		anpassenDisplayIndex = index;
 		planAnpassenDisplay = !planAnpassenDisplay;
 	}
 	function callBackCloseAnpassenDisplay() {
-		console.log("close modal")
+		console.log('close modal');
 		planAnpassenDisplay = false;
 	}
 
-	
 	function callBackSaveMenuToCat(localCatsMealStore: CatMealStore) {
-		if (proMonatDisplay) {		
-				cat.mealsPromonat = localCatsMealStore;		
-		} else {	
-				cat.mealsTest = localCatsMealStore;		
+		if (proMonatDisplay) {
+			cat.mealsPromonat = localCatsMealStore;
+		} else {
+			cat.mealsTest = localCatsMealStore;
 		}
 	}
 
 	// $: console.log("planAnpassenDisplay", planAnpassenDisplay)
-
-
 
 	// const promonat = cat.mealsPromonat
 	// const test = cat.mealsTest
@@ -80,14 +79,11 @@ $: console.log("proMonatDisplay", proMonatDisplay)
 	// $: console.log("promonat", $promonat)
 	// $: console.log("test", $test)
 
-$: mealStore = proMonatDisplay ? cat.mealsPromonat : cat.mealsTest;
+	$: mealStore = proMonatDisplay ? cat.mealsPromonat : cat.mealsTest;
 
-// $: console.log("mealStore", $mealStore)
+	// $: console.log("mealStore", $mealStore)
 
-function calculateCatPlanPrice() {
-
-}
-
+	function calculateCatPlanPrice() {}
 </script>
 
 <div class="signup-hero_leo-block">
@@ -98,28 +94,51 @@ function calculateCatPlanPrice() {
 			</div>
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
-		<button data-w-id="0c20e7e9-4f7b-9d1a-9c64-2c361ef3fe09" href="#" class="link w-inline-block"
-		on:click={() => callBackSetAnpassenDisplay(i)}>
-			<div class="text-size-medium">Plan anpassen</div>
+		<button
+			data-w-id="0c20e7e9-4f7b-9d1a-9c64-2c361ef3fe09"
+			href="#"
+			class="link w-inline-block"
+			on:click={() => callBackSetAnpassenDisplay(i)}
+		>
+			<div class="text-size-medium !tw-underline">Plan anpassen</div>
 		</button>
 	</div>
 	<div class="signup-hero_tab-top is-wrap is-second-from-top">
-		<div class="text-size-medium"> {proMonatDisplay ? "30" : "14"} Katzenfutter / {proMonatDisplay ? "Vier" : "Zwei"} Wochen</div>
+		<div class="text-size-medium">
+			{proMonatDisplay ? '28' : '14'} Katzenfutter / {proMonatDisplay ? 'Vier' : 'Zwei'} Wochen
+		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
 		<div class="signup-hero_tab-heading">
-			<span fy-element="catOneNameLabel">{proMonatDisplay ? cat.mealsPromonatTotalPrice.toFixed(2) : cat.mealsTestTotalPrice.toFixed(2)}</span>
+			<span fy-element="catOneNameLabel"
+				>{proMonatDisplay
+					? cat.mealsPromonatTotalPrice.toFixed(2)
+					: cat.mealsTestTotalPrice.toFixed(2)}</span
+			>
 		</div>
 	</div>
 	<div class="signup-hero_tab-bot">
 		{#each $mealStore as meal}
-			<CatMeal bind:meal={meal} bind:portionSize={localCat.portionSize} />
+			<CatMeal bind:meal bind:portionSize={localCat.portionSize} />
 		{/each}
-	
 	</div>
+	{#if errorMessage}
+		<div
+			class=" w-form-fail !tw-bg-transparent !tw-text-red-600 !tw-flex !tw-flex-row !tw-justify-center !tw-grow-0 !tw-mt-12"
+		>
+			<div>{errorMessage}</div>
+		</div>
+	{/if}
 </div>
 
 {#if planAnpassenDisplay}
-<Anpassen {localCat} {callBackCloseAnpassenDisplay}  {callBackSaveMenuToCat} {proMonatDisplay} catIndex={i}/>
+	<Anpassen
+		{localCat}
+		{callBackCloseAnpassenDisplay}
+		{callBackSaveMenuToCat}
+		{proMonatDisplay}
+		catIndex={i}
+		{callBackUpdateErrorMessage}
+	/>
 {/if}
 
 <!-- <style lang="css">  moved this to bella-natura-webflow.css

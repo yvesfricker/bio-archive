@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { catStore } from '$lib/stores/itemsStores';
 	import type { CatDb, CatI } from '$lib/types';
+
+
 
 	export let cat: CatI;
 	export let i: number;
@@ -13,12 +16,12 @@
 		genderMale: cat.genderMale
 	} as CatI;
 
-	console.log('localcat', localCat);
+	// $: console.log('localcat', localCat);
 
 	let errorMessages = [] as string[];
 
-	function handleUpdate() {
-		// console.log('localcat', localCat);
+	function handleUpdateName() {
+		console.log('localcat', localCat);
 		// console.log('local name', localCat.name);
 		// console.log('local name test', localCat.name?.match(/^([A-Za-z])+$/g));
 		errorMessages = [];
@@ -35,9 +38,23 @@
 			errorMessages.push(`Name von Katze ${i + 1} darf nur Buchstaben enthalten `);
 		}
 
-		// console.log('errorMessages', errorMessages);
+		console.log('errorMessages', errorMessages);
+
+		if (errorMessages?.length === 0) {
+			if (localCat.name){
+			catStore.updateCatname(i, localCat.name);
+			}
+
+		}
 
 		validationError(localCat.id, errorMessages, i);
+	}
+
+	function handleUpdateGender() {
+		
+		if (localCat.genderMale) {
+				catStore.updateCatGender(i, localCat.genderMale);
+			}
 	}
 </script>
 
@@ -55,35 +72,39 @@
 				type="text"
 				id="catOneName-2"
 				bind:value={localCat.name}
-				oninput={() => handleUpdate()}
+				oninput={() => handleUpdateName()}
 			/>
 		</div>
 		<div class="signup-hero_field-block is-second-step">
 			<div class="signup-hero_field-text">Geschlecht:</div>
 			<div class="signup-hero_item">
 				<label class="signup-hero_radio-button is-white w-radio">
+					{#key localCat}
 					<button
 						class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input {localCat.genderMale
 							? 'w--redirected-checked'
 							: ''}"
 						onclick={() => {
 							localCat.genderMale = true;
-							handleUpdate();
+							handleUpdateGender();
 						}}
 						aria-label="gender male"
 					></button>
+					{/key}
 					<span class="signup-hero_radio-label w-form-label" for="male">Männlich</span>
 				</label><label class="signup-hero_radio-button is-white w-radio">
+					{#key localCat}
 					<button
 						class="w-form-formradioinput w-form-formradioinput--inputType-custom signup-hero_radio-block is-white w-radio-input {!localCat.genderMale
 							? 'w--redirected-checked'
 							: ''}"
 						onclick={() => {
 							localCat.genderMale = false;
-							handleUpdate();
+							handleUpdateGender();
 						}}
 						aria-label="gender female"
 					></button>
+					{/key}
 					<span class="signup-hero_radio-label w-form-label" for="female">Weiblich</span>
 				</label>
 			</div>

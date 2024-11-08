@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { catStore } from '$lib/stores/itemsStores';
 	import type { CatDb, CatI } from '$lib/types';
 
 	export let cat: CatI;
@@ -28,6 +29,7 @@
 			console.log('sdg');
 			localCat.dislikes = [...localCat.dislikes, dislikeName];
 		}
+		catStore.updateCatDislikes(i, localCat.dislikes);
 		console.log('in handleupdate after', dislikeName, localCat.dislikes);
 	}
 </script>

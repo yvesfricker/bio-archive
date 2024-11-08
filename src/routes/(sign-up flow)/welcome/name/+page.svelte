@@ -156,9 +156,9 @@
 							</div>
 						</form>
 						<div class="succes w-form-done"></div>
-						<div class="w-form-fail">
+						<!-- <div class="w-form-fail">
 							<div>Oops! Something went wrong while submitting the form.</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

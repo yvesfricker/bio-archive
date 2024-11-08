@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CatDb, CatI } from '$lib/types';
+	import { catStore } from '$lib/stores/itemsStores';
 
 	export let cat: CatI;
 	export let i: number;
@@ -20,7 +21,7 @@
 	function handleUpdate() {
 		errorMessages = [];
 
-		if (localCat.weight > 10) {
+		if (localCat?.weight > 10) {
 			localCat.weight = 10;
 			errorMessages.push(`Katze ${i} Gewicht muss gr\xF6\xDFer als 0 und kleiner als 10 sein`);
 		} else if (localCat.weight <= 0) {
@@ -29,6 +30,16 @@
 
 		// console.log('local name', localCat.name, value);
 		// console.log('errorMessages', errorMessages);
+
+		if (errorMessages?.length === 0) {
+			if (localCat.age){
+			catStore.updateCatAge(i, localCat.age);
+			}
+
+			if (localCat.weight) {
+				catStore.updateCatWeight(i, localCat.weight);
+			}
+		}
 
 		validationError(localCat.id, errorMessages, i);
 	}
@@ -52,6 +63,7 @@
 						class="button is-white w-button"
 						on:click={() => {
 							localCat.age = localCat.age - 1;
+							handleUpdate()
 						}}>-</button
 					>
 					<div fy-element="catOneAgeLabel" class="signup-hero_age-text">{localCat.age}</div>
@@ -60,6 +72,8 @@
 						class="button is-white w-button"
 						on:click={() => {
 							localCat.age = localCat.age + 1;
+							handleUpdate()
+
 						}}>+</button
 					>
 				</div>
@@ -69,7 +83,7 @@
 		<div class="signup-hero_field-block is-weight">
 			<div class="signup-hero_field-text">Gewicht:</div>
 			<div class="signup-hero_item is-kg ~tw-w-full">
-				<button
+				<!-- <button
 					class="button is-white w-button"
 					on:click={() => {
 						localCat.weight = localCat.weight - 1;
@@ -97,7 +111,29 @@
 						localCat.weight = localCat.weight + 1;
 						handleUpdate()
 					}}>+</button
-				>
+				> -->
+
+				<div class="signup-hero_age-button">
+					<button
+						fy-element="catOneDecrementAgeButton"
+						class="button is-white w-button"
+						on:click={() => {
+							localCat.weight = localCat.weight - 0.5;
+							handleUpdate()
+
+						}}>-</button
+					>
+					<div fy-element="catOneAgeLabel" class="signup-hero_age-text">{localCat.weight}</div>
+					<button
+						fy-element="catOneIncrementAgeButton"
+						class="button is-white w-button"
+						on:click={() => {
+							localCat.weight = localCat.weight + 0.5;
+							handleUpdate()
+
+						}}>+</button
+					>
+				</div>
 
 				<div class="signup-hero_field-text">kg</div>
 			</div>

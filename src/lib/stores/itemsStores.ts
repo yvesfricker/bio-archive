@@ -47,7 +47,7 @@ const leoMeals: CatMealI[] = [
 ]
 
 
-function createCatStore(init: CatI[] | undefined) {
+function createCatStore(init: CatI[] | undefined): CatStore {
     const { subscribe, set, update } = writable<CatI[]>(init);
 
     return {
@@ -71,11 +71,42 @@ function createCatStore(init: CatI[] | undefined) {
                     genderMale: true,
                     dislikes: [],
                     portionSize: 0,
-                    mealsTest: miaMeals,
+                    mealsTest: createMealStore(undefined),
                     mealsTestTotalPrice: 0,
-                    mealsPromonat: leoMeals,
+                    mealsPromonat: createMealStore(undefined),
                     mealsPromonatTotalPrice: 0
                 })
+            })
+        },
+        updateCatname:  (catIndex: number, name: string) => {
+            update((store) => {
+                store[catIndex].name = name
+                return store 
+            })
+        },
+        updateCatWeight:  (catIndex: number, weight: number) => {
+            update((store) => {
+                store[catIndex].weight = weight
+                return store 
+            })
+        },
+        updateCatGender:  (catIndex: number, genderMale: boolean) => {
+            update((store) => {
+                store[catIndex].genderMale = genderMale
+                return store 
+            })
+        },
+        updateCatAge:  (catIndex: number, age: number) => {
+            update((store) => {
+                store[catIndex].age = age
+                return store 
+            })
+        },
+        updateCatDislikes:  (catIndex: number, dislikes: string[]) => {
+            update((store) => {
+                store[catIndex].dislikes = dislikes
+                
+                return store 
             })
         },
         updateTotalMealPriceForCat: (catIndex: number, proMonat: boolean) => {
@@ -109,12 +140,41 @@ function createCatStore(init: CatI[] | undefined) {
                 return store
             })
         },
+        getTotalMeals: (catIndex: number, proMonat: boolean) => {
+            let mealsNumber = 0
+            subscribe((store) => {
+                if (proMonat) {
+                    // console.log("store[catIndex].mealsPromonat", store[catIndex].mealsPromonat)
+                    store[catIndex].mealsPromonat.subscribe((meals) => {
+                        meals.forEach((meal, index) => {
+                            mealsNumber = mealsNumber + meal.servings
+                        })
+                    })
+                } else {
+                    // console.log("store[catIndex].mealsTest", store[catIndex].mealsTest)
+                    store[catIndex].mealsTest.subscribe((meals) => {
+                        meals.forEach((meal, index) => {
+                            mealsNumber = mealsNumber + meal.servings
+                        })
+                    })
+                }
+            })
+            return mealsNumber
+        },
     };
 }
 
 export interface CatStore extends Writable<CatI[]> {
-    updateTotalMealPriceForCat: (i: number, newPrice: number, proMonat: boolean) => void
+    addCat: () => void
+    removeLastCat: () => void
+    updateCatname:  (catIndex: number, name: string) => void
+    updateCatWeight:  (catIndex: number, weight: number) => void
+    updateCatGender:  (catIndex: number, genderMale: boolean) => void
+    updateCatAge:  (catIndex: number, age: number) => void
+    updateCatDislikes:  (catIndex: number, dislikes: string[]) => void
+    updateTotalMealPriceForCat: (newPrice: number, proMonat: boolean) => void
     updatePortionSize: (catIndex: number, newPortionSize: number) => void
+    getTotalMeals: (catIndex: number, proMonat: boolean) => number
 }
 export interface CatMealStore extends Writable<CatMealI[]> {
     decrementServingsForMeal: (i: number) => void
@@ -123,7 +183,7 @@ export interface CatMealStore extends Writable<CatMealI[]> {
     updateMealPrice: (newPrice: number) => void
 }
 
-function createMealStore(init: CatMealI[] | undefined) {
+function createMealStore(init: CatMealI[] | undefined):CatMealStore {
     const { subscribe, set, update } = writable<CatMealI[]>(init);
 
     return {
@@ -263,4 +323,4 @@ const catINITSet: CatI[] = [
 
 ];
 
-export const catStore = createCatStore(catTestSet);
+export const catStore = createCatStore(catINITSet);

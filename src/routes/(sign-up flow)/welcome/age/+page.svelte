@@ -4,7 +4,7 @@
   import Cat from './Cat.svelte';
 
 
-	let errorMessages = {};
+	let errorMessages: string[] = [];
 
 function validationError(index: string, componentErrorMessages: string[], i) {
   if (componentErrorMessages?.length > 0) {
@@ -19,9 +19,7 @@ function validationError(index: string, componentErrorMessages: string[], i) {
 
 
 $: console.log(
-  Object.values(errorMessages)
-    .map((entries) => entries.flat())
-    .flat()
+errorMessages
 );
 
 $: console.log($catStore);
@@ -67,9 +65,7 @@ $: console.log($catStore);
                     </div>
 										<div class="margin-bottom-xsm">
                       <div class="text-align-center">
-                        {#each Object.values(errorMessages)
-                          .map((entries) => entries.flat())
-                          .flat() as errorMessage}
+                        {#each errorMessages as errorMessage}
                           <div class="signup-hero_error-message text-size-medium">
                             {errorMessage}
                           </div>
@@ -92,9 +88,9 @@ $: console.log($catStore);
 								</div>
 							</form>
 							<div class="succes w-form-done"></div>
-							<div class="w-form-fail">
+							<!-- <div class="w-form-fail">
 								<div>Oops! Something went wrong while submitting the form.</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

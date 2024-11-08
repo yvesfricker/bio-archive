@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { error } from '@sveltejs/kit';
 	import type { CatI, CatDb } from '$lib/types';
 	import { catStore } from '$lib/stores/itemsStores';
 	import CatPlan from './CatPlan.svelte';
 	import { typesStore } from '$lib/stores/simpleStore';
 	import { divideMealsIntoDays, getPortionSizeFromCatWeight } from '$lib/appLogic/functions';
+	// import { enhance } from '$app/forms';
+	import { invalidate } from '$app/navigation';
+	import { enhance } from './formValidation';
 
 	// function validationError(index: string, componentErrorMessages: string[], i) {
 	// 		if (componentErrorMessages?.length > 0) {
@@ -21,11 +25,17 @@
 	let catLikes = {};
 	let mealsPromonatTotalPrice = 0;
 	let mealsTestTotalPrice = 0;
-
+	let formElSubmitPlans: HTMLFormElement;
+	let formButtonElSubmitPlans: HTMLElement | null | undefined;
+	let formInputElSubmitPlans: HTMLElement | null | undefined;
+	let submitError = false;
+	let errorMessages = [] as string[];
+	let submitTried = false;
 	calculateInitMenu();
 
 	function calculateInitMenu() {
 		$catStore.forEach((cat, index) => {
+			console.log("cat", cat)
 			catLikes = {};
 			$typesStore.forEach((like) => {
 				if (!cat?.dislikes?.includes(like)) {
@@ -40,13 +50,17 @@
 					catLikes[like] = 0;
 				}
 			});
-			const calculatedMenuPromonat = divideMealsIntoDays(catLikes, 30);
+			const calculatedMenuPromonat = divideMealsIntoDays(catLikes, 28);
 
-			console.log('calculatedMenuTest', calculatedMenuTest);
-			console.log('calculatedMenuPromonat', calculatedMenuPromonat);
+			// console.log('calculatedMenuTest', calculatedMenuTest);
+			// console.log('calculatedMenuPromonat', calculatedMenuPromonat);
 			const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
 
+			console.log("recommendedPotionSize", recommendedPotionSize);
+			catStore.updatePortionSize(index, recommendedPotionSize);
+
 			const potionSizesAndPrices = [
+				{ size: 100, price: 4.0 },
 				{ size: 150, price: 4.4 },
 				{ size: 200, price: 4.8 },
 				{ size: 250, price: 5.2 },
@@ -55,12 +69,17 @@
 				{ size: 400, price: 6.4 }
 			];
 
-			const mealPrice = potionSizesAndPrices.find((potionSizeAndPrice) => {
+			let mealPrice = 0;
+
+			mealPrice = potionSizesAndPrices.find((potionSizeAndPrice) => {
 				if (potionSizeAndPrice.size === recommendedPotionSize) {
 					return true;
 				}
 			})?.price;
 
+			if (!mealPrice) {
+				
+			}
 			cat.mealsTest.setNewMenuFromCalculation(calculatedMenuTest, recommendedPotionSize, mealPrice);
 
 			cat.mealsPromonat.setNewMenuFromCalculation(
@@ -70,7 +89,7 @@
 			);
 
 			if (mealPrice) {
-				console.log('price to send to update total price', mealPrice);
+				// console.log('price to send to update total price', mealPrice);
 
 				catStore.updateTotalMealPriceForCat(index, true);
 				catStore.updateTotalMealPriceForCat(index, false);
@@ -89,21 +108,20 @@
 		let thismealsTestTotalPrice = 0;
 		let thismealsPromonatTotalPrice = 0;
 		$catStore.forEach((cat) => {
-			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
-			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
 			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
 			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
 			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
 		});
 
-		console.log('mealsTestTotalPrice', thismealsTestTotalPrice);
-		console.log('mealsPromonatTotalPrice', thismealsTestTotalPrice);
+		// console.log('mealsTestTotalPrice', thismealsTestTotalPrice);
+		// console.log('mealsPromonatTotalPrice', thismealsTestTotalPrice);
 
 		mealsPromonatTotalPrice = thismealsPromonatTotalPrice;
 		mealsTestTotalPrice = thismealsTestTotalPrice * 0.75;
 	}
 
-	
 	$: mealsPromonatTotalPrice = updateTotalPromonatMealPriceForCat($catStore);
 	$: mealsTestTotalPrice = updateTotalTestMealPriceForCat($catStore);
 
@@ -111,8 +129,8 @@
 		let thismealsTestTotalPrice = 0;
 
 		$catStore.forEach((cat) => {
-			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
-			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
 			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
 			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
 		});
@@ -122,8 +140,8 @@
 	function updateTotalPromonatMealPriceForCat($catStore) {
 		let thismealsPromonatTotalPrice = 0;
 		$catStore.forEach((cat) => {
-			console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
-			console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
 			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
 			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
 		});
@@ -134,6 +152,88 @@
 	// const test = $catStore[0].mealsTest;
 	// console.log('cat promonat', $proMonat);
 	// console.log('cat test', $test);
+	console.log('submitTried', submitTried);
+	$: console.log('submitError', submitError);
+	$: console.log('submitTried', submitTried);
+
+	function submitPlans() {
+		console.log(' submiting plans !');
+		if (!formInputElSubmitPlans) {
+			console.log('error, formInputElSubmitPlans is null !');
+			return;
+		}
+		let dataJson;
+		{
+			dataJson = JSON.stringify($catStore);
+			formInputElSubmitPlans.value = dataJson;
+
+			// console.log('signalDataJson', signalDataJson);
+			if (formElSubmitPlans) {
+				if (formElSubmitPlans.requestSubmit) {
+					if (formButtonElSubmitPlans) {
+						formElSubmitPlans.requestSubmit(formButtonElSubmitPlans);
+					} else {
+						formElSubmitPlans.requestSubmit();
+					}
+				} else {
+					formElSubmitPlans.submit();
+				}
+			} else {
+				console.log(' insert tradeOn form submit error: form node is null !');
+				// console.log(formElTradeOn);
+			}
+		}
+	}
+
+	$: checkInput($catStore);
+
+	function checkInput($catStore) {
+		// do validation, check input fields
+		// if error display message and highlight fields
+		// console.log("checking input")
+
+		$catStore.forEach((cat, index) => {
+			// console.log("check cat", index)
+			const totalMeals = catStore.getTotalMeals(index, proMonatDisplay);
+			// console.log("totalMeals", totalMeals)
+			if (totalMeals < (proMonatDisplay ? 28 : 14)) {
+				errorMessages[index] =
+					'Bitte fügen Sie ingesamt ' + (proMonatDisplay ? '28' : '14') + ' Mahlzeiten hinzu';
+				submitError = true;
+			} else {
+				errorMessages[index] = '';
+			}
+		});
+		// console.log('in checkInput: submitError', submitError);
+		if (submitError) return false;
+		else return true;
+	}
+
+	function callBackUpdateErrorMessage(index: number) {
+		const totalMeals = catStore.getTotalMeals(index, proMonatDisplay);
+		console.log('totalMeals', totalMeals);
+		if (totalMeals < (proMonatDisplay ? 28 : 14)) {
+			errorMessages[index] =
+				'Bitte fügen Sie ingesamt ' + (proMonatDisplay ? '28' : '14') + ' Mahlzeiten hinzu';
+			submitError = true;
+		} else {
+			errorMessages[index] = '';
+		}
+
+		let errors = 0;
+
+		errorMessages.forEach((errorMessage, index) => {
+			if (errorMessage) {
+				errors = errors + 1;
+			}
+		});
+		if (errors > 0) {
+			submitError = true;
+		} else {
+			submitError = false;
+			submitTried = false;
+		}
+	}
 </script>
 
 <div class="page-wrapper">
@@ -144,14 +244,20 @@
 					<div class="padding-vertical padding-huge">
 						<div class="signup-hero_form w-form">
 							<form
+								method="POST"
+								action={`?/submitPlans`}
+								use:enhance={{
+									validation: checkInput, // <- ADDED
+									result: async ({ data, form, response }) => {
+										// after successful submit
+									}
+								}}
 								id="email-form"
 								name="email-form"
-								data-name="Email Form"
-								method="get"
-								class="signup-hero_form-block"
-								data-wf-page-id="6419ac2503e13c2178e5fb0b"
-								data-wf-element-id="c1422fba-0b7c-80c6-f780-8cdfcb31a001"
 							>
+								<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />
+								<input type="hidden" value={'wgwge'} name="test" />
+
 								<div class="signup-hero_component fifth-step">
 									<div class="margin-bottom-xxmedium">
 										<div class="text-align-center">
@@ -175,7 +281,9 @@
 											>
 												<div class="signup-hero_tab-heading">Testpreis</div>
 												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">{mealsTestTotalPrice.toFixed(2)}</div>
+													<div class="signup-hero_tab-title-large">
+														{mealsTestTotalPrice.toFixed(2)}
+													</div>
 												</div>
 											</button>
 											<button
@@ -187,7 +295,9 @@
 											>
 												<div class="signup-hero_tab-heading">Pro Monat</div>
 												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">{mealsPromonatTotalPrice.toFixed(2)}</div>
+													<div class="signup-hero_tab-title-large">
+														{mealsPromonatTotalPrice.toFixed(2)}
+													</div>
 												</div>
 											</button>
 										</div>
@@ -204,16 +314,22 @@
 															Willkommensrabatt
 														</div>
 														{#each $catStore as cat, i}
-															<CatPlan {cat} {i} {proMonatDisplay} />
+															<CatPlan
+																{cat}
+																{i}
+																{proMonatDisplay}
+																errorMessage={submitError ? errorMessages[i] : null}
+																{callBackUpdateErrorMessage}
+															/>
 														{/each}
 														<div class="text-size-large text-color-white text-align-center">
 															Stimmt etwas nicht?
 														</div>
 														<a
-															href="#"
+															href="/welcome/name"
 															class="text-align-center text-color-white text-size-medium w-inline-block"
 														>
-															<div>Erneut berechnen</div>
+															<div class='tw-underline'>Erneut berechnen</div>
 														</a>
 													</div>
 												</div>
@@ -227,12 +343,18 @@
 														<div class="margin-bottom-medium">
 															<div class="text-align-center text-color-white">
 																<div class="signup-hero_tab-title-tiny">
-																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice} pro Monat
+																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice.toFixed(2)} pro Monat
 																</div>
 															</div>
 														</div>
 														{#each $catStore as cat, i}
-															<CatPlan {cat} {i} {proMonatDisplay} />
+															<CatPlan
+																{cat}
+																{i}
+																{proMonatDisplay}
+																errorMessage={errorMessages[i]}
+																{callBackUpdateErrorMessage}
+															/>
 														{/each}
 													</div>
 												</div>
@@ -245,7 +367,9 @@
 													<div class="signup-hero_tab-heading">Total</div>
 													<div class="signup-hero_shipping-text-block">
 														<div class="signup-hero_tab-heading">
-															CHF {proMonatDisplay ? mealsPromonatTotalPrice : mealsTestTotalPrice}
+															CHF {proMonatDisplay
+																? mealsPromonatTotalPrice.toFixed(2)
+																: mealsTestTotalPrice.toFixed(2)}
 														</div>
 													</div>
 												</div>
@@ -258,7 +382,7 @@
 													<div class="signup-hero_shipping-text-block is-vertical">
 														<div class="text-size-large">31/01/2023</div>
 														<a href="#" class="link w-inline-block">
-															<div class="text-size-xmedium">Datum ändern</div>
+															<div class="text-size-xmedium !tw-underline">Datum ändern</div>
 														</a>
 													</div>
 												</div>
@@ -270,21 +394,43 @@
 															kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
 														</div>
 													</div>
-													<a
-														href="#"
-														class="signup-hero_checkout-button w-button !tw-no-underline !tw-text-white"
-														>Zur Kasse</a
-													>
+													<button
+														class="mt-2 py-2 px-4 whitespace-nowrap text-white rounded-md hover:bg-red-500"
+														id="#main-submit"
+														aria-label="submit"
+														type="submit"
+														bind:this={formButtonElSubmitPlans}
+														on:click={() => {
+															submitTried = true;
+															!submitError && submitPlans();
+														}}
+														><div
+															class="signup-hero_checkout-button w-button !tw-no-underline !tw-text-white"
+														>
+															Zur Kasse
+														</div>
+													</button>
 												</div>
+												{#if submitTried === true}
+													{#if submitError}
+														{#each errorMessages as errorMessage}
+															<div
+																class="!tw-w-full !tw-flex !tw-flex-row !tw-justify-end !tw-items-right"
+															>
+																{#if errorMessage !== undefined}
+																	<div class=" !tw-bg-transparent !tw-text-red-600 !tw-grow-0">
+																		<div>{errorMessage}</div>
+																	</div>
+																{/if}
+															</div>
+														{/each}
+													{/if}
+												{/if}
 											</div>
 										</div>
 									</div>
 								</div>
 							</form>
-							<div class="succes w-form-done"></div>
-							<div class="w-form-fail">
-								<div>Oops! Something went wrong while submitting the form.</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -298,3 +444,13 @@
 		</section>
 	</main>
 </div>
+
+<!-- <form method="POST" action={`?/updateRules`} use:enhance bind:this={formElSubmitPlans}>
+	<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />
+	<input type="hidden" value={'wgwge'} name="test" />
+	<button
+		class="mt-2 py-2 px-4 whitespace-nowrap text-white rounded-md hover:bg-red-500"
+		id="#main-submit"
+		bind:this={formButtonElSubmitPlans}><div class="text-md"></div></button
+	>
+</form> -->

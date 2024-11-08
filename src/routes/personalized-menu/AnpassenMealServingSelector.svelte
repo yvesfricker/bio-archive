@@ -1,12 +1,14 @@
 <script lang="ts">
 	import CatMealI from './CatMeal.svelte';
 	import type { CatMealStore } from '$lib/types';
+	import { capitalizeFirstLetter } from '$lib/appLogic/functions';
 
 	export let meal: CatMealI;
 	export let catMealStore: CatMealStore;
 	export let i: number;
-	export let handleChangeServings: () => void
-
+	export let handleChangeServings: () => void;
+	export let catIndex: number;
+	export let callBackUpdateErrorMessage: (catIndex: number) => void;
 	// $: localMeal = {
 	// 	id: $catMealStore[i].id,
 	// 	type: $catMealStore[i].type,
@@ -15,13 +17,7 @@
 	// 	servings: $catMealStore[i].servings
 	// } as CatMealI;
 
-	function capitalizeFirstLetter(val) {
-		return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-	}
-
 	$: mealType = capitalizeFirstLetter(meal?.type);
-
-
 </script>
 
 <div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item">
@@ -44,16 +40,18 @@
 	<div class="signup-hero_quantity-btn">
 		<button
 			class="button is-light-pink w-button"
-			on:click={() => {
+			on:click|preventDefault={() => {
 				catMealStore.decrementServingsForMeal(i);
+				callBackUpdateErrorMessage(catIndex);
 				handleChangeServings();
 			}}>-</button
 		>
 		<div class="signup-hero_age-text">{$catMealStore[i]?.servings}</div>
 		<button
 			class="button is-light-pink w-button"
-			on:click={() => {
+			on:click|preventDefault={() => {
 				catMealStore.incrementServingsForMeal(i);
+				callBackUpdateErrorMessage(catIndex);
 				handleChangeServings();
 			}}>+</button
 		>

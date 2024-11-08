@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getPortionSizeFromCatWeight } from '$lib/appLogic/functions';
+	import { capitalizeFirstLetter, getPortionSizeFromCatWeight } from '$lib/appLogic/functions';
 	import type { CatI } from '$lib/types';
 	import { catStore, type CatMealStore } from '$lib/stores/itemsStores';
 
@@ -9,6 +9,7 @@
 	export let callBackCloseAnpassenDisplay: () => void;
 	export let callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
 	export let proMonatDisplay: boolean;
+	export let callBackUpdateErrorMessage: (catIndex: number) => void;
 
 	let catMealStore = proMonatDisplay ? localCat.mealsPromonat : localCat.mealsTest;
 
@@ -39,14 +40,13 @@
 		potionSizesAndPrices[i].checked = true;
 
 		catMealStore.updateMealPrice(potionSizesAndPrices[i].price);
-
 		catStore.updatePortionSize(catIndex, potionSizesAndPrices[i].size);
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
 	}
 
 	function handleChangeServings() {
 		console.log('handleChangeServings');
-			catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
 	}
 
 	$: totalTins = $catMealStore
@@ -60,12 +60,12 @@
 
 	<div style="" class="popup_block is-first is-visible">
 		<div class="popup-header">
-			<div class="signup-hero_tab-heading">Edit Leo’s plan</div>
+			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
 		</div>
 		<div class="popup_content-block">
 			{#each $catMealStore as meal, i}
-				<AnpassenMealServingSelector {i} {catMealStore} {meal} {handleChangeServings} />
+				<AnpassenMealServingSelector {i} {catIndex} {catMealStore} {meal} {handleChangeServings} {callBackUpdateErrorMessage}/>
 			{/each}
 
 			<div
@@ -107,7 +107,9 @@
 					</label>
 					<div class="popup_checkbox-white-field">
 						<div>
-							{recommendedPotionSize === potionSizeAndPrice.size ? 'Empfohlen für Leo' : ''}
+							{recommendedPotionSize === potionSizeAndPrice.size
+								? `Empfohlen für ${capitalizeFirstLetter(localCat.name)}`
+								: ''}
 						</div>
 					</div>
 				</div>
@@ -118,7 +120,7 @@
 				class="button w-button"
 				on:click={() => {
 					callBackSaveMenuToCat(catMealStore);
-				
+
 					callBackCloseAnpassenDisplay();
 				}}>Fertig</button
 			>
@@ -138,3 +140,4 @@
 		</button>
 	</div>
 </div>
+<div class="succes w-form-done"></div>

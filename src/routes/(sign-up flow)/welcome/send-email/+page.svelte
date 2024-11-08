@@ -1,17 +1,31 @@
 <script lang="ts">
 	import type { CatI, CatDb } from '$lib/types';
 	import { catStore } from '$lib/stores/itemsStores';
+	import { error } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
-	let errorMessages = {};
+	let errorMessages: string[] = [];
 
 	let email = '';
 
-	function handleUpdate() {
-		errorMessages = [];
+	function handleSubmit() {
 
-		if (!email?.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+		if (browser) {
+				console.log("in browser");
+			}
+
+		errorMessages = [];
+		//
+		console.log('email', email);
+		const charTest: string[] | null = email?.match(/([\w\-].*)+@([\w-].*)+\.+[\w-]{2,4}$/);
+		console.log('charTest', charTest);
+		if (!charTest && !charTest?.length > 0) {
 			errorMessages.push(`E-Mail-Adresse ist nicht g\xFCltig`);
-			validationError();
+		} else {
+			errorMessages = [];
+		
+			setTimeout(() => goto('/personalized-menu'), 0);
 		}
 
 		// console.log('local name', localCat.name, value);
@@ -26,11 +40,7 @@
 		}
 	}
 
-	$: console.log(
-		Object.values(errorMessages)
-			.map((entries) => entries.flat())
-			.flat()
-	);
+	$: console.log(errorMessages);
 
 	$: console.log($catStore);
 </script>
@@ -83,12 +93,17 @@
 											placeholder="Email-Adresse"
 											type="email"
 											id="email"
-										/><input
-											type="submit"
-											data-wait="Please wait..."
-											class="button is-get-plans w-button"
-											value="Plan erhalten"
+											bind:value={email}
 										/>
+										<div class="text-align-center">
+											<!-- svelte-ignore a11y_click_events_have_key_events -->
+											<button
+												class=" button is-submit w-button tw-pt-3"
+												on:click={() => handleSubmit()}
+												aria-roledescription="submit email"
+												aria-label="submit email">Plan erhalten</button
+											>
+										</div>
 									</div>
 								</div>
 								<div class="text-align-center">
@@ -98,9 +113,7 @@
 								</div>
 								<div class="margin-bottom-xsm">
 									<div class="text-align-center">
-										{#each Object.values(errorMessages)
-											.map((entries) => entries.flat())
-											.flat() as errorMessage}
+										{#each errorMessages as errorMessage}
 											<div class="signup-hero_error-message text-size-medium">
 												{errorMessage}
 											</div>
@@ -110,9 +123,9 @@
 							</div>
 						</form>
 						<div class="succes w-form-done"></div>
-						<div class="w-form-fail">
+						<!-- <div class="w-form-fail">
 							<div>Oops! Something went wrong while submitting the form.</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
