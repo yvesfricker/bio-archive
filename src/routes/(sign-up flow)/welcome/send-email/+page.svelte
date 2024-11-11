@@ -98,7 +98,7 @@
 										<div class="text-align-center">
 											<!-- svelte-ignore a11y_click_events_have_key_events -->
 											<button
-												class=" button is-submit w-button tw-pt-3"
+												class="x button is-submit w-button  !tw-w-[180px] md:!tw-w-[200px]"
 												on:click={() => handleSubmit()}
 												aria-roledescription="submit email"
 												aria-label="submit email">Plan erhalten</button

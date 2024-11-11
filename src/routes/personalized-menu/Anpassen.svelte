@@ -54,11 +54,9 @@
 		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
-<div>Test</div>
 <div style="display:absolute" class="popup_wrapper !tw-flex !tw-flex-col !tw-flex-justify-center">
-	<div>Test1</div>
 
-	<div style="" class="popup_block is-first is-visible">
+	<div style="" class="!tw-grow-1  popup_block is-first is-visible">
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>

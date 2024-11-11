@@ -2076,13 +2076,13 @@ a {
 
 .popup_wrapper {
   z-index: 2000;
-  background-color: #0000004d;
+  background-color: #000000Ad;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 1.9rem;
+  /* padding: 1.9rem; */
 
   position: fixed;
   inset: 0%;
@@ -2096,14 +2096,14 @@ a {
 .popup_block {
   z-index: 1000;
   background-color: #f3ecea;
-  border-radius: .7rem;
+  /* border-radius: .7rem; */
   align-items: center;
   width: 100%;
-  max-width: 47rem;
+  /* max-width: 47rem; */
   padding: 3.75rem 5.5rem;
  
   position: relative;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .popup_block.is-second {
@@ -4465,7 +4465,7 @@ a {
   }
 
   .signup-hero_dislike-img.is-rind, .signup-hero_dislike-img.is-huhn, .signup-hero_dislike-img.is-pute, .signup-hero_dislike-img.is-schwein {
-    background-size: contain;
+    background-size: cover;
   }
 
   .signup-hero_tab-link {
