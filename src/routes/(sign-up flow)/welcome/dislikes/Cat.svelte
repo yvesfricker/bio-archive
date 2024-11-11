@@ -46,8 +46,9 @@
 	</div>
 	<div class="margin-bottom-xxmedium">
 		<div class="signup-hero_dislike-wrapper">
-			<button
-				fy-element=""
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
 				class="w-checkbox signup-hero_dislike-button"
 				on:click={() => {
 					handleUpdate('rind');
@@ -68,18 +69,20 @@
 					data-w-id="09031793-104c-6af3-16f2-b73fc49a2935"
 				></div>
 				<input
-					fy-element="catOneBeefCheckbox"
+				
 					name="catOneBeef"
 					data-name="catOneBeef"
 					type="checkbox"
 					id="catOneBeef"
 					style="opacity:0;position:absolute;z-index:-1"
-				/><span fy-element="" class="signup-hero_dislike-text w-form-label" for="catOneBeef"
+				/><span  class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneBeef"
 					>Rind</span
 				>
-			</button>
+			</div>
 
-			<button
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
 				class="w-checkbox signup-hero_dislike-button"
 				on:click={() => {
 					handleUpdate('huhn');
@@ -106,10 +109,12 @@
 					style={localCat.dislikes?.includes('huhn') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label" for="catOneChicken">Huhn</span>
-			</button>
+				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneChicken">Huhn</span>
+			</div>
 
-			<button
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
 				class="w-checkbox signup-hero_dislike-button"
 				on:click={() => {
 					handleUpdate('pute');
@@ -124,7 +129,7 @@
 					data-w-id="7663beac-dd2f-b1c8-c960-574cdb53a4ca"
 				></div>
 				<input
-					fy-element="catOneTurkeyCheckbox"
+					
 					name="catOneTurkey"
 					data-name="catOneTurkey"
 					type="checkbox"
@@ -136,14 +141,17 @@
 					style={localCat.dislikes?.includes('pute') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label" for="catOneTurkey">Pute</span>
-			</button>
+				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneTurkey">Pute</span>
+			</div>
 
-			<button
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
 				class="w-checkbox signup-hero_dislike-button"
 				on:click={() => {
 					handleUpdate('schwein');
 				}}
+				aria-roledescription="checkbox dislike"
 			>
 				<div
 					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-schwein {localCat.dislikes?.includes(
@@ -154,7 +162,6 @@
 					data-w-id="1d08678a-5d4b-a284-9821-64addb3c8ca0"
 				></div>
 				<input
-					fy-element="catOnePorkCheckbox"
 					name="catOnePork"
 					data-name="catOnePork"
 					type="checkbox"
@@ -166,8 +173,8 @@
 					style={localCat.dislikes?.includes('schwein') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label" for="catOnePork">Schwein</span>
-			</button>
+				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOnePork">Schwein</span>
+			</div>
 		</div>
 	</div>
 </div>

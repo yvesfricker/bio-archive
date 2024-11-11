@@ -22,7 +22,7 @@
 			.flat()
 	);
 
-	$: console.log($catStore);
+	$: console.log("catStore",$catStore);
 </script>
 
 <div class="page-wrapper">
@@ -49,15 +49,13 @@
 									</div>
 									<div class="margin-bottom-xxmedium">
 										<div class="text-align-center">
-											<div class="margin-bottom-xxmedium">
-												<h2 class="signup-hero_heading">Was mag deine Katze <br />davon NICHT?</h2>
-											</div>
+											<h2 class="signup-hero_heading">Was mag deine Katze <br />davon NICHT?</h2>
 										</div>
 									</div>
 									{#each $catStore as cat, i}
-									<Cat {cat} {validationError} {i} />
-								  {/each}
-				
+										<Cat {cat} {validationError} {i} />
+									{/each}
+
 									<!-- <div class="margin-bottom-xsm">
 										<div class="text-align-center">
 											<div

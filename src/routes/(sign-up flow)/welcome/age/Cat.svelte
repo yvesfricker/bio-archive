@@ -48,7 +48,7 @@
 <div class="margin-bottom-medium">
 	<div class="signup-hero_item">
 		<div class="font-weight-bold">
-			<div fy-element="catOneNameLabel" class="signup-hero_field-text">Leo</div>
+			<div fy-element="catOneNameLabel" class="signup-hero_field-text "><b>{localCat.name}</b></div>
 		</div>
 	</div>
 </div>

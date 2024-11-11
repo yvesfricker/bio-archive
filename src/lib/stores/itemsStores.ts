@@ -46,6 +46,24 @@ const leoMeals: CatMealI[] = [
 
 ]
 
+export const updateCatColor = (index: number, color: string) => {
+	catStore.update((cats) => {
+		if (index >= 0 && index < cats.length) {
+			cats[index].color = color;
+		}
+		return cats;
+	});
+};
+
+export const updateCatRace = (index: number, race: string) => {
+	catStore.update((cats) => {
+		if (index >= 0 && index < cats.length) {
+			cats[index].race = race;
+		}
+		return cats;
+	});
+};
+
 
 function createCatStore(init: CatI[] | undefined): CatStore {
     const { subscribe, set, update } = writable<CatI[]>(init);
@@ -63,7 +81,8 @@ function createCatStore(init: CatI[] | undefined): CatStore {
         },
         addCat: () => {
             update((store) => {
-                return store.concat({
+                console.log("store in add cat", store)
+                return [...store].concat({
                     id: uuidv4(),
                     name: '',
                     age: 0,

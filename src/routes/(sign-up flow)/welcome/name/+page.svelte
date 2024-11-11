@@ -5,42 +5,52 @@
 	import { catStore } from '$lib/stores/itemsStores';
 	import { v4 as uuidv4 } from 'uuid';
 
-	let errorMessages = [];
+	let errorMessages = $catStore.map( cat => cat.name === "" ? ['Bitte geben Sie den Namen Ihrer Katze ein'] : [""])
 
-	let validationFailed = false;
+	let validationFail = errorMessages.flat().some((item) => item !== '' );
+	let submitted = false
 
-	function validationError(index: number, componentErrorMessages: string[], i) {
+	function validationError(index: number, componentErrorMessages: string[]) {
 		if (componentErrorMessages?.length > 0) {
 			errorMessages[index] = componentErrorMessages;
 		} else {
-			errorMessages[index] = [[]];
+			errorMessages[index] = [""];
 		}
 		console.log('parent ErrorMessages', errorMessages);
 		// console.log('index', i);
 		// console.log('id', index);
 
-		validationFailed = errorMessages.flat().some((item) => item !== '' && item.length > 0);
-		console.log('validationFailed', validationFailed);
-
+		validationFail = errorMessages.flat().some((item) => item !== '');
+		submitted = false
+		console.log('validationFail', validationFail);
 	}
 
 	function handleAddCat() {
 		console.log('in handeAddCat', $catStore);
 		catStore.addCat();
+		submitted = false
+		errorMessages = [...errorMessages, ['Bitte geben Sie den Namen Ihrer Katze ein']];
+		validationFail = true
+		console.log('parent ErrorMessages', errorMessages);
 	}
 
 	function handleRemoveCatById(id) {
 		$catStore = [...$catStore.filter((cat) => cat.id !== id)];
 		console.log('in handeRemoveCat', $catStore);
+		errorMessages.pop()
+		submitted = false
 	}
 
 	function handleRemoveLastCat() {
 		console.log('in handeRemoveLastCat', $catStore);
 		catStore.removeLastCat();
+		errorMessages.pop()
+		submitted = false
 	}
 
-	$: console.log('validationFailed', validationFailed);
-	$: console.log($catStore);
+	$: console.log('errorMessages', errorMessages);
+	$: console.log('validationFail', validationFail);
+	$: console.log('catStore',$catStore);
 </script>
 
 <main id="Weiter" class="main-wrapper">
@@ -70,11 +80,11 @@
 									</div>
 								</div>
 								<div class="margin-bottom-xxxmedium">
-									{#key $catStore.length}
+									<!-- {#key $catStore.length} -->
 										{#each $catStore as cat, i}
 											<Cat {cat} {validationError} {i} />
 										{/each}
-									{/key}
+									<!-- {/key} -->
 
 									<div class="margin-bottom-medium">
 										<div class="signup-hero_item">
@@ -101,6 +111,8 @@
 											+
 										</button>
 
+										{#if $catStore.length > 1}
+
 										<button
 											fy-element="decrementCatsButton"
 											href="#"
@@ -109,37 +121,42 @@
 										>
 											-
 										</button>
+										{/if}
 									</div>
 								</div>
-					
-								<div class="margin-bottom-xsm">
-								
-										<div class="text-align-center">
-											<a href={validationFailed ? null : '/welcome/age'}>
-												<div class=" button is-submit w-button tw-pt-3">Weiter</div></a
-											>
 
-											<!-- <input
+								<div class="margin-bottom-xsm">
+									<div class="text-align-center">
+										<a href={validationFail ? null : '/welcome/age'}>
+											<button class=" button is-submit w-button tw-pt-3" on:click={() => validationFail ? submitted = true : false}>Weiter</button></a
+										>
+
+										<!-- <input
                       type="submit"
                       data-wait="Please wait..."
                       fy-element="stepFourNextButton"
                       class="button is-submit w-button"
                       value="Weiter"
                     /> -->
-										</div>
-								
+									</div>
 								</div>
 								<div class="margin-bottom-xxxhuge">
 									<div class="text-align-center">
-										{#key errorMessages}
+										{#if submitted}
+										{#key errorMessages }
 											{#each errorMessages as errorMessagesSub}
-											{#each errorMessagesSub as errorMessage}
-												<div class="signup-hero_error-message text-size-medium">
-													{errorMessage}
-												</div>
+												{#each errorMessagesSub as errorMessage}
+													<div class="signup-hero_error-message text-size-medium">
+														{errorMessage}
+													</div>
 												{/each}
 											{/each}
 										{/key}
+										{:else}
+										<div class="signup-hero_error-message text-size-medium">
+											{" "}
+										</div>
+										{/if}
 									</div>
 								</div>
 								<div class="text-align-center">

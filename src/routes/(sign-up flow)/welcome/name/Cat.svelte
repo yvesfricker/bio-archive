@@ -33,7 +33,7 @@
 			errorMessages.push('Please select gender');
 		}
 		if (localCat.name === undefined || localCat.name === '') {
-			errorMessages.push('Please name your cat');
+			errorMessages.push('Bitte geben Sie den Namen Ihrer Katze ein');
 		} else if (!charTest?.length > 0) {
 			errorMessages.push(`Name von Katze ${i + 1} darf nur Buchstaben enthalten `);
 		}
@@ -42,12 +42,12 @@
 
 		if (errorMessages?.length === 0) {
 			if (localCat.name){
-			catStore.updateCatname(i, localCat.name);
+			catStore.updateCatname(i, localCat.name.trim());
 			}
 
 		}
 
-		validationError(i, errorMessages, i);
+		validationError(i, errorMessages);
 	}
 
 	function handleUpdateGender() {
@@ -72,7 +72,9 @@
 				type="text"
 				id="catOneName-2"
 				bind:value={localCat.name}
-				oninput={() => handleUpdateName()}
+				oninput={() => { catStore.updateCatname(i, localCat.name.trim())
+				 handleUpdateName()
+				}}
 			/>
 		</div>
 		<div class="signup-hero_field-block is-second-step">
