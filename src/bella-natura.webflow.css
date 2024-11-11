@@ -2075,7 +2075,7 @@ a {
 }
 
 .popup_wrapper {
-  z-index: 2000;
+  /* z-index: 20; */
   background-color: #000000Ad;
   flex-direction: column;
   justify-content: center;
@@ -2085,8 +2085,8 @@ a {
   /* padding: 1.9rem; */
 
   position: fixed;
-  inset: 0%;
-  overflow: hidden;
+  inset: 0%; 
+  overflow: hidden; 
 }
 
 .popup_wrapper.is-visible {
@@ -2094,7 +2094,7 @@ a {
 }
 
 .popup_block {
-  z-index: 1000;
+  /* z-index: 10; */
   background-color: #f3ecea;
   /* border-radius: .7rem; */
   align-items: center;
@@ -4533,9 +4533,9 @@ a {
     margin-bottom: 2rem;
   }
 
-  .signup-hero_quantity-btn {
+  /* .signup-hero_quantity-btn {
     display: none;
-  }
+  } */
 
   .signup-hero_text-info {
     max-width: 90%;

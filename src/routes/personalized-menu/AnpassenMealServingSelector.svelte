@@ -20,7 +20,7 @@
 	$: mealType = capitalizeFirstLetter(meal?.type);
 </script>
 
-<div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item">
+<div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item ">
 	<img
 		sizes="100vw"
 		srcset="images/Huhn-p-500.png 500w, images/Huhn.webp 700w"
@@ -36,8 +36,8 @@
 			</div>
 		</div>
 		<div class="signup-hero_tab-text-sm">Lorem ipsum dolor sit amet.</div>
-	</div>
-	<div class="signup-hero_quantity-btn">
+	</div>	
+	<div class="signup-hero_quantity-btn 	">
 		<button
 			class="button is-light-pink w-button"
 			on:click|preventDefault={() => {
