@@ -67,7 +67,7 @@
 											<div class="margin-bottom-xxsm">
 												<div class="text-align-center">
 													<a href="/welcome/dislikes">
-														<div class=" button is-submit w-button tw-pt-3">Weiter</div></a
+														<button class=" button is-submit w-button tw-pt-3">Weiter</button></a
 													>
 												</div>
 											</div>

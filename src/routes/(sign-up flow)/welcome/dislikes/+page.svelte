@@ -69,7 +69,7 @@
 									<div class="margin-bottom-xxsm">
 										<div class="text-align-center">
 											<a href="/welcome/send-email">
-												<div class=" button is-submit w-button !tw-pt-[11px]">Weiter</div></a
+												<button class=" button is-submit w-button !tw-pt-[11px]">Weiter</button></a
 											>
 										</div>
 									</div>
