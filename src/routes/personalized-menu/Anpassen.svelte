@@ -18,6 +18,7 @@
 	console.log('recommendedPotionSize', recommendedPotionSize);
 
 	const potionSizesAndPrices = [
+		{ size: 100, price: 4.0, checked: false },
 		{ size: 150, price: 4.4, checked: false },
 		{ size: 200, price: 4.8, checked: false },
 		{ size: 250, price: 5.2, checked: false },

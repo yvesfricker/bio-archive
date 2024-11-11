@@ -15,16 +15,19 @@
 	// 	description: $catMealStore[i].description,
 	// 	portionSize: $catMealStore[i].portionSize,
 	// 	servings: $catMealStore[i].servings
-	// } as CatMealI;
+	// } as CatMealI;	
 
-	$: mealType = capitalizeFirstLetter(meal?.type);
+
+
+$: mealType = capitalizeFirstLetter(meal?.type);
+	
 </script>
 
 <div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item ">
 	<img
 		sizes="100vw"
-		srcset="images/Huhn-p-500.png 500w, images/Huhn.webp 700w"
-		src="images/Huhn.webp"
+		srcset={`images/${mealType}-p-500.png 500w, images/${mealType}.webp 700w`}
+		src={`images/${mealType}.webp`}
 		loading="lazy"
 		alt=""
 		class="signup-hero_tab-plan-image"

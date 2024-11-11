@@ -32,8 +32,8 @@ $: imageType = capitalizeFirstLetter(localMeal?.type);
 >
 	<img
 		sizes="(max-width: 767px) 80px, 108px"
-		srcset={`images/${imageType}-p-500.png 500w, images/Huhn.webp 700w`}
-		src="images/Huhn.webp"
+		srcset={`images/${imageType}-p-500.png 500w, images/${imageType}.webp 700w`}
+		src="images/${imageType}.webp"
 		loading="lazy"
 		alt=""
 		class="signup-hero_tab-plan-image"

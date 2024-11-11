@@ -2075,7 +2075,7 @@ a {
 }
 
 .popup_wrapper {
-  /* z-index: 20; */
+  z-index: 20;
   background-color: #000000Ad;
   flex-direction: column;
   justify-content: center;
@@ -2094,16 +2094,16 @@ a {
 }
 
 .popup_block {
-  /* z-index: 10; */
+  z-index: 10;
   background-color: #f3ecea;
   /* border-radius: .7rem; */
   align-items: center;
   width: 100%;
-  /* max-width: 47rem; */
+  max-width: 47rem;
   padding: 3.75rem 5.5rem;
  
   position: relative;
-  /* overflow: scroll; */
+  overflow: scroll;
 }
 
 .popup_block.is-second {
