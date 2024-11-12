@@ -85,7 +85,7 @@
 
 	function calculateCatPlanPrice() {}
 </script>
-{#if !planAnpassenDisplay}
+
 <div class="signup-hero_leo-block">
 	<div class="signup-hero_tab-top is-wrap">
 		<div class="signup-hero_tab-top-text-block">
@@ -130,7 +130,7 @@
 	{/if}
 </div>
 
-{:else}
+{#if planAnpassenDisplay}
 	<Anpassen
 		{localCat}
 		{callBackCloseAnpassenDisplay}

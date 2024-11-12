@@ -1544,7 +1544,7 @@ a {
 }
 
 .nav {
-  z-index: 1000;
+  z-index: 999;
   background-color: #86848400;
 
 }
@@ -3021,7 +3021,8 @@ a {
 
 .nav_button-block,
 .nav_content-mobile {
-  display: none;
+  display: block;
+ 
 }
 
 .nav_container-mobile {
@@ -3031,6 +3032,8 @@ a {
   align-items: center;
   padding-top: 1.5625rem;
   display: flex;
+
+
 }
 
 .nav_link-mobile {
@@ -4040,8 +4043,9 @@ a {
     flex-direction: column;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    display: none;
+
     position: fixed;
+    height: 400px;
     inset: 0%;
   }
 
