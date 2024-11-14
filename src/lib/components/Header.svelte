@@ -6,17 +6,18 @@
 		console.log('toggleMobileMenu', displayMobileMenu);
 	}
 
-	let showMobileLayout = $derived($appStore.showHeader);
+	let showHeaderLayout = $derived($appStore.showHeader);
 
 	$effect(() => {
 		console.log('displayMobileMenu', displayMobileMenu);
-		console.log('showMobileLayout', showMobileLayout);
+		console.log('showHeaderLayout', showHeaderLayout);
+		console.log('desktopLayout', desktopLayout);
 	});
 
 	let innerWidth = $state(0);
 	let innerHeight = $state(0);
 
-	let desktopLayout = $derived(innerWidth > 767);
+	let desktopLayout = $derived(innerWidth > 991);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -32,7 +33,8 @@
 	<div class="nav w-nav">
 		<div class="container-medium">
 			<div class="padding-vertical">
-				{#if desktopLayout}
+				{#if desktopLayout && showHeaderLayout}
+				
 					<div class="nav_container">
 						<div class="nav_container-block">
 							<a href="/our-food" class="nav_link w-inline-block">
@@ -78,7 +80,7 @@
 							</a>
 						</div>
 					</div>
-				{:else if showMobileLayout}
+				{:else if showHeaderLayout}
 					<div class="nav_content-mobile">
 						<div class="nav_container-mobile">
 							<div class="nav_container-block">
@@ -111,7 +113,7 @@
 							</div>
 						</div>
 						{#if displayMobileMenu}
-							<div class="  nav_link-block-mobile !w-[200px]">
+							<div class="  nav_link-block-mobile !w-[220px] !bg-linen p-8 rounded-md">
 								<a href="/our-food" class="nav_link-mobile w-inline-block">
 									<div>Unser Futter</div>
 								</a>

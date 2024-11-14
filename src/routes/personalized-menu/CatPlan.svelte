@@ -89,7 +89,7 @@
 	let innerWidth = 0
     let innerHeight = 0
     
-    $: $appStore.showHeader = !(innerWidth < 767 && planAnpassenDisplay)
+    $: $appStore.showHeader = ! planAnpassenDisplay
 
 
 </script>

@@ -282,6 +282,8 @@
 			submitTried = false;
 		}
 	}
+
+	let popoverOpen = false;
 </script>
 
 <div class="page-wrapper">
@@ -354,7 +356,7 @@
 											{#if !proMonatDisplay}
 												<div
 													data-w-tab="Tab 1"
-													class="signup-hero_tab-pane w-tab-pane w--tab-active"
+													class="signup-hero_tab-pane w-tab-pane w--tab-active "
 												>
 													<div class="signup-hero_tab-wrapper">
 														<div class="signup-hero_text-info">
@@ -432,7 +434,7 @@
 													<div class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start">
 														<!-- <div class="text-size-large">31/01/2023</div> -->
 														<div>
-															<Popover.Root portal={null}>
+															<Popover.Root portal={null} bind:open={popoverOpen}>
 																<Popover.Trigger asChild let:builder>
 																	<Button
 																		variant="outline"
@@ -453,6 +455,9 @@
 
 																<Popover.Content class="w-80 z-[200]  bg-linen">
 																	<Calendar
+																	bind:value
+																	onValueChange={() => (popoverOpen = false)}
+																	initialFocus
 																		isDateDisabled={isAfterToday}
 																		class="rounded-md border bg-linen"
 																	/>
