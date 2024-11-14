@@ -4,6 +4,7 @@
 	import CatMeal from './CatMeal.svelte';
 	import Anpassen from './Anpassen.svelte';
 	import type { CatMealStore, CatStore } from '$lib/stores/itemsStores';
+	import { appStore } from '$lib/stores/simpleStore';
 
 	// export let callBackSetAnpassenDisplay: (i: number) => void
 	export let cat: CatI;
@@ -84,7 +85,27 @@
 	// $: console.log("mealStore", $mealStore)
 
 	function calculateCatPlanPrice() {}
+
+	let innerWidth = 0
+    let innerHeight = 0
+    
+    $: $appStore.showHeader = !(innerWidth < 767 && planAnpassenDisplay)
+
+
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
+
+{#if planAnpassenDisplay}
+	<Anpassen
+		{localCat}
+		{callBackCloseAnpassenDisplay}
+		{callBackSaveMenuToCat}
+		{proMonatDisplay}
+		catIndex={i}
+		{callBackUpdateErrorMessage}
+	/>
+{/if}
 
 <div class="signup-hero_leo-block">
 	<div class="signup-hero_tab-top is-wrap">
@@ -129,16 +150,6 @@
 	{/if}
 </div>
 
-{#if planAnpassenDisplay}
-	<Anpassen
-		{localCat}
-		{callBackCloseAnpassenDisplay}
-		{callBackSaveMenuToCat}
-		{proMonatDisplay}
-		catIndex={i}
-		{callBackUpdateErrorMessage}
-	/>
-{/if}
 <!-- 
 <style lang="css">  moved this to bella-natura-webflow.css
 	.hide-arrows {

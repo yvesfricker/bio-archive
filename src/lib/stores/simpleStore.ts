@@ -8,5 +8,10 @@ const init =[
     MealType.HUHN
 ]
 
+const appStoreInit = {
+    showHeader: true
+}
 
 export const typesStore = writable<MealType[]>(init);    
+
+export const appStore = writable(appStoreInit)

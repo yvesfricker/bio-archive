@@ -55,9 +55,11 @@
 		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
-<div style="display:absolute" class="popup_wrapper !flex !flex-col !flex-justify-center mt-[140px] stop-mobile-scrolling">
 
-	<div style="" class="!grow-1  popup_block is-first is-visible z-[1000]">
+
+<div style="" class="popup_wrapper !flex !flex-col !flex-justify-center  z-30">
+
+	<div style="" class="!grow-1  popup_block is-first is-visible z-50 !bg-linen">
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
@@ -142,11 +144,18 @@
 </div>
 <div class="succes w-form-done"></div>
 
-<style>
+<style lang="css" module>
+
+	@import '../../bella-natura.webflow.css';
 
 @media screen and (max-width: 479px) {
 	
 .stop-mobile-scrolling {
+
+	.nav-component {
+		display: none !important;
+	}
+
 	html,body{
 		   overflow:hidden;
 	   }	

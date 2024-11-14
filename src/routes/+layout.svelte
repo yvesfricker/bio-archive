@@ -6,10 +6,9 @@
 	// import '../webflow.css';
 </script>
 
-<div class="page-wrapper">
+
 	
 	<Header />
 	<slot />
 	<Footer />
 	
-</div>
