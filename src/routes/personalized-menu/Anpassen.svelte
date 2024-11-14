@@ -55,9 +55,9 @@
 		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
-<div style="" class="popup_wrapper !flex !flex-col !flex-justify-center">
+<div style="display:absolute" class="popup_wrapper !flex !flex-col !flex-justify-center mt-[120px] stop-mobile-scrolling">
 
-	<div style="" class="!grow-1  popup_block is-first is-visible">
+	<div style="" class="!grow-1  popup_block is-first is-visible z-[1000]">
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
@@ -116,7 +116,7 @@
 			<button
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e10b-78e5fb0b"
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
-				class="button w-button"
+				class="button w-button 	"
 				on:click={() => {
 					callBackSaveMenuToCat(catMealStore);
 
@@ -125,6 +125,7 @@
 			>
 		</div>
 		<button
+		class="m-6 "
 			on:click={() => {
 				callBackCloseAnpassenDisplay();
 			}}
@@ -134,9 +135,25 @@
 				alt=""
 				src="images/close.svg"
 				loading="lazy"
-				class="popup_close-btn"
+				class="popup_close-btn !m-6"
 			/>
 		</button>
 	</div>
 </div>
 <div class="succes w-form-done"></div>
+
+<style>
+
+@media screen and (max-width: 479px) {
+	
+.stop-mobile-scrolling {
+	html,body{
+		   overflow:hidden;
+	   }	
+	
+}
+		
+}
+
+
+</style>

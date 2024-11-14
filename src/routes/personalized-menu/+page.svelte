@@ -91,11 +91,16 @@
 			});
 			console.log('catLikes', catLikes);
 			const calculatedMenuTest = divideMealsIntoDays(catLikes, 14);
-
+			catLikes = {};
+			cat.likes.forEach((like) => {
+				if (cat?.likes?.includes(like)) {
+					catLikes[like] = 0;
+				}
+			});
 			const calculatedMenuPromonat = divideMealsIntoDays(catLikes, 28);
 
-			// console.log('calculatedMenuTest', calculatedMenuTest);
-			// console.log('calculatedMenuPromonat', calculatedMenuPromonat);
+			console.log('calculatedMenuTest', calculatedMenuTest);
+			console.log('calculatedMenuPromonat', calculatedMenuPromonat);
 			const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
 
 			console.log('recommendedPotionSize', recommendedPotionSize);
