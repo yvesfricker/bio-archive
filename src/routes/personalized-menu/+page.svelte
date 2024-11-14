@@ -58,8 +58,6 @@
 		return date.compare(today(getLocalTimeZone()).add({ days: 1 })) < 0;
 	}
 
-
-
 	function getStringedDate(dateObj: Date) {
 		const month = dateObj.getUTCMonth() + 1; // months from 1-12
 		const day = dateObj.getUTCDate();
@@ -431,30 +429,36 @@
 												</div>
 												<div class="signup-hero_shipping-item">
 													<div class="signup-hero_tab-heading">Lieferdatum</div>
-													<div class="signup-hero_shipping-text-block is-vertical">
+													<div class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start">
 														<!-- <div class="text-size-large">31/01/2023</div> -->
+														<div>
+															<Popover.Root portal={null}>
+																<Popover.Trigger asChild let:builder>
+																	<Button
+																		variant="outline"
+																		class={cn(
+																			'bg-transparent w-[200px] justify-end text-right font-normal underline',
+																			!value && 'text-muted-foreground'
+																		)}
+																		builders={[builder]}
+																	>
+																		<!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
+																		<div class="text-size-xmedium !tw-underline text-right">
+																			{value
+																				? df.format(value.toDate(getLocalTimeZone()))
+																				: 'Datum ändern'}
+																		</div>
+																	</Button>
+																</Popover.Trigger>
 
-														<Popover.Root portal={null}>
-															<Popover.Trigger asChild let:builder>
-																<Button
-																	variant="outline"
-																	class={cn(
-																		'bg-transparent w-[280px] justify-end text-right font-normal',
-																		!value && 'text-muted-foreground'
-																	)}
-																	builders={[builder]}
-																>
-																	<!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
-																	<div class="text-size-xmedium !tw-underline text-right">
-																		{value ? df.format(value.toDate(getLocalTimeZone())) : 'Datum ändern'}
-																	</div>
-																</Button>
-															</Popover.Trigger>
-
-															<Popover.Content class="w-80 z-[200]  bg-linen">
-																<Calendar isDateDisabled={isAfterToday} class="rounded-md border bg-linen" />
-															</Popover.Content>
-														</Popover.Root>
+																<Popover.Content class="w-80 z-[200]  bg-linen">
+																	<Calendar
+																		isDateDisabled={isAfterToday}
+																		class="rounded-md border bg-linen"
+																	/>
+																</Popover.Content>
+															</Popover.Root>
+														</div>
 													</div>
 												</div>
 												<div class="signup-hero_shipping-line"></div>
