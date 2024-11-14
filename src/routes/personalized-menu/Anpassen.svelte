@@ -57,9 +57,9 @@
 
 <div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
 	<div style="" class="!grow-1 popup_block is-first is-visible z-50 !bg-linen">
-		<div class=" relative">
+		<div class=" ">
 			<button
-				class=" left-2 absolute"
+				class=" left-2 "
 				on:click={() => {
 					callBackCloseAnpassenDisplay();
 				}}
