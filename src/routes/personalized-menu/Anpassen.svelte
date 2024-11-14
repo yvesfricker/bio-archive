@@ -55,18 +55,38 @@
 		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
-
-
-<div style="" class="popup_wrapper !flex !flex-col !flex-justify-center  z-30">
-
-	<div style="" class="!grow-1  popup_block is-first is-visible z-50 !bg-linen">
+<div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
+	<div style="" class="!grow-1 popup_block is-first is-visible z-50 !bg-linen">
+		<div class=" relative">
+			<button
+				class=" left-2 absolute"
+				on:click={() => {
+					callBackCloseAnpassenDisplay();
+				}}
+			>
+				<img
+					data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e1a2"
+					alt=""
+					src="images/close.svg"
+					loading="lazy"
+					class="popup_close-btn"
+				/>
+			</button>
+		</div>
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
 		</div>
 		<div class="popup_content-block">
 			{#each $catMealStore as meal, i}
-				<AnpassenMealServingSelector {i} {catIndex} {catMealStore} {meal} {handleChangeServings} {callBackUpdateErrorMessage}/>
+				<AnpassenMealServingSelector
+					{i}
+					{catIndex}
+					{catMealStore}
+					{meal}
+					{handleChangeServings}
+					{callBackUpdateErrorMessage}
+				/>
 			{/each}
 
 			<div
@@ -118,7 +138,7 @@
 			<button
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e10b-78e5fb0b"
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
-				class="button w-button 	"
+				class="button w-button"
 				on:click={() => {
 					callBackSaveMenuToCat(catMealStore);
 
@@ -126,43 +146,24 @@
 				}}>Fertig</button
 			>
 		</div>
-		<button
-		class="m-6 "
-			on:click={() => {
-				callBackCloseAnpassenDisplay();
-			}}
-		>
-			<img
-				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e1a2"
-				alt=""
-				src="images/close.svg"
-				loading="lazy"
-				class="popup_close-btn !m-6"
-			/>
-		</button>
+		
 	</div>
 </div>
 <div class="succes w-form-done"></div>
 
 <style lang="css" module>
-
 	@import '../../bella-natura.webflow.css';
 
-@media screen and (max-width: 479px) {
-	
-.stop-mobile-scrolling {
+	@media screen and (max-width: 479px) {
+		.stop-mobile-scrolling {
+			.nav-component {
+				display: none !important;
+			}
 
-	.nav-component {
-		display: none !important;
+			html,
+			body {
+				overflow: hidden;
+			}
+		}
 	}
-
-	html,body{
-		   overflow:hidden;
-	   }	
-	
-}
-		
-}
-
-
 </style>

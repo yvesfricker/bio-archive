@@ -240,7 +240,7 @@
 			// console.log("check cat", index)
 			const totalMeals = catStore.getTotalMeals(index, proMonatDisplay);
 			// console.log("totalMeals", totalMeals)
-			if (totalMeals < (proMonatDisplay ? 28 : 14)) {
+			if (totalMeals !== (proMonatDisplay ? 28 : 14)) {
 				errorMessages[index] =
 					'Bitte fügen Sie ingesamt ' + (proMonatDisplay ? '28' : '14') + ' Mahlzeiten hinzu';
 				submitError = true;
