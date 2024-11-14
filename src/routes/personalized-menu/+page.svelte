@@ -8,6 +8,17 @@
 	// import { enhance } from '$app/forms';
 	import { invalidate } from '$app/navigation';
 	import { enhance } from './formValidation';
+	import {
+		getLocalTimeZone,
+		today,
+		DateFormatter,
+		CalendarDate,
+		type DateValue
+	} from '@internationalized/date';
+	import { Calendar } from '$lib/components/ui/calendar/index.js';
+	import { cn } from '$lib/utils.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import { Button } from '$lib/components/ui/button';
 
 	// function validationError(index: string, componentErrorMessages: string[], i) {
 	// 		if (componentErrorMessages?.length > 0) {
@@ -31,32 +42,63 @@
 	let submitError = false;
 	let errorMessages = [] as string[];
 	let submitTried = false;
+	const df = new DateFormatter('de-DE', {
+		dateStyle: 'long'
+	});
+
+	const now = new Date();
+	const month = now.getUTCMonth() + 1; // months from 1-12
+	const day = now.getUTCDate();
+	const year = now.getUTCFullYear();
+	let thisToday = new CalendarDate(year, month, day);
+	let tomorrow = thisToday.add({ days: 1 });
+	let value: DateValue | undefined = tomorrow;
+
+	function isAfterToday(date: DateValue): boolean {
+		return date.compare(today(getLocalTimeZone()).add({ days: 1 })) < 0;
+	}
+
+
+
+	function getStringedDate(dateObj: Date) {
+		const month = dateObj.getUTCMonth() + 1; // months from 1-12
+		const day = dateObj.getUTCDate();
+		const year = dateObj.getUTCFullYear();
+		// Using padded values, so that 2023/1/7 becomes 2023/01/07
+		const pMonth = month.toString().padStart(2, '0');
+		const pDay = day.toString().padStart(2, '0');
+		const newPaddedDate = `${year}/${pMonth}/${pDay}`;
+		return newPaddedDate;
+	}
+
+	function getYMDate(dateObj: Date) {
+		const month = dateObj.getUTCMonth() + 1; // months from 1-12
+		const day = dateObj.getUTCDate();
+		const year = dateObj.getUTCFullYear();
+		return { year: year, month: month, day: day };
+	}
+
 	calculateInitMenu();
 
 	function calculateInitMenu() {
 		$catStore.forEach((cat, index) => {
-			console.log("cat", cat)
+			console.log('cat', cat);
 			catLikes = {};
-			$typesStore.forEach((like) => {
-				if (!cat?.dislikes?.includes(like)) {
+			cat.likes.forEach((like) => {
+				if (cat?.likes?.includes(like)) {
 					catLikes[like] = 0;
 				}
 			});
 			console.log('catLikes', catLikes);
 			const calculatedMenuTest = divideMealsIntoDays(catLikes, 14);
-			catLikes = {};
-			$typesStore.forEach((like) => {
-				if (!cat?.dislikes?.includes(like)) {
-					catLikes[like] = 0;
-				}
-			});
+
 			const calculatedMenuPromonat = divideMealsIntoDays(catLikes, 28);
 
 			// console.log('calculatedMenuTest', calculatedMenuTest);
 			// console.log('calculatedMenuPromonat', calculatedMenuPromonat);
 			const recommendedPotionSize = getPortionSizeFromCatWeight(cat?.weight!);
 
-			console.log("recommendedPotionSize", recommendedPotionSize);
+			console.log('recommendedPotionSize', recommendedPotionSize);
 			catStore.updatePortionSize(index, recommendedPotionSize);
 
 			const potionSizesAndPrices = [
@@ -78,7 +120,6 @@
 			})?.price;
 
 			if (!mealPrice) {
-				
 			}
 			cat.mealsTest.setNewMenuFromCalculation(calculatedMenuTest, recommendedPotionSize, mealPrice);
 
@@ -216,6 +257,10 @@
 			errorMessages[index] =
 				'Bitte fügen Sie ingesamt ' + (proMonatDisplay ? '28' : '14') + ' Mahlzeiten hinzu';
 			submitError = true;
+		} else if (totalMeals > (proMonatDisplay ? 28 : 14)) {
+			errorMessages[index] =
+				'Bitte fügen Sie ingesamt ' + (proMonatDisplay ? '28' : '14') + ' Mahlzeiten hinzu';
+			submitError = true;
 		} else {
 			errorMessages[index] = '';
 		}
@@ -329,7 +374,7 @@
 															href="/welcome/name"
 															class="text-align-center text-color-white text-size-medium w-inline-block"
 														>
-															<div class='tw-underline'>Erneut berechnen</div>
+															<div class="underline">Erneut berechnen</div>
 														</a>
 													</div>
 												</div>
@@ -343,7 +388,9 @@
 														<div class="margin-bottom-medium">
 															<div class="text-align-center text-color-white">
 																<div class="signup-hero_tab-title-tiny">
-																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice.toFixed(2)} pro Monat
+																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice.toFixed(
+																		2
+																	)} pro Monat
 																</div>
 															</div>
 														</div>
@@ -380,10 +427,29 @@
 												<div class="signup-hero_shipping-item">
 													<div class="signup-hero_tab-heading">Lieferdatum</div>
 													<div class="signup-hero_shipping-text-block is-vertical">
-														<div class="text-size-large">31/01/2023</div>
-														<a href="#" class="link w-inline-block">
-															<div class="text-size-xmedium !tw-underline">Datum ändern</div>
-														</a>
+														<!-- <div class="text-size-large">31/01/2023</div> -->
+
+														<Popover.Root portal={null}>
+															<Popover.Trigger asChild let:builder>
+																<Button
+																	variant="outline"
+																	class={cn(
+																		'bg-transparent w-[280px] justify-end text-right font-normal',
+																		!value && 'text-muted-foreground'
+																	)}
+																	builders={[builder]}
+																>
+																	<!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
+																	<div class="text-size-xmedium !tw-underline text-right">
+																		{value ? df.format(value.toDate(getLocalTimeZone())) : 'Datum ändern'}
+																	</div>
+																</Button>
+															</Popover.Trigger>
+
+															<Popover.Content class="w-80 z-[200]  bg-linen">
+																<Calendar isDateDisabled={isAfterToday} class="rounded-md border bg-linen" />
+															</Popover.Content>
+														</Popover.Root>
 													</div>
 												</div>
 												<div class="signup-hero_shipping-line"></div>
@@ -405,7 +471,7 @@
 															!submitError && submitPlans();
 														}}
 														><div
-															class="signup-hero_checkout-button w-button !tw-no-underline !tw-text-white"
+															class="signup-hero_checkout-button w-button !no-underline !text-white"
 														>
 															Zur Kasse
 														</div>
@@ -414,11 +480,9 @@
 												{#if submitTried === true}
 													{#if submitError}
 														{#each errorMessages as errorMessage}
-															<div
-																class="!tw-w-full !tw-flex !tw-flex-row !tw-justify-end !tw-items-right"
-															>
+															<div class="!w-full !flex !flex-row !justify-end !items-right">
 																{#if errorMessage !== undefined}
-																	<div class=" !tw-bg-transparent !tw-text-red-600 !tw-grow-0">
+																	<div class=" !bg-transparent !text-red-600 !grow-0">
 																		<div>{errorMessage}</div>
 																	</div>
 																{/if}

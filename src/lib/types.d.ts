@@ -16,7 +16,7 @@ export interface CatI  {
     age: number | undefined
     weight: number | undefined
     genderMale: boolean | undefined
-    dislikes: string[] | undefined
+    likes: string[] | undefined
     portionSize: number
     mealsTest: CatMealStore
     mealsTestTotalPrice: number

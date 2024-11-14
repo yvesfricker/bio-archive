@@ -49,7 +49,7 @@
 									</div>
 									<div class="margin-bottom-xxmedium">
 										<div class="text-align-center">
-											<h2 class="signup-hero_heading">Was mag deine Katze <br />davon NICHT?</h2>
+											<h2 class="signup-hero_heading">Was mag deine Katze <br />davon?</h2>
 										</div>
 									</div>
 									{#each $catStore as cat, i}
@@ -69,7 +69,7 @@
 									<div class="margin-bottom-xxsm">
 										<div class="text-align-center">
 											<a href="/welcome/send-email">
-												<button class=" button is-submit w-button !tw-pt-[11px]">Weiter</button></a
+												<button class=" button is-submit w-button !pt-[11px]">Weiter</button></a
 											>
 										</div>
 									</div>

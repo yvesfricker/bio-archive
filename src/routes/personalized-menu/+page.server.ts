@@ -36,7 +36,6 @@ export const actions = {
     submitPlans: async ({ cookies, request }) => {
 
         let error = false
-
         console.log("in submit plans")
         const data = await request.formData()
 
@@ -47,16 +46,12 @@ export const actions = {
             console.log(" test ok ?", parsedDataJson.wgwge, parsedDataJson)
 
             try {
-
-
                 // const res = await pool.query(query.text, query.values).catch(console.error);
-
             } catch (err) {
 
                 console.log("error in insert signal", err)
                 error = true
             }
-
 
         } else {
             console.log("error: no data json to page.server.ts")

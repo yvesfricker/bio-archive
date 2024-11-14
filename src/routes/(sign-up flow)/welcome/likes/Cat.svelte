@@ -6,7 +6,7 @@
 	export let i: number;
 	export let validationError;
 
-	let dislikeArray = ['rind', 'huhn', 'pute', 'schwein'];
+	let likeArray = ['rind', 'huhn', 'pute', 'schwein'];
 
 	$: localCat = {
 		id: cat.id,
@@ -14,23 +14,23 @@
 		age: cat.age,
 		weight: cat.weight,
 		genderMale: cat.genderMale,
-		dislikes: cat.dislikes
+		likes: cat.likes
 	} as CatI;
 
 	$: console.log('localcat', localCat);
 
 	let errorMessages = [] as string[];
 
-	function handleUpdate(dislikeName) {
-		console.log('in handle update before', dislikeName, localCat.dislikes);
-		if (localCat.dislikes?.includes(dislikeName)) {
-			localCat.dislikes = localCat.dislikes.filter((item) => item !== dislikeName);
+	function handleUpdate(likeName: string) {
+		console.log('in handle update before', likeName, localCat.likes);
+		if (localCat.likes?.includes(likeName)) {
+			localCat.likes = localCat.likes.filter((item) => item !== likeName);
 		} else {
 			console.log('sdg');
-			localCat.dislikes = [...localCat.dislikes, dislikeName];
+			localCat.likes = [...localCat.likes, likeName];
 		}
-		catStore.updateCatDislikes(i, localCat.dislikes);
-		console.log('in handleupdate after', dislikeName, localCat.dislikes);
+		catStore.updateCatLikes(i, localCat.likes);
+		console.log('in handleupdate after', likeName, localCat.likes);
 	}
 </script>
 
@@ -56,12 +56,12 @@
 				><img
 					src="images/red.svg"
 					loading="eager"
-					style={localCat.dislikes?.includes('rind') ? 'display:block' : 'display:none'}
+					style={localCat.likes?.includes('rind') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
 				/>
 				<div
-					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-rind {localCat.dislikes?.includes(
+					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-rind {localCat.likes?.includes(
 						'rind'
 					)
 						? 'w--redirected-checked'
@@ -75,7 +75,7 @@
 					type="checkbox"
 					id="catOneBeef"
 					style="opacity:0;position:absolute;z-index:-1"
-				/><span  class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneBeef"
+				/><span  class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneBeef"
 					>Rind</span
 				>
 			</div>
@@ -89,7 +89,7 @@
 				}}
 			>
 				<div
-					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-huhn {localCat.dislikes?.includes(
+					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-huhn {localCat.likes?.includes(
 						'huhn'
 					)
 						? 'w--redirected-checked'
@@ -106,10 +106,10 @@
 				/><img
 					src="images/orange.svg"
 					loading="eager"
-					style={localCat.dislikes?.includes('huhn') ? 'display:block' : 'display:none'}
+					style={localCat.likes?.includes('huhn') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneChicken">Huhn</span>
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneChicken">Huhn</span>
 			</div>
 
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -121,7 +121,7 @@
 				}}
 			>
 				<div
-					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-pute {localCat.dislikes?.includes(
+					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-pute {localCat.likes?.includes(
 						'pute'
 					)
 						? 'w--redirected-checked'
@@ -138,10 +138,10 @@
 				/><img
 					src="images/green.svg"
 					loading="eager"
-					style={localCat.dislikes?.includes('pute') ? 'display:block' : 'display:none'}
+					style={localCat.likes?.includes('pute') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOneTurkey">Pute</span>
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneTurkey">Pute</span>
 			</div>
 
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -154,7 +154,7 @@
 				aria-roledescription="checkbox dislike"
 			>
 				<div
-					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-schwein {localCat.dislikes?.includes(
+					class="w-checkbox-input w-checkbox-input--inputType-custom signup-hero_dislike-img is-schwein {localCat.likes?.includes(
 						'schwein'
 					)
 						? 'w--redirected-checked'
@@ -170,10 +170,10 @@
 				/><img
 					src="images/pink.svg"
 					loading="eager"
-					style={localCat.dislikes?.includes('schwein') ? 'display:block' : 'display:none'}
+					style={localCat.likes?.includes('schwein') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !tw-font-Nunito" for="catOnePork">Schwein</span>
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOnePork">Schwein</span>
 			</div>
 		</div>
 	</div>

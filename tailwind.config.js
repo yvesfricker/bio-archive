@@ -5,7 +5,7 @@ const config = {
 	darkMode: ["class"],
 	content: ["./src/**/*.{html,js,svelte,ts}"],
 	safelist: ["dark"],
-	prefix: 'tw-',
+	prefix: '',
 	screens: {
 		sm: '479px',
 		md: '767px',

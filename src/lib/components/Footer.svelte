@@ -12,9 +12,7 @@
 						<a href="#" class="footer_link">AGB</a>
 						<a href="#" class="footer_link">Datenschutz</a>
 						<a href="#" class="footer_link">Cookie-Einstellungen</a>
-						<a href="#" class="footer_link">Kontakt</a>
 						<a href="mailto:bellanatura@gmail.com" class="footer_link">kontakt@bellanatura.bio</a>
-						<a href="mailto:bellanatura" class="footer_link">@bellanatura.bio</a>
 					</div>
 				</div>
 				<div class="footer_item is-last">

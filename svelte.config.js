@@ -26,7 +26,10 @@ const config = {
 		// 	'my-directory': 'path/to/my-directory'
 		// }
 
-	}
+	},
+	alias: {
+		"@/*": "./path/to/lib/*",
+	  },
 };
 
 	export default config;

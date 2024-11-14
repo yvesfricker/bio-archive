@@ -1630,7 +1630,7 @@ a {
 }
 
 .signup-hero_form {
-  z-index: 2000;
+  z-index: 200;
   justify-content: center;
   width: 100%;
   margin-left: auto;

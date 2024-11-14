@@ -88,7 +88,7 @@ function createCatStore(init: CatI[] | undefined): CatStore {
                     age: 0,
                     weight: 0,
                     genderMale: true,
-                    dislikes: [],
+                    likes: ['pute', 'huhn', 'rind', 'schwein'],
                     portionSize: 0,
                     mealsTest: createMealStore(undefined),
                     mealsTestTotalPrice: 0,
@@ -121,9 +121,9 @@ function createCatStore(init: CatI[] | undefined): CatStore {
                 return store 
             })
         },
-        updateCatDislikes:  (catIndex: number, dislikes: string[]) => {
+        updateCatLikes:  (catIndex: number, likes: string[]) => {
             update((store) => {
-                store[catIndex].dislikes = dislikes
+                store[catIndex].likes = likes
                 
                 return store 
             })
@@ -190,7 +190,7 @@ export interface CatStore extends Writable<CatI[]> {
     updateCatWeight:  (catIndex: number, weight: number) => void
     updateCatGender:  (catIndex: number, genderMale: boolean) => void
     updateCatAge:  (catIndex: number, age: number) => void
-    updateCatDislikes:  (catIndex: number, dislikes: string[]) => void
+    updateCatLikes:  (catIndex: number, likes: string[]) => void
     updateTotalMealPriceForCat: (newPrice: number, proMonat: boolean) => void
     updatePortionSize: (catIndex: number, newPortionSize: number) => void
     getTotalMeals: (catIndex: number, proMonat: boolean) => number
@@ -289,7 +289,7 @@ const catTestSet: CatI[] = [
         age: 3,
         weight: 4,
         genderMale: false,
-        dislikes: ['pute'],
+        likes: ['pute'],
         portionSize: 200,
         mealsTest: miaMealsTestStore,
         mealsPromonat: miaMealsPromonatStore,
@@ -303,7 +303,7 @@ const catTestSet: CatI[] = [
         weight: 9,
         portionSize: 200,
         genderMale: true,
-        dislikes: ['huhn', 'rind'],
+        likes: ['huhn', 'rind'],
         mealsTest: leoMealsTestStore,
         mealsPromonat: leoMealsPromonatStore,
         mealsTestTotalPrice: 0,
@@ -316,7 +316,7 @@ const catTestSet: CatI[] = [
         weight: 3,
         portionSize: 200,
         genderMale: false,
-        dislikes: ['schwein'],
+        likes: ['schwein'],
         mealsTest: createMealStore(undefined),
         mealsPromonat: createMealStore(undefined),
         mealsTestTotalPrice: 0,
@@ -332,7 +332,7 @@ const catINITSet: CatI[] = [
         age: 0,
         weight: 0,
         genderMale: true,
-        dislikes: [],
+        likes: ['pute', 'huhn', 'rind', 'schwein'],
         portionSize: 0,
         mealsTest: createMealStore(undefined),
         mealsPromonat: createMealStore(undefined),

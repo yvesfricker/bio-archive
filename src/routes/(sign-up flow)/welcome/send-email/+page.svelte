@@ -98,7 +98,7 @@
 										<div class="text-align-center">
 											<!-- svelte-ignore a11y_click_events_have_key_events -->
 											<button
-												class="x button is-submit w-button  !tw-w-[180px] md:!tw-w-[200px]"
+												class="x button is-submit w-button  !w-[180px] md:!w-[200px]"
 												on:click={() => handleSubmit()}
 												aria-roledescription="submit email"
 												aria-label="submit email">Plan erhalten</button
@@ -107,7 +107,7 @@
 									</div>
 								</div>
 								<div class="text-align-center">
-									<a href="/welcome/dislikes" class="link w-inline-block">
+									<a href="/welcome/likes" class="link w-inline-block">
 										<div class="text-size-medium">Zurück</div>
 									</a>
 								</div>

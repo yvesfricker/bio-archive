@@ -61,7 +61,8 @@
 					<button
 						fy-element="catOneDecrementAgeButton"
 						class="button is-white w-button"
-						on:click={() => {
+						on:click={(event) => {
+							 event.preventDefault();
 							localCat.age = localCat.age - 1;
 							handleUpdate()
 						}}>-</button
@@ -70,7 +71,8 @@
 					<button
 						fy-element="catOneIncrementAgeButton"
 						class="button is-white w-button"
-						on:click={() => {
+						on:click={(event) => {
+							event.preventDefault();
 							localCat.age = localCat.age + 1;
 							handleUpdate()
 
@@ -82,7 +84,7 @@
 		</div>
 		<div class="signup-hero_field-block is-weight">
 			<div class="signup-hero_field-text">Gewicht:</div>
-			<div class="signup-hero_item is-kg ~tw-w-full">
+			<div class="signup-hero_item is-kg ~w-full">
 				<!-- <button
 					class="button is-white w-button"
 					on:click={() => {
@@ -91,7 +93,7 @@
 					}}>-</button
 				>
 				<input
-					class=" signup-hero_form-field is-weight w-input !tw-px-[18px] !tw-w-[60px] hide-arrows "
+					class=" signup-hero_form-field is-weight w-input !px-[18px] !w-[60px] hide-arrows "
 					maxlength="256"
 					name="catOneWeight"
 					data-name="catOneWeight"
@@ -102,14 +104,18 @@
 					min="1"
 					max="10"
 					bind:value={localCat.weight}
-					on:input={() => handleUpdate()}
+					on:input={(event) => {
+						event.pre		ventDefault();
+						handleUpdate();
+					}}
 				/>
 				<button
 					fy-element="catOneIncrementAgeButton"
 					class="button is-white w-button"
-					on:click={() => {
-						localCat.weight = localCat.weight + 1;
-						handleUpdate()
+					on:click={(event) => {
+						event.preventDefault();
+						localCat.weight = localCat.weight + 0.5;
+						handleUpdate();
 					}}>+</button
 				> -->
 
@@ -117,7 +123,8 @@
 					<button
 						fy-element="catOneDecrementAgeButton"
 						class="button is-white w-button"
-						on:click={() => {
+						on:click={(event) => {
+							event.preventDefault();
 							localCat.weight = localCat.weight - 0.5;
 							handleUpdate()
 
@@ -127,7 +134,8 @@
 					<button
 						fy-element="catOneIncrementAgeButton"
 						class="button is-white w-button"
-						on:click={() => {
+						on:click={(event) => {
+							event.preventDefault();
 							localCat.weight = localCat.weight + 0.5;
 							handleUpdate()
 

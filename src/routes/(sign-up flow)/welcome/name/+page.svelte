@@ -27,11 +27,16 @@
 
 	function handleAddCat() {
 		console.log('in handeAddCat', $catStore);
+		if ($catStore.length < 3) {
 		catStore.addCat();
 		submitted = false
 		errorMessages = [...errorMessages, ['Bitte geben Sie den Namen Ihrer Katze ein']];
 		validationFail = true
 		console.log('parent ErrorMessages', errorMessages);
+		} else {
+			submitted = true
+			errorMessages = [...errorMessages, ['Sie k\xF6nnen nur drei Katzen eintragen']];
+		}
 	}
 
 	function handleRemoveCatById(id) {
@@ -105,7 +110,7 @@
 										</div>
 
 										<button
-											class="button is-white w-button !tw-block"
+											class="button is-white w-button !block"
 											on:click={() => handleAddCat()}
 										>
 											+
@@ -128,7 +133,7 @@
 								<div class="margin-bottom-xsm">
 									<div class="text-align-center">
 										<a href={validationFail ? null : '/welcome/age'}>
-											<button class=" button is-submit w-button tw-pt-3" on:click={() => validationFail ? submitted = true : false}>Weiter</button></a
+											<button class=" button is-submit w-button pt-3" on:click={() => validationFail ? submitted = true : false}>Weiter</button></a
 										>
 
 										<!-- <input

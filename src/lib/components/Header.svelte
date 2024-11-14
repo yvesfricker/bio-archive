@@ -7,16 +7,15 @@
 	}
 </script>
 
-<div class="nav_component tw-bg-linen tw-z-50">
-	<div
-		data-animation="default"
-		data-collapse="medium"
-		data-duration="400"
-		data-easing="ease"
-		data-easing2="ease"
-		role="banner"
-		class="nav w-nav tw-z-20"
-	>
+<header class="nav_component bg-linen z-50">
+	<!-- 
+	data-animation="default"
+	data-collapse="medium"
+	data-duration="400"
+	data-easing="ease"
+	data-easing2="ease"
+	role="banner" -->
+	<div class="nav w-nav z-20">
 		<div class="container-medium">
 			<div class="padding-vertical">
 				<div class="nav_container">
@@ -28,13 +27,17 @@
 							<div>So funktioniert&#x27;s</div>
 						</a>
 					</div>
-					<button class="nav_container-block is-center" onclick={() => toggleMobileMenu()}>
-						<div data-w-id="6d84d8a3-4913-88b8-f2e3-35998dbb1173" class="nav_button-block">
+					<div class="nav_container-block is-center">
+						<button
+							data-w-id="6d84d8a3-4913-88b8-f2e3-35998dbb1173"
+							class="nav_button-block"
+							onclick={() => toggleMobileMenu()}
+						>
 							<div id="line-top" class="nav_line-top"></div>
 							<div id="line-middle" class="nav_line-middle"></div>
 							<div id="line-bot" class="nav_line-bottom"></div>
-						</div>
-						<a href="/" class="nav_logo-link w-inline-block"
+						</button>
+						<a href="https://bellanatura.bio" class="nav_logo-link w-inline-block"
 							><img
 								src="/images/Logo.svg"
 								loading="lazy"
@@ -50,34 +53,37 @@
 								class="nav_logo-image is-white"
 							/></a
 						>
-					</button>
+					</div>
 					<div class="nav_container-block">
 						<a href="/our-story" class="nav_link w-inline-block">
 							<div>Über uns</div>
 						</a>
-						<a href="/sign-up" class="nav_link w-inline-block">
+						<a href="/log-in" class="nav_link w-inline-block">
 							<div>Login</div>
 						</a>
 					</div>
 				</div>
 				{#if displayMobileMenu}
-					<div class="nav_content-mobile !tw-z-300  !tw-absolute">
-						<div class="nav_container-mobile  ">
+					<div class="nav_content-mobile  !absolute">
+						<div class="nav_container-mobile">
 							<div class="nav_container-block">
-              
-                <a href="#" class="nav_link w-inline-block">
-                  <div>Unser Futter</div>
-                </a>
-                <a href="#" class="nav_link w-inline-block">
-                  <div>So funktioniert&#x27;s</div>
-                </a>
-              </div>
-							<button class="nav_container-block is-center" onclick={() => toggleMobileMenu()}>
-								<div data-w-id="a5a14400-49e4-b528-d0d4-6ea601717a5e" class="nav_button-block">
+								<a href="#" class="nav_link w-inline-block">
+									<div>Unser Futter</div>
+								</a>
+								<a href="#" class="nav_link w-inline-block">
+									<div>So funktioniert&#x27;s</div>
+								</a>
+							</div>
+							<div class="nav_container-block is-center">
+								<button
+									data-w-id="a5a14400-49e4-b528-d0d4-6ea601717a5e"
+									class="nav_button-block"
+									onclick={() => toggleMobileMenu()}
+								>
 									<div class="nav_line-top"></div>
 									<div class="nav_line-middle"></div>
 									<div class="nav_line-bottom"></div>
-								</div>
+								</button>
 								<a href="/" class="nav_logo-link w-inline-block"
 									><img
 										src="/images/Logo.svg"
@@ -87,31 +93,29 @@
 										class="nav_logo-image-mob"
 									/></a
 								>
-							</button>
+							</div>
 						</div>
 
-				
-							<div class="  nav_link-block-mobile ">
-								<a href="/our-food" class="nav_link-mobile w-inline-block  ">
-									<div>Unser Futter</div>
-								</a>
-								<a href="/how-it-works" class="nav_link-mobile w-inline-block">
-									<div>So funktioniert&#x27;s</div>
-								</a>
-								<a href="/our-story" class="nav_link-mobile w-inline-block ">
-									<div>Über uns</div>
-								</a>
-								<a href="/sign-up" class="nav_link-mobile w-inline-block">
-									<div>Login</div>
-								</a>
-							</div>
-					
+						<div class="  nav_link-block-mobile !w-[200px]   ">
+							<a href="/our-food" class="nav_link-mobile w-inline-block">
+								<div>Unser Futter</div>
+							</a>
+							<a href="/how-it-works" class="nav_link-mobile w-inline-block">
+								<div>So funktioniert&#x27;s</div>
+							</a>
+							<a href="/our-story" class="nav_link-mobile w-inline-block">
+								<div>Über uns</div>
+							</a>
+							<a href="/sign-up" class="nav_link-mobile w-inline-block">
+								<div>Login</div>
+							</a>
+						</div>
 					</div>
 				{/if}
 			</div>
 		</div>
 	</div>
-</div>
+</header>
 
 <style module>
 	@import '../../bella-natura.webflow.css';

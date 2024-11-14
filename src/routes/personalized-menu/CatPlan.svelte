@@ -90,17 +90,16 @@
 	<div class="signup-hero_tab-top is-wrap">
 		<div class="signup-hero_tab-top-text-block">
 			<div class="signup-hero_tab-heading">
-				<span fy-element="catOneNameLabel">{cat.name}</span>&#x27;s Speiseplan
+				<span >{cat.name}</span>&#x27;s Speiseplan
 			</div>
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
-		<button
-			data-w-id="0c20e7e9-4f7b-9d1a-9c64-2c361ef3fe09"
-			href="#"
+		<button		
+
 			class="link w-inline-block"
 			on:click={() => callBackSetAnpassenDisplay(i)}
 		>
-			<div class="text-size-medium !tw-underline">Plan anpassen</div>
+			<div class="text-size-medium !underline">Plan anpassen</div>
 		</button>
 	</div>
 	<div class="signup-hero_tab-top is-wrap is-second-from-top">
@@ -109,7 +108,7 @@
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
 		<div class="signup-hero_tab-heading">
-			<span fy-element="catOneNameLabel"
+			<span 
 				>{proMonatDisplay
 					? cat.mealsPromonatTotalPrice.toFixed(2)
 					: cat.mealsTestTotalPrice.toFixed(2)}</span
@@ -123,7 +122,7 @@
 	</div>
 	{#if errorMessage}
 		<div
-			class=" w-form-fail !tw-bg-transparent !tw-text-red-600 !tw-flex !tw-flex-row !tw-justify-center !tw-grow-0 !tw-mt-12"
+			class=" w-form-fail !bg-transparent !text-red-600 !flex !flex-row !justify-center !grow-0 !mt-12"
 		>
 			<div>{errorMessage}</div>
 		</div>
@@ -140,8 +139,8 @@
 		{callBackUpdateErrorMessage}
 	/>
 {/if}
-
-<!-- <style lang="css">  moved this to bella-natura-webflow.css
+<!-- 
+<style lang="css">  moved this to bella-natura-webflow.css
 	.hide-arrows {
 		/* Chrome, Safari, Edge, Opera */
 		input::-webkit-outer-spin-button,
