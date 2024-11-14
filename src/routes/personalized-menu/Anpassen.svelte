@@ -55,7 +55,7 @@
 		.reduce((a: any, b: any) => a + b, 0);
 </script>
 
-<div style="display:absolute" class="popup_wrapper !flex !flex-col !flex-justify-center mt-[120px] stop-mobile-scrolling">
+<div style="display:absolute" class="popup_wrapper !flex !flex-col !flex-justify-center mt-[140px] stop-mobile-scrolling">
 
 	<div style="" class="!grow-1  popup_block is-first is-visible z-[1000]">
 		<div class="popup-header">
