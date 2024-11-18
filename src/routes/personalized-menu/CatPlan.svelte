@@ -86,12 +86,10 @@
 
 	function calculateCatPlanPrice() {}
 
-	let innerWidth = 0
-    let innerHeight = 0
-    
-    $: $appStore.showHeader = ! planAnpassenDisplay
+	let innerWidth = 0;
+	let innerHeight = 0;
 
-
+	$: $appStore.showHeader = !planAnpassenDisplay;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -111,15 +109,11 @@
 	<div class="signup-hero_tab-top is-wrap">
 		<div class="signup-hero_tab-top-text-block">
 			<div class="signup-hero_tab-heading">
-				<span >{cat.name}</span>&#x27;s Speiseplan
+				<span>{cat.name}</span>&#x27;s Speiseplan
 			</div>
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
-		<button		
-
-			class="link w-inline-block"
-			on:click={() => callBackSetAnpassenDisplay(i)}
-		>
+		<button class="link w-inline-block" on:click={() => callBackSetAnpassenDisplay(i)}>
 			<div class="text-size-medium !underline">Plan anpassen</div>
 		</button>
 	</div>
@@ -129,11 +123,20 @@
 		</div>
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
 		<div class="signup-hero_tab-heading">
-			<span 
-				>{proMonatDisplay
-					? cat.mealsPromonatTotalPrice.toFixed(2)
-					: cat.mealsTestTotalPrice.toFixed(2)}</span
-			>
+			{#if proMonatDisplay}
+			CHF <span
+					> {proMonatDisplay
+						? cat.mealsPromonatTotalPrice.toFixed(2)
+						: cat.mealsTestTotalPrice.toFixed(2)}</span
+				>
+			{:else}
+			CHF <span class="line-through"
+					>  {cat.mealsTestTotalPrice.toFixed(2)}</span
+				> 
+				<span class=""
+					>{(cat.mealsTestTotalPrice * 0.75).toFixed(2)}</span
+				> 
+			{/if}
 		</div>
 	</div>
 	<div class="signup-hero_tab-bot">

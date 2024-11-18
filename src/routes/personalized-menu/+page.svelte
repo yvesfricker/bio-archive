@@ -231,10 +231,10 @@
 
 	$: checkInput($catStore);
 
-	function checkInput($catStore) {
+	function checkInput(dummy) {
 		// do validation, check input fields
 		// if error display message and highlight fields
-		// console.log("checking input")
+		// console.log("checking input", $catStore)
 
 		$catStore.forEach((cat, index) => {
 			// console.log("check cat", index)

@@ -56,10 +56,9 @@
 </script>
 
 <div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
-	<div style="" class="!grow-1 popup_block is-first is-visible z-50 !bg-linen">
-		<div class=" ">
+	<div style="" class="!grow-1 popup_block is-first is-visible z-50 ">
 			<button
-				class=" left-2 "
+				class="z-[50000] "
 				on:click={() => {
 					callBackCloseAnpassenDisplay();
 				}}
@@ -67,12 +66,11 @@
 				<img
 					data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e1a2"
 					alt=""
-					src="images/close.svg"
+					src="images/close-dark.svg"
 					loading="lazy"
 					class="popup_close-btn"
 				/>
 			</button>
-		</div>
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
