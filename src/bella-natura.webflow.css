@@ -4258,6 +4258,14 @@ a {
     padding-right: 1.25rem;
   }
 
+
+@media screen and (max-width: 991px) {
+  .page-padding {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+  }
+}
+
   .padding-horizontal {
     padding-top: 0;
     padding-bottom: 0;

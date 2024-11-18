@@ -289,7 +289,7 @@
 <div class="page-wrapper">
 	<main id="Weiter" class="main-wrapper">
 		<section class="section_signup-hero">
-			<div class="page-padding">
+			<div class="page-padding ">
 				<div class="container-medium">
 					<div class="padding-vertical padding-huge">
 						<div class="signup-hero_form w-form">
