@@ -1599,7 +1599,7 @@ a {
 .signup-hero_component.first-step {
   max-width: 70rem;
   display: block;
-  margin-top: 15px;
+  padding-top: 30px;
 }
 
 .signup-hero_component.fourth-step,
@@ -2098,11 +2098,11 @@ a {
   align-items: center;
   /* padding: 1.9rem; */
 
-  /* position: fixed; */
+  position: fixed;
   inset: 0%;
   /* overflow: hidden; */
-
-  height: 100vh;
+  overflow-y:scroll;
+  height: 100%;
   width: 100vw;
   /* border: 1px solid black; */
   background-image: url(http://placehold.it/224x400);

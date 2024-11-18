@@ -56,10 +56,10 @@
 </script>
 
 <div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
-	<div style="" class="!grow-1 popup_block is-first is-visible z-40 relative">
+	<div style="" class="!grow-1 popup_block is-first is-visible z-40 ">
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div  class="z-50 absolute sm:block  ">
+		<div  class="z-50 absolute sm:block   ">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
 				on:click={() => {

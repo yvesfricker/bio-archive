@@ -1739,7 +1739,7 @@ textarea.w-select {
   /* position: relative; */
 }
 .w-tab-link {
-  position: relative;
+  /* position: relative; */
   display: inline-block;
   vertical-align: top;
   text-decoration: none;
