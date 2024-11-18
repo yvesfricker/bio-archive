@@ -1721,7 +1721,7 @@ textarea.w-select {
   }
 }
 .w-tabs {
-  position: relative;
+  /* position: relative;   */
 }
 .w-tabs:before,
 .w-tabs:after {
@@ -1736,7 +1736,7 @@ textarea.w-select {
   clear: both;
 }
 .w-tab-menu {
-  position: relative;
+  /* position: relative; */
 }
 .w-tab-link {
   position: relative;
@@ -1756,12 +1756,12 @@ textarea.w-select {
   outline: 0;
 }
 .w-tab-content {
-  position: relative;
+  /* position: relative; */
   display: block;
   overflow: hidden;
 }
 .w-tab-pane {
-  position: relative;
+  /* position: relative; */
   display: none;
 }
 .w--tab-active {

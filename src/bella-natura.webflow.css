@@ -1599,6 +1599,7 @@ a {
 .signup-hero_component.first-step {
   max-width: 70rem;
   display: block;
+  margin-top: 15px;
 }
 
 .signup-hero_component.fourth-step,
