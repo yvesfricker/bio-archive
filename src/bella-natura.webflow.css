@@ -2121,9 +2121,9 @@ a {
   align-items: center;
   width: 100%;
   max-width: 47rem;
-  padding: 3.75rem 5.5rem;
+  /* padding: 3.75rem 5.5rem; */
   margin: auto;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .popup_block.is-second {
@@ -2144,7 +2144,7 @@ a {
 
 .popup_block.is-first.is-visible {
   display: block;
-  overflow: auto;
+  overflow: scroll;
 }
 
 .popup-header {
