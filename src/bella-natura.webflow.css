@@ -4259,10 +4259,14 @@ a {
   }
 
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 499px) {
   .page-padding {
     padding-left: 0rem !important;
     padding-right: 0rem !important;
+  }
+
+  .padding-huge {
+    padding: 0rem !important;
   }
 }
 
