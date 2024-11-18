@@ -2144,7 +2144,7 @@ a {
 
 .popup_block.is-first.is-visible {
   display: block;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .popup-header {
