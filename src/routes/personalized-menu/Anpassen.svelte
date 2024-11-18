@@ -57,20 +57,27 @@
 
 <div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
 	<div style="" class="!grow-1 popup_block is-first is-visible z-50 ">
-			<button
-				class="z-[50000] "
+			<!-- svelte-ignore a11y_unknown_aria_attribute -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				class="z-[50000] w-full min-w-[20px] "
 				on:click={() => {
 					callBackCloseAnpassenDisplay();
 				}}
+				aria-label="close"
+				on:keypress={() => {
+					callBackCloseAnpassenDisplay();
+				}}
+				
 			>
 				<img
+				sizes="100vw"
 					data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e1a2"
 					alt=""
 					src="images/close-dark.svg"
-					loading="lazy"
 					class="popup_close-btn"
 				/>
-			</button>
+			</div>
 		<div class="popup-header">
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>

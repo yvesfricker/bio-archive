@@ -5147,9 +5147,9 @@ a {
   }
 
   .popup_close-btn {
-    top: .5rem;
-    left: .5rem;
-    right: auto;
+    top: .75rem;
+    left: .75rem;
+    /* right: auto; */
   }
 }
 

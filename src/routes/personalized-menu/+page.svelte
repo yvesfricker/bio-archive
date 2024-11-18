@@ -231,7 +231,7 @@
 
 	$: checkInput($catStore);
 
-	function checkInput(dummy) {
+	function checkInput(_dummy: CatI[]) {
 		// do validation, check input fields
 		// if error display message and highlight fields
 		// console.log("checking input", $catStore)

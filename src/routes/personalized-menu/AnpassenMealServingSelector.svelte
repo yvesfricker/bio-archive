@@ -38,7 +38,7 @@ $: mealType = capitalizeFirstLetter(meal?.type);
 				<span class="signup-hero_tab-text-number">{$catMealStore[i]?.servings}</span> x {mealType}
 			</div>
 		</div>
-		<div class="signup-hero_tab-text-sm">Lorem ipsum dolor sit amet.</div>
+		<div class="signup-hero_tab-text-sm">{$catMealStore[i]?.description}</div>
 	</div>	
 	<div class="signup-hero_quantity-btn 	">
 		<button
