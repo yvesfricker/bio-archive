@@ -44,6 +44,6 @@ $: imageType = capitalizeFirstLetter(localMeal?.type);
 				{localMeal.servings} x <span fy-element="catOnePortionSize">{portionSize}</span>g {imageType}
 			</div>
 		</div>
-		<div class="signup-hero_tab-text-sm">Bio-Hühnerfleisch mit Karotten</div>
+		<div class="signup-hero_tab-text-sm">{localMeal.description}</div>
 	</div>
 </div>

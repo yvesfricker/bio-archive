@@ -17,7 +17,7 @@
 	// 	servings: $catMealStore[i].servings
 	// } as CatMealI;	
 
-
+console.log('catMeal', $catMealStore[i])
 
 $: mealType = capitalizeFirstLetter(meal?.type);
 	

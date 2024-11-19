@@ -46,6 +46,13 @@ const leoMeals: CatMealI[] = [
 
 ]
 
+const mealTypes = [
+    { type: MealType.HUHN, image: 'images/Huhn.webp', description: 'Bio-Hühnerfleisch mit Karotten' },
+    { type: MealType.RIND, image: 'images/Rind.webp', description: 'Bio-Rindfleisch mit Broccoli' },
+    { type: MealType.PUTE, image: 'images/Pute.webp', description: 'Bio-Putenfleisch mit Kürbis' },
+    { type: MealType.SCHWEIN, image: 'images/Schwein.webp', description: 'Bio-Schweinefleisch mit Zucchini' }
+  ]
+
 export const updateCatColor = (index: number, color: string) => {
 	catStore.update((cats) => {
 		if (index >= 0 && index < cats.length) {
@@ -249,7 +256,7 @@ function createMealStore(init: CatMealI[] | undefined):CatMealStore {
                 return {
                     id: uuidv4(),
                     type: key as MealType,
-                    description: '',
+                    description: mealTypes.find((meal) => meal.type === key as MealType)!.description,
                     portionSize: recommendedPotionSize,
                     servings: value,
                     selectedServingPrice: mealPrice,

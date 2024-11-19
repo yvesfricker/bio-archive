@@ -6,18 +6,19 @@
 		console.log('toggleMobileMenu', displayMobileMenu);
 	}
 
+	let innerWidth = $state(0);
+	let innerHeight = $state(0);
+
 	let showHeaderLayout = $derived($appStore.showHeader);
+	let desktopLayout = $derived(innerWidth > 991);
+	let showEditMenu = $derived($appStore.showEditMenu);
 
 	$effect(() => {
 		console.log('displayMobileMenu', displayMobileMenu);
 		console.log('showHeaderLayout', showHeaderLayout);
 		console.log('desktopLayout', desktopLayout);
+		console.log('showEditMenu', showEditMenu);
 	});
-
-	let innerWidth = $state(0);
-	let innerHeight = $state(0);
-
-	let desktopLayout = $derived(innerWidth > 991);
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -34,7 +35,6 @@
 		<div class="container-medium">
 			<div class="padding-vertical">
 				{#if desktopLayout && showHeaderLayout}
-				
 					<div class="nav_container">
 						<div class="nav_container-block">
 							<a href="/our-food" class="nav_link w-inline-block">

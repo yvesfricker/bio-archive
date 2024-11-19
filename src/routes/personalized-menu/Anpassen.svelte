@@ -4,14 +4,17 @@
 	import { catStore, type CatMealStore } from '$lib/stores/itemsStores';
 
 	import AnpassenMealServingSelector from './AnpassenMealServingSelector.svelte';
-	export let localCat: CatI;
+	import { appStore } from '$lib/stores/simpleStore';
+
 	export let catIndex: number;
-	export let callBackCloseAnpassenDisplay: () => void;
 	export let callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
 	export let proMonatDisplay: boolean;
 	export let callBackUpdateErrorMessage: (catIndex: number) => void;
 
-	let catMealStore = proMonatDisplay ? localCat.mealsPromonat : localCat.mealsTest;
+	let localCat = $catStore[catIndex];
+	console.log('localCat in Anpassen display', localCat);
+
+	let catMealStore = proMonatDisplay ? localCat?.mealsPromonat : localCat?.mealsTest;
 
 	const recommendedPotionSize = getPortionSizeFromCatWeight(localCat?.weight!);
 
@@ -51,23 +54,30 @@
 	}
 
 	$: totalTins = $catMealStore
-		.map((meal: { servings: any }) => meal.servings)
-		.reduce((a: any, b: any) => a + b, 0);
+		? $catMealStore
+				.map((meal: { servings: any }) => meal.servings)
+				.reduce((a: any, b: any) => a + b, 0)
+		: 0;
+
+		
+let h = 0
 </script>
 
-<div style="" class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
-	<div style="" class="!grow-1 popup_block is-first is-visible z-40 ">
+<div style="height: {h + 100}px !important; " class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
+	<div  bind:clientHeight={h}  class="!grow-1 popup_block is-first is-visible z-40">
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div  class="z-50 absolute sm:block   ">
+		<div class="z-50 absolute sm:block">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
 				on:click={() => {
-					callBackCloseAnpassenDisplay();
+					$appStore.showEditMenu = false;
+					$appStore.showHeader  = true
 				}}
 				aria-label="close"
 				on:keypress={() => {
-					callBackCloseAnpassenDisplay();
+					$appStore.showEditMenu = false;
+					$appStore.showHeader  = true
 				}}
 			>
 				<img
@@ -85,7 +95,6 @@
 		</div>
 
 		<div class="popup_content-block">
-			
 			{#each $catMealStore as meal, i}
 				<AnpassenMealServingSelector
 					{i}
@@ -137,7 +146,7 @@
 					<div class="popup_checkbox-white-field">
 						<div>
 							{recommendedPotionSize === potionSizeAndPrice.size
-								? `Empfohlen für ${capitalizeFirstLetter(localCat.name)}`
+								? `Empfohlen für ${capitalizeFirstLetter(localCat?.name)}`
 								: ''}
 						</div>
 					</div>
@@ -148,9 +157,12 @@
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
 				class="button w-button"
 				on:click={() => {
+					
+					$appStore.showEditMenu = false;
+					$appStore.showHeader  = true
 					callBackSaveMenuToCat(catMealStore);
 
-					callBackCloseAnpassenDisplay();
+					
 				}}>Fertig</button
 			>
 		</div>

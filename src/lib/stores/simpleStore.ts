@@ -9,7 +9,9 @@ const init =[
 ]
 
 const appStoreInit = {
-    showHeader: true
+    showHeader: true,
+    showEditMenu: false,
+    appWebsiteHeight: 0
 }
 
 export const typesStore = writable<MealType[]>(init);    

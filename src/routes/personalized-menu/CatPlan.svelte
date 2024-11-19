@@ -2,7 +2,6 @@
 	import { error } from '@sveltejs/kit';
 	import type { CatDb, CatI } from '$lib/types';
 	import CatMeal from './CatMeal.svelte';
-	import Anpassen from './Anpassen.svelte';
 	import type { CatMealStore, CatStore } from '$lib/stores/itemsStores';
 	import { appStore } from '$lib/stores/simpleStore';
 
@@ -13,7 +12,7 @@
 	export let proMonatDisplay: boolean;
 	export let errorMessage;
 	export let callBackUpdateErrorMessage: (catIndex: number) => void;
-
+export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 	// export let validationError;
 
 	$: localCat = {
@@ -51,26 +50,19 @@
 		// validationError(localCat.id, errorMessages, i);
 	}
 
-	let planAnpassenDisplay = false;
+
 	let anpassenDisplayIndex = 0;
 
 	function callBackSetAnpassenDisplay(index: number) {
 		console.log('set Anpassen display ', index);
 		anpassenDisplayIndex = index;
-		planAnpassenDisplay = !planAnpassenDisplay;
-	}
-	function callBackCloseAnpassenDisplay() {
-		console.log('close modal');
-		planAnpassenDisplay = false;
+
+
+		$appStore.showEditMenu = true
+		$appStore.showHeader  = false
+		callBackSetLocalCat(localCat, index);
 	}
 
-	function callBackSaveMenuToCat(localCatsMealStore: CatMealStore) {
-		if (proMonatDisplay) {
-			cat.mealsPromonat = localCatsMealStore;
-		} else {
-			cat.mealsTest = localCatsMealStore;
-		}
-	}
 
 	// $: console.log("planAnpassenDisplay", planAnpassenDisplay)
 
@@ -88,22 +80,11 @@
 
 	let innerWidth = 0;
 	let innerHeight = 0;
-
-	$: $appStore.showHeader = !planAnpassenDisplay;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-{#if planAnpassenDisplay}
-	<Anpassen
-		{localCat}
-		{callBackCloseAnpassenDisplay}
-		{callBackSaveMenuToCat}
-		{proMonatDisplay}
-		catIndex={i}
-		{callBackUpdateErrorMessage}
-	/>
-{/if}
+
 
 <div class="signup-hero_leo-block">
 	<div class="signup-hero_tab-top is-wrap">

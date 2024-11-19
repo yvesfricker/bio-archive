@@ -19,7 +19,8 @@
 	import { cn } from '$lib/utils.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Button } from '$lib/components/ui/button';
-
+	import Anpassen from './Anpassen.svelte';
+	import { appStore } from '$lib/stores/simpleStore';
 	// function validationError(index: string, componentErrorMessages: string[], i) {
 	// 		if (componentErrorMessages?.length > 0) {
 	// 			errorMessages[index] = componentErrorMessages;
@@ -45,6 +46,9 @@
 	const df = new DateFormatter('de-DE', {
 		dateStyle: 'long'
 	});
+
+	let localCatForEditMenu: CatI = $catStore[0]
+	let catIndexForEditMenu: number = 0
 
 	const now = new Date();
 	const month = now.getUTCMonth() + 1; // months from 1-12
@@ -284,12 +288,43 @@
 	}
 
 	let popoverOpen = false;
+
+	function callBackCloseAnpassenDisplay() {
+		console.log('close modal');
+		planAnpassenDisplay = false;
+	}
+
+	function callBackSaveMenuToCat(localCatsMealStore: CatMealStore) {
+		if (proMonatDisplay) {
+			cat.mealsPromonat = localCatsMealStore;
+		} else {
+			cat.mealsTest = localCatsMealStore;
+		}
+	}
+
+	function callBackSetLocalCat(localCat: CatI, i: number) {
+		localCatForEditMenu = localCat
+		catIndexForEditMenu = i;
+	}
 </script>
 
 <div class="page-wrapper">
-	<main id="Weiter" class="main-wrapper">
+	{#if $appStore.showEditMenu}
+	<Anpassen
+		{localCatForEditMenu}
+		{callBackCloseAnpassenDisplay}
+		{callBackSaveMenuToCat}
+		{proMonatDisplay}
+		catIndex={catIndexForEditMenu}
+		{callBackUpdateErrorMessage}
+		{callBackSetLocalCat}
+	/>
+{/if}
+	<main id="Weiter" class="main-wrapper relative">
+		
 		<section class="section_signup-hero">
-			<div class="page-padding ">
+	
+			<div class="page-padding">
 				<div class="container-medium">
 					<div class="padding-vertical padding-huge">
 						<div class="signup-hero_form w-form">
@@ -356,7 +391,7 @@
 											{#if !proMonatDisplay}
 												<div
 													data-w-tab="Tab 1"
-													class="signup-hero_tab-pane w-tab-pane w--tab-active "
+													class="signup-hero_tab-pane w-tab-pane w--tab-active"
 												>
 													<div class="signup-hero_tab-wrapper">
 														<div class="signup-hero_text-info">
@@ -370,6 +405,7 @@
 																{proMonatDisplay}
 																errorMessage={submitError ? errorMessages[i] : null}
 																{callBackUpdateErrorMessage}
+																{callBackSetLocalCat}
 															/>
 														{/each}
 														<div class="text-size-large text-color-white text-align-center">
@@ -431,7 +467,9 @@
 												</div>
 												<div class="signup-hero_shipping-item">
 													<div class="signup-hero_tab-heading">Lieferdatum</div>
-													<div class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start">
+													<div
+														class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start"
+													>
 														<!-- <div class="text-size-large">31/01/2023</div> -->
 														<div>
 															<Popover.Root portal={null} bind:open={popoverOpen}>
@@ -455,9 +493,9 @@
 
 																<Popover.Content class="w-80 z-[200]  bg-linen">
 																	<Calendar
-																	bind:value
-																	onValueChange={() => (popoverOpen = false)}
-																	initialFocus
+																		bind:value
+																		onValueChange={() => (popoverOpen = false)}
+																		initialFocus
 																		isDateDisabled={isAfterToday}
 																		class="rounded-md border bg-linen"
 																	/>
