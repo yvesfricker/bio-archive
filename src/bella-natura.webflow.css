@@ -1576,7 +1576,7 @@ a {
 
 .section_signup-hero {
   background-color: var(--linen);
-  /* position: relative; */
+  position: relative;
   overflow: hidden;
 }
 
@@ -1599,7 +1599,6 @@ a {
 .signup-hero_component.first-step {
   max-width: 70rem;
   display: block;
-  padding-top: 30px;
 }
 
 .signup-hero_component.fourth-step,
