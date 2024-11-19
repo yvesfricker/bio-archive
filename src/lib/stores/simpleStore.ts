@@ -8,10 +8,14 @@ const init =[
     MealType.HUHN
 ]
 
+
+
+
 const appStoreInit = {
     showHeader: true,
     showEditMenu: false,
-    appWebsiteHeight: 0
+    appWebsiteHeight: 0,
+    menuElement: null as Element | null
 }
 
 export const typesStore = writable<MealType[]>(init);    

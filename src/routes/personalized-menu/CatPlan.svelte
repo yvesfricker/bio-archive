@@ -57,7 +57,7 @@ export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 		console.log('set Anpassen display ', index);
 		anpassenDisplayIndex = index;
 
-
+		$appStore.menuElement = element
 		$appStore.showEditMenu = true
 		$appStore.showHeader  = false
 		callBackSetLocalCat(localCat, index);
@@ -80,13 +80,14 @@ export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 
 	let innerWidth = 0;
 	let innerHeight = 0;
+	let element: Element
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
 
 
-<div class="signup-hero_leo-block">
+<div class="signup-hero_leo-block" 	bind:this={element} >
 	<div class="signup-hero_tab-top is-wrap">
 		<div class="signup-hero_tab-top-text-block">
 			<div class="signup-hero_tab-heading">

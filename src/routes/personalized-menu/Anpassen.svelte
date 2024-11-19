@@ -59,26 +59,29 @@
 				.reduce((a: any, b: any) => a + b, 0)
 		: 0;
 
-		
-let h = 0
+	function handleCloseEditMenu() {
+		$appStore.showEditMenu = false;
+		$appStore.showHeader = true;
+		$appStore.menuElement && $appStore.menuElement.scrollIntoView();
+	}
+
+	let h = 0;
+	let element;
 </script>
 
-<div style="height: {h + 100}px !important; " class="popup_wrapper !flex !flex-col !flex-justify-center z-30">
-	<div  bind:clientHeight={h}  class="!grow-1 popup_block is-first is-visible z-40">
+<div
+	style="height: {h + 100}px !important; "
+	class="popup_wrapper !flex !flex-col !flex-justify-center z-30"
+>
+	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40">
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div class="z-50 absolute sm:block">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
-				on:click={() => {
-					$appStore.showEditMenu = false;
-					$appStore.showHeader  = true
-				}}
+				on:click={() => handleCloseEditMenu()}
 				aria-label="close"
-				on:keypress={() => {
-					$appStore.showEditMenu = false;
-					$appStore.showHeader  = true
-				}}
+				on:keypress={() => handleCloseEditMenu()}
 			>
 				<img
 					sizes="100vw"
@@ -157,12 +160,8 @@ let h = 0
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
 				class="button w-button"
 				on:click={() => {
-					
-					$appStore.showEditMenu = false;
-					$appStore.showHeader  = true
+					handleCloseEditMenu();
 					callBackSaveMenuToCat(catMealStore);
-
-					
 				}}>Fertig</button
 			>
 		</div>
