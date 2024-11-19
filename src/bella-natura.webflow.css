@@ -2096,7 +2096,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1.9rem;
+  padding: 0.8rem;
 
   position: absolute;
   inset: 0%;
@@ -3344,7 +3344,7 @@ a {
   .popup_close-btn {
 
     top: 1rem; 
-    left: 3.75rem; 
+    left: 1rem; 
   }
   
 }
@@ -4302,8 +4302,8 @@ a {
 
 @media screen and (max-width: 499px) {
   .page-padding {
-    padding-left: 0rem !important;
-    padding-right: 0rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
   }
 
   .padding-huge {
