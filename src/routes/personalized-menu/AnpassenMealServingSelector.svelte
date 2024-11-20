@@ -17,7 +17,7 @@
 	// 	servings: $catMealStore[i].servings
 	// } as CatMealI;	
 
-console.log('catMeal', $catMealStore[i])
+$: console.log('catMeal', $catMealStore[i])
 
 $: mealType = capitalizeFirstLetter(meal?.type);
 	
@@ -46,7 +46,7 @@ $: mealType = capitalizeFirstLetter(meal?.type);
 			on:click|preventDefault={() => {
 				catMealStore.decrementServingsForMeal(i);
 				callBackUpdateErrorMessage(catIndex);
-				handleChangeServings();
+				handleChangeServings(catMealStore);
 			}}>-</button
 		>
 		<div class="signup-hero_age-text">{$catMealStore[i]?.servings}</div>
@@ -55,7 +55,7 @@ $: mealType = capitalizeFirstLetter(meal?.type);
 			on:click|preventDefault={() => {
 				catMealStore.incrementServingsForMeal(i);
 				callBackUpdateErrorMessage(catIndex);
-				handleChangeServings();
+				handleChangeServings(catMealStore);
 			}}>+</button
 		>
 	</div>

@@ -75,8 +75,12 @@ export const updateCatRace = (index: number, race: string) => {
 function createCatStore(init: CatI[] | undefined): CatStore {
     const { subscribe, set, update } = writable<CatI[]>(init);
 
+
+   
+    
     return {
         subscribe,
+        set,
         // increment: () => update((n) => n + 1),
         // decrement: () => update((n) => n - 1),
         // reset: () => set(0)
@@ -138,25 +142,27 @@ function createCatStore(init: CatI[] | undefined): CatStore {
         updateTotalMealPriceForCat: (catIndex: number, proMonat: boolean) => {
             update((store) => {
                 let mealsPrice = 0
-                if (proMonat) {
+                const thisCatStore = store[catIndex]
                     // console.log("store[catIndex].mealsPromonat", store[catIndex].mealsPromonat)
-                    store[catIndex].mealsPromonat.subscribe((meals) => {
+                    thisCatStore.mealsPromonat.subscribe((meals) => {
                         meals.forEach((meal, index) => {
                             mealsPrice += meal.totalMealPrice
                         })
                     })
 
-                    store[catIndex].mealsPromonatTotalPrice = mealsPrice
-                } else {
-                    // console.log("store[catIndex].mealsTest", store[catIndex].mealsTest)
-                    store[catIndex].mealsTest.subscribe((meals) => {
+
+                  
+                    thisCatStore.mealsPromonatTotalPrice = mealsPrice
+                    mealsPrice = 0
+                    // console.log("thisCatStore.mealsTest", thisCatStore.mealsTest)
+                    thisCatStore.mealsTest.subscribe((meals) => {
                         // console.log("meals SGAEWHWE", meals)
                         meals.forEach((meal, index) => {
                             mealsPrice += meal.totalMealPrice
                         })
                     })
-                    store[catIndex].mealsTestTotalPrice = mealsPrice
-                }
+                    thisCatStore.mealsTestTotalPrice = mealsPrice
+                
                 return store
             })
         },
@@ -209,14 +215,16 @@ export interface CatMealStore extends Writable<CatMealI[]> {
     updateMealPrice: (newPrice: number) => void
 }
 
-function createMealStore(init: CatMealI[] | undefined):CatMealStore {
+function createMealStore(type:string):CatMealStore {
     const { subscribe, set, update } = writable<CatMealI[]>(init);
 
+    const storeType = type
     return {
         subscribe,
         // increment: () => update((n) => n + 1),
         // decrement: () => update((n) => n - 1),
         // reset: () => set(0)
+        getStoreType: () => storeType,
         incrementServingsForMeal: (i: number) => {
 
             update((store) => {
@@ -324,8 +332,8 @@ const catTestSet: CatI[] = [
         portionSize: 200,
         genderMale: false,
         likes: ['schwein'],
-        mealsTest: createMealStore(undefined),
-        mealsPromonat: createMealStore(undefined),
+        mealsTest: createMealStore('test'),
+        mealsPromonat: createMealStore('proMonat'),
         mealsTestTotalPrice: 0,
         mealsPromonatTotalPrice: 0
     }
@@ -341,8 +349,8 @@ const catINITSet: CatI[] = [
         genderMale: true,
         likes: ['pute', 'huhn', 'rind', 'schwein'],
         portionSize: 0,
-        mealsTest: createMealStore(undefined),
-        mealsPromonat: createMealStore(undefined),
+        mealsTest: createMealStore('test'),
+        mealsPromonat: createMealStore('proMonat'),
         mealsTestTotalPrice: 0,
         mealsPromonatTotalPrice: 0
     },

@@ -6,20 +6,36 @@
 	import AnpassenMealServingSelector from './AnpassenMealServingSelector.svelte';
 	import { appStore } from '$lib/stores/simpleStore';
 
-	export let catIndex: number;
-	export let callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
-	export let proMonatDisplay: boolean;
-	export let callBackUpdateErrorMessage: (catIndex: number) => void;
+	// // export let catIndex: number;
+	// export let callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
+	// export let proMonatDisplay: boolean;
+	// export let callBackUpdateErrorMessage: (catIndex: number) => void;
+
+	let {
+		catIndex,
+		callBackSaveMenuToCat,
+		proMonatDisplay = $bindable(),
+		callBackUpdateErrorMessage
+	}: {
+		catIndex: number;
+		callBackSaveMenuToCat: (localCatsMealStore: CatMealStore) => void;
+		proMonatDisplay: boolean;
+		callBackUpdateErrorMessage: (catIndex: number) => void;
+	} = $props();
 
 	let localCat = $catStore[catIndex];
 	console.log('localCat in Anpassen display', localCat);
-
-	let catMealStore = proMonatDisplay ? localCat?.mealsPromonat : localCat?.mealsTest;
+	let catPromonatMealStore = $state(localCat?.mealsPromonat);
+	let catTestMealStore = $state(localCat?.mealsTest);
+	let catMealStore = $derived(proMonatDisplay ? catPromonatMealStore : catTestMealStore);
 
 	const recommendedPotionSize = getPortionSizeFromCatWeight(localCat?.weight!);
 
 	console.log('recommendedPotionSize', recommendedPotionSize);
 
+	$effect	(() => {
+		console.log('proMonatDisplay', proMonatDisplay);
+	})
 	const potionSizesAndPrices = [
 		{ size: 100, price: 4.0, checked: false },
 		{ size: 150, price: 4.4, checked: false },
@@ -43,21 +59,29 @@
 		});
 		potionSizesAndPrices[i].checked = true;
 
-		catMealStore.updateMealPrice(potionSizesAndPrices[i].price);
+		catPromonatMealStore.updateMealPrice(potionSizesAndPrices[i].price);
+		catTestMealStore.updateMealPrice(potionSizesAndPrices[i].price);
 		catStore.updatePortionSize(catIndex, potionSizesAndPrices[i].size);
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+
+		// catStore.updateTotalMealPriceForCat(catIndex, true);
 	}
 
-	function handleChangeServings() {
-		console.log('handleChangeServings');
+	function handleChangeServings(catMealStore) {
+		console.log('handleChangeServings')
+		 catMealStore.subscribe( (catMealStore) => {
+			console.log('catMealStore', catMealStore);
+		});
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
 	}
 
-	$: totalTins = $catMealStore
-		? $catMealStore
-				.map((meal: { servings: any }) => meal.servings)
-				.reduce((a: any, b: any) => a + b, 0)
-		: 0;
+	let totalTins = $derived(
+		$catMealStore
+			? $catMealStore
+					.map((meal: { servings: any }) => meal.servings)
+					.reduce((a: any, b: any) => a + b, 0)
+			: 0
+	);
 
 	function handleCloseEditMenu() {
 		$appStore.showEditMenu = false;
@@ -65,7 +89,7 @@
 		$appStore.menuElement && $appStore.menuElement.scrollIntoView();
 	}
 
-	let h = 0;
+	let h = $state(0);
 	let element;
 	//dymm
 </script>
@@ -80,9 +104,9 @@
 		<div class="z-50 absolute sm:block">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
-				on:click={() => handleCloseEditMenu()}
+				onclick={() => handleCloseEditMenu()}
 				aria-label="close"
-				on:keypress={() => handleCloseEditMenu()}
+				onkeypress={() => handleCloseEditMenu()}
 			>
 				<img
 					sizes="100vw"
@@ -97,19 +121,18 @@
 			<div class="signup-hero_tab-heading">Edit {capitalizeFirstLetter(localCat?.name)}’s plan</div>
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
 		</div>
-
 		<div class="popup_content-block">
-			{#each $catMealStore as meal, i}
-				<AnpassenMealServingSelector
-					{i}
-					{catIndex}
-					{catMealStore}
-					{meal}
-					{handleChangeServings}
-					{callBackUpdateErrorMessage}
-				/>
-			{/each}
-
+		
+				{#each $catMealStore as meal, i}
+					<AnpassenMealServingSelector
+						{i}
+						{catIndex}
+						{catMealStore}
+						{meal}
+						{handleChangeServings}
+						{callBackUpdateErrorMessage}
+					/>
+				{/each}
 			<div
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e0c4-78e5fb0b"
 				class="text-align-center text-size-large"
@@ -141,7 +164,7 @@
 							data-name="Checkbox 2"
 							style="opacity:0;position:absolute;z-index:-1"
 							checked={potionSizeAndPrice.checked}
-							on:click={() => {
+							onclick={() => {
 								handleClick(i);
 							}}
 						/><span class="popup_checkbox-title hide w-form-label" for="checkbox-2">Checkbox 2</span
@@ -160,9 +183,9 @@
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e10b-78e5fb0b"
 				data-w-id="a492c5a3-de19-2aa1-548f-c3ca1fc7e10b"
 				class="button w-button"
-				on:click={() => {
+				onclick={() => {
 					handleCloseEditMenu();
-					callBackSaveMenuToCat(catMealStore);
+					callBackSaveMenuToCat(catIndex, catMealStore);
 				}}>Fertig</button
 			>
 		</div>

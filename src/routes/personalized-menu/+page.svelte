@@ -47,8 +47,8 @@
 		dateStyle: 'long'
 	});
 
-	let localCatForEditMenu: CatI = $catStore[0]
-	let catIndexForEditMenu: number = 0
+	let localCatForEditMenu: CatI = $catStore[0];
+	let catIndexForEditMenu: number = 0;
 
 	const now = new Date();
 	const month = now.getUTCMonth() + 1; // months from 1-12
@@ -170,31 +170,31 @@
 		mealsTestTotalPrice = thismealsTestTotalPrice * 0.75;
 	}
 
-	$: mealsPromonatTotalPrice = updateTotalPromonatMealPriceForCat($catStore);
-	$: mealsTestTotalPrice = updateTotalTestMealPriceForCat($catStore);
+	// $: mealsPromonatTotalPrice = updateTotalPromonatMealPriceForCat($catStore);
+	// $: mealsTestTotalPrice = updateTotalTestMealPriceForCat($catStore);
 
-	function updateTotalTestMealPriceForCat($catStore) {
-		let thismealsTestTotalPrice = 0;
+	// function updateTotalTestMealPriceForCat($catStore) {
+	// 	let thismealsTestTotalPrice = 0;
 
-		$catStore.forEach((cat) => {
-			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
-			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
-			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
-			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
-		});
-		return thismealsTestTotalPrice * 0.75;
-	}
+	// 	$catStore.forEach((cat) => {
+	// 		// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+	// 		// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+	// 		// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+	// 		thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
+	// 	});
+	// 	return thismealsTestTotalPrice * 0.75;
+	// }
 
-	function updateTotalPromonatMealPriceForCat($catStore) {
-		let thismealsPromonatTotalPrice = 0;
-		$catStore.forEach((cat) => {
-			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
-			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
-			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
-			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
-		});
-		return thismealsPromonatTotalPrice;
-	}
+	// function updateTotalPromonatMealPriceForCat($catStore) {
+	// 	let thismealsPromonatTotalPrice = 0;
+	// 	$catStore.forEach((cat) => {
+	// 		// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+	// 		// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+	// 		// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+	// 		thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
+	// 	});
+	// 	return thismealsPromonatTotalPrice;
+	// }
 
 	// const proMonat = $catStore[0].mealsPromonat;
 	// const test = $catStore[0].mealsTest;
@@ -294,36 +294,37 @@
 		planAnpassenDisplay = false;
 	}
 
-	function callBackSaveMenuToCat(localCatsMealStore: CatMealStore) {
-		if (proMonatDisplay) {
-			cat.mealsPromonat = localCatsMealStore;
-		} else {
-			cat.mealsTest = localCatsMealStore;
-		}
+	function callBackSaveMenuToCat(catIndex: number, localCatsMealStore: CatMealStore) {
+		// if (proMonatDisplay) {
+
+		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+// console.log("$catStore[catIndexForEditMenu]", $catStore[catIndexForEditMenu]);
+		// }
 	}
 
 	function callBackSetLocalCat(localCat: CatI, i: number) {
-		localCatForEditMenu = localCat
+		localCatForEditMenu = localCat;
 		catIndexForEditMenu = i;
 	}
+
 </script>
 
 <div class="page-wrapper">
 	{#if $appStore.showEditMenu}
-	<Anpassen
-		{localCatForEditMenu}
-		{callBackCloseAnpassenDisplay}
-		{callBackSaveMenuToCat}
-		{proMonatDisplay}
-		catIndex={catIndexForEditMenu}
-		{callBackUpdateErrorMessage}
-		{callBackSetLocalCat}
-	/>
-{/if}
+		<Anpassen
+			{localCatForEditMenu}
+			{callBackCloseAnpassenDisplay}
+			{callBackSaveMenuToCat}
+			
+			{proMonatDisplay}
+			catIndex={catIndexForEditMenu}
+			{callBackUpdateErrorMessage}
+			{callBackSetLocalCat}
+		/>
+	{/if}
+
 	<main id="Weiter" class="main-wrapper relative">
-		
 		<section class="section_signup-hero">
-	
 			<div class="page-padding">
 				<div class="container-medium">
 					<div class="padding-vertical padding-huge">

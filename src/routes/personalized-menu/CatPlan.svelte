@@ -12,7 +12,6 @@
 	export let proMonatDisplay: boolean;
 	export let errorMessage;
 	export let callBackUpdateErrorMessage: (catIndex: number) => void;
-export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 	// export let validationError;
 
 	$: localCat = {
@@ -29,7 +28,7 @@ export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 
 	// $: console.log('localcat', localCat);
 
-	// $: console.log('proMonatDisplay', proMonatDisplay);
+	$: console.log('proMonatDisplay', proMonatDisplay);
 	$: console.log('errorMessage', errorMessage);
 
 	// console.log("for cat named ", cat?.name, "dislikes", cat?.dislikes)
@@ -60,7 +59,7 @@ export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 		$appStore.menuElement = element
 		$appStore.showEditMenu = true
 		$appStore.showHeader  = false
-		callBackSetLocalCat(localCat, index);
+		// callBackSetLocalCat(localCat, index);
 	}
 
 
@@ -74,7 +73,7 @@ export let callBackSetLocalCat: (localCat: CatI, catIndex: number) => void
 
 	$: mealStore = proMonatDisplay ? cat.mealsPromonat : cat.mealsTest;
 
-	// $: console.log("mealStore", $mealStore)
+	$: console.log("mealStore", $mealStore)
 
 	function calculateCatPlanPrice() {}
 
