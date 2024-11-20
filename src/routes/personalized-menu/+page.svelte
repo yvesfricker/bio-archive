@@ -296,8 +296,21 @@
 
 	function callBackSaveMenuToCat(catIndex: number, localCatsMealStore: CatMealStore) {
 		// if (proMonatDisplay) {
-
+console.log("inc all back save menu ... ")
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
+		let thismealsTestTotalPrice = 0;
+		let thismealsPromonatTotalPrice = 0;
+		$catStore.forEach((cat) => {
+			// console.log('cat.mealsPromonatTotalPrice', cat.mealsPromonatTotalPrice);
+			// console.log('cat.mealsTestTotalPrice', cat.mealsTestTotalPrice);
+			// mealsPromonatTotalPrice += cat.mealsPromonatTotalPrice;
+			thismealsTestTotalPrice = thismealsTestTotalPrice + cat.mealsTestTotalPrice;
+			thismealsPromonatTotalPrice = thismealsPromonatTotalPrice + cat.mealsPromonatTotalPrice;
+		});
+
+		mealsPromonatTotalPrice = thismealsPromonatTotalPrice;
+		mealsTestTotalPrice = thismealsTestTotalPrice * 0.75;
+
 // console.log("$catStore[catIndexForEditMenu]", $catStore[catIndexForEditMenu]);
 		// }
 	}
@@ -307,6 +320,7 @@
 		catIndexForEditMenu = i;
 	}
 
+$: console.log("mealsTestTotalPrice", mealsTestTotalPrice);
 </script>
 
 <div class="page-wrapper">

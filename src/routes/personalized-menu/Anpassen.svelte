@@ -35,8 +35,10 @@
 
 	$effect	(() => {
 		console.log('proMonatDisplay', proMonatDisplay);
-	})
-	const potionSizesAndPrices = [
+		console.log('portionSizesAndPrices', potionSizesAndPrices);
+	});
+
+	let potionSizesAndPrices = $state([
 		{ size: 100, price: 4.0, checked: false },
 		{ size: 150, price: 4.4, checked: false },
 		{ size: 200, price: 4.8, checked: false },
@@ -44,20 +46,23 @@
 		{ size: 300, price: 5.6, checked: false },
 		{ size: 350, price: 6.0, checked: false },
 		{ size: 400, price: 6.4, checked: false }
-	];
+	])
 
 	potionSizesAndPrices.find((potionSizeAndPrice) => {
 		if (potionSizeAndPrice.size === recommendedPotionSize) {
 			potionSizeAndPrice.checked = true;
 		}
-	});
+	})
+
 
 	function handleClick(i: number) {
-		console.log('handleClick');
+		console.log('handleClick', i);
 		potionSizesAndPrices.forEach((potionSizeAndPrice) => {
 			potionSizeAndPrice.checked = false;
 		});
 		potionSizesAndPrices[i].checked = true;
+
+		console.log('potionSizesAndPrices', potionSizesAndPrices);
 
 		catPromonatMealStore.updateMealPrice(potionSizesAndPrices[i].price);
 		catTestMealStore.updateMealPrice(potionSizesAndPrices[i].price);
@@ -104,7 +109,11 @@
 		<div class="z-50 absolute sm:block">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
-				onclick={() => handleCloseEditMenu()}
+				onclick={() => 
+				{ 
+					handleCloseEditMenu()
+					callBackSaveMenuToCat(catIndex, catMealStore);
+				}}
 				aria-label="close"
 				onkeypress={() => handleCloseEditMenu()}
 			>
@@ -152,6 +161,7 @@
 							<div class="popup_checkbox-title">{potionSizeAndPrice.size} kcal / Portion</div>
 							<div class="popup_checkbox-title">CHF {potionSizeAndPrice.price.toFixed(2)}</div>
 						</div>
+
 						<div
 							class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox {potionSizeAndPrice.checked
 								? 'w--redirected-checked'

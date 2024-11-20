@@ -215,16 +215,14 @@ export interface CatMealStore extends Writable<CatMealI[]> {
     updateMealPrice: (newPrice: number) => void
 }
 
-function createMealStore(type:string):CatMealStore {
+function createMealStore(init: CatMealI[] | undefined):CatMealStore {
     const { subscribe, set, update } = writable<CatMealI[]>(init);
 
-    const storeType = type
     return {
         subscribe,
         // increment: () => update((n) => n + 1),
         // decrement: () => update((n) => n - 1),
         // reset: () => set(0)
-        getStoreType: () => storeType,
         incrementServingsForMeal: (i: number) => {
 
             update((store) => {
@@ -332,8 +330,8 @@ const catTestSet: CatI[] = [
         portionSize: 200,
         genderMale: false,
         likes: ['schwein'],
-        mealsTest: createMealStore('test'),
-        mealsPromonat: createMealStore('proMonat'),
+        mealsTest: createMealStore(undefined),
+        mealsPromonat: createMealStore(undefined),
         mealsTestTotalPrice: 0,
         mealsPromonatTotalPrice: 0
     }
@@ -349,8 +347,8 @@ const catINITSet: CatI[] = [
         genderMale: true,
         likes: ['pute', 'huhn', 'rind', 'schwein'],
         portionSize: 0,
-        mealsTest: createMealStore('test'),
-        mealsPromonat: createMealStore('proMonat'),
+        mealsTest: createMealStore(undefined),
+        mealsPromonat: createMealStore(undefined),
         mealsTestTotalPrice: 0,
         mealsPromonatTotalPrice: 0
     },
