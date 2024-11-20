@@ -173,7 +173,7 @@
 					style={localCat.likes?.includes('schwein') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOnePork">Schwein</span>
+				/><div class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOnePork">Schwein</div>
 			</div>
 		</div>
 	</div>

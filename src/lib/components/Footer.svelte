@@ -66,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-	<img
+	<!-- <img
 		src="/images/Bella-Natura_Logo_1_White.svg"
 		loading="eager"
 		alt=""
@@ -76,7 +76,7 @@
 		loading="eager"
 		alt=""
 		class="img-flower_bottom-left"
-	/><img src="/images/bot-right-green.svg" loading="eager" alt="" class="img-flower_bottom-right" />
+	/><img src="/images/bot-right-green.svg" loading="eager" alt="" class="img-flower_bottom-right" /> -->
 	<div class="footer_absolute-bg"></div>
 </footer>
 

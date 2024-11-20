@@ -323,26 +323,28 @@ console.log("inc all back save menu ... ")
 $: console.log("mealsTestTotalPrice", mealsTestTotalPrice);
 </script>
 
-<div class="page-wrapper">
-	{#if $appStore.showEditMenu}
-		<Anpassen
-			{localCatForEditMenu}
-			{callBackCloseAnpassenDisplay}
-			{callBackSaveMenuToCat}
-			
-			{proMonatDisplay}
-			catIndex={catIndexForEditMenu}
-			{callBackUpdateErrorMessage}
-			{callBackSetLocalCat}
-		/>
-	{/if}
 
-	<main id="Weiter" class="main-wrapper relative">
-		<section class="section_signup-hero">
+
+{#if $appStore.showEditMenu}
+<Anpassen
+	{localCatForEditMenu}
+	{callBackCloseAnpassenDisplay}
+	{callBackSaveMenuToCat}
+	
+	{proMonatDisplay}
+	catIndex={catIndexForEditMenu}
+	{callBackUpdateErrorMessage}
+	{callBackSetLocalCat}
+/>
+{/if}
+	<main id="Weiter" class="main-wrapper">
+		<div class="section_signup-hero">
+
 			<div class="page-padding">
 				<div class="container-medium">
 					<div class="padding-vertical padding-huge">
 						<div class="signup-hero_form w-form">
+						
 							<form
 								method="POST"
 								action={`?/submitPlans`}
@@ -570,11 +572,11 @@ $: console.log("mealsTestTotalPrice", mealsTestTotalPrice);
 				src="images/pink-right-svg.svg"
 				loading="eager"
 				alt=""
-				class="bg-flower-right"
+				class="bg-flower-right "
 			/>
-		</section>
+		</div>
 	</main>
-</div>
+
 
 <!-- <form method="POST" action={`?/updateRules`} use:enhance bind:this={formElSubmitPlans}>
 	<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />

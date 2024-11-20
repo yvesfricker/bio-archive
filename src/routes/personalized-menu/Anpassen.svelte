@@ -33,7 +33,7 @@
 
 	console.log('recommendedPotionSize', recommendedPotionSize);
 
-	$effect	(() => {
+	$effect(() => {
 		console.log('proMonatDisplay', proMonatDisplay);
 		console.log('portionSizesAndPrices', potionSizesAndPrices);
 	});
@@ -46,14 +46,13 @@
 		{ size: 300, price: 5.6, checked: false },
 		{ size: 350, price: 6.0, checked: false },
 		{ size: 400, price: 6.4, checked: false }
-	])
+	]);
 
 	potionSizesAndPrices.find((potionSizeAndPrice) => {
 		if (potionSizeAndPrice.size === recommendedPotionSize) {
 			potionSizeAndPrice.checked = true;
 		}
-	})
-
+	});
 
 	function handleClick(i: number) {
 		console.log('handleClick', i);
@@ -73,10 +72,10 @@
 	}
 
 	function handleChangeServings(catMealStore) {
-		console.log('handleChangeServings')
-		 catMealStore.subscribe( (catMealStore) => {
-			console.log('catMealStore', catMealStore);
-		});
+		console.log('handleChangeServings');
+		//  catMealStore.subscribe( (catMealStore) => {
+		// 	console.log('catMealStore', catMealStore);
+		// });
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
 	}
 
@@ -91,27 +90,41 @@
 	function handleCloseEditMenu() {
 		$appStore.showEditMenu = false;
 		$appStore.showHeader = true;
-		$appStore.menuElement && $appStore.menuElement.scrollIntoView();
+		document.getElementsByTagName("body")[0].style = 'overflow: auto; height: auto;'
+		// $appStore.menuElement && $appStore.menuElement.scrollIntoView();
 	}
 
 	let h = $state(0);
 	let element;
 	//dymm
+
+// 	function handleScroll(e) {
+// 		e.stopPropagation()
+// console.log('handleScroll', e);    // [other logic]
+//   }
+
+document.getElementsByTagName("body")[0].style = 'overflow: hidden; height: 100%;'
+
 </script>
 
-<div
+<!-- <svelte:window  onscroll={handleScroll}/> -->
+
+<!-- 
+	<div
 	style="height: {h + 100}px !important; "
-	class="popup_wrapper !flex !flex-col !flex-justify-center z-30"
+	class="popup_wrapper !flex !flex-col !flex-justify-center z-[3000]"
 >
-	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40">
+	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40"> -->
+
+<div class="popup_wrapper !flex !flex-col !flex-justify-center z-30" >
+	<div class="!grow-1 popup_block is-first is-visible z-40">
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div class="z-50 absolute sm:block">
 			<button
 				class="z-[50000] w-full min-w-[20px]"
-				onclick={() => 
-				{ 
-					handleCloseEditMenu()
+				onclick={() => {
+					handleCloseEditMenu();
 					callBackSaveMenuToCat(catIndex, catMealStore);
 				}}
 				aria-label="close"
@@ -131,17 +144,16 @@
 			<div class="signup-hero_tab-title-tiny">{totalTins} tins</div>
 		</div>
 		<div class="popup_content-block">
-		
-				{#each $catMealStore as meal, i}
-					<AnpassenMealServingSelector
-						{i}
-						{catIndex}
-						{catMealStore}
-						{meal}
-						{handleChangeServings}
-						{callBackUpdateErrorMessage}
-					/>
-				{/each}
+			{#each $catMealStore as meal, i}
+				<AnpassenMealServingSelector
+					{i}
+					{catIndex}
+					{catMealStore}
+					{meal}
+					{handleChangeServings}
+					{callBackUpdateErrorMessage}
+				/>
+			{/each}
 			<div
 				id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e0c4-78e5fb0b"
 				class="text-align-center text-size-large"
