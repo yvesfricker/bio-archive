@@ -4299,7 +4299,7 @@ a {
   }
 
 
-/* @media screen and (max-width: 499px) {
+@media screen and (max-width: 499px) {
   .page-padding {
     padding-left: 0.75rem !important;
     padding-right: 0.75rem !important;
@@ -4308,7 +4308,7 @@ a {
   .padding-huge {
     padding: 0rem !important;
   }
-} */
+}
 
   .padding-horizontal {
     padding-top: 0;
