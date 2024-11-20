@@ -109,15 +109,15 @@ document.getElementsByTagName("body")[0].style = 'overflow: hidden; height: 100%
 
 <!-- <svelte:window  onscroll={handleScroll}/> -->
 
-<!-- 
+
 	<div
 	style="height: {h + 100}px !important; "
-	class="popup_wrapper !flex !flex-col !flex-justify-center z-[3000]"
+	class="popup_wrapper !flex !flex-col !flex-justify-center z-30"
 >
-	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40"> -->
+	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40">
 
-<div class="popup_wrapper !flex !flex-col !flex-justify-center z-30" >
-	<div class="!grow-1 popup_block is-first is-visible z-40">
+<!-- <div class="popup_wrapper !flex !flex-col !flex-justify-center z-30" >
+	<div class="!grow-1 popup_block is-first is-visible z-40"> -->
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div class="z-50 absolute sm:block">
