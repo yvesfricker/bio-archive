@@ -145,7 +145,7 @@ function createCatStore(init: CatI[] | undefined): CatStore {
                 const thisCatStore = store[catIndex]
                 // console.log("store[catIndex].mealsPromonat", store[catIndex].mealsPromonat)
 
-                if (proMonat) {
+                // if (proMonat) {
                     thisCatStore.mealsPromonat.subscribe((meals) => {
                         meals.forEach((meal, index) => {
                             mealsPrice += meal.totalMealPrice
@@ -153,8 +153,10 @@ function createCatStore(init: CatI[] | undefined): CatStore {
                     })
 
                     thisCatStore.mealsPromonatTotalPrice = mealsPrice
-                } else {
+                // } else {
                     // console.log("thisCatStore.mealsTest", thisCatStore.mealsTest)
+
+                    mealsPrice = 0
                     thisCatStore.mealsTest.subscribe((meals) => {
                         // console.log("meals SGAEWHWE", meals)
                         meals.forEach((meal, index) => {
@@ -162,7 +164,7 @@ function createCatStore(init: CatI[] | undefined): CatStore {
                         })
                     })
                     thisCatStore.mealsTestTotalPrice = mealsPrice
-                }
+                // }
 
                 return store
             })
