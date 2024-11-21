@@ -321,8 +321,17 @@ console.log("inc all back save menu ... ")
 	}
 
 $: console.log("mealsTestTotalPrice", mealsTestTotalPrice);
+
+let y = 0
+
+$: $appStore.showEditMenu === true ? y = 0 : null;
+
 </script>
 
+
+
+
+<svelte:window bind:scrollY={y}/>
 
 
 {#if $appStore.showEditMenu}

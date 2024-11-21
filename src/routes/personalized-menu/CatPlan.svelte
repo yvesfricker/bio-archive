@@ -12,6 +12,9 @@
 	export let proMonatDisplay: boolean;
 	export let errorMessage;
 	export let callBackUpdateErrorMessage: (catIndex: number) => void;
+	export let callBackSetLocalCat: (catIndex: number, localCat: CatI) => void;
+
+	// export let validationError;
 	// export let validationError;
 
 	$: localCat = {
@@ -59,7 +62,7 @@
 		$appStore.menuElement = element
 		$appStore.showEditMenu = true
 		$appStore.showHeader  = false
-		// callBackSetLocalCat(localCat, index);
+		callBackSetLocalCat(localCat, index);
 	}
 
 
