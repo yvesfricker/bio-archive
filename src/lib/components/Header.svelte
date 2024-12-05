@@ -24,7 +24,6 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <header class="nav_component bg-linen">
-	
 	<!-- 
 	data-animation="default"
 	data-collapse="medium"
@@ -32,17 +31,16 @@
 	data-easing="ease"
 	data-easing2="ease"
 	role="banner" -->
-	<div class="nav w-nav  ">
-		
+	<div class="nav w-nav">
 		<div class="container-medium">
 			<div class="padding-vertical">
 				{#if desktopLayout && showHeaderLayout}
-					<div class="nav_container ">
+					<div class="nav_container">
 						<div class="nav_container-block">
-							<a href="/our-food" class="nav_link w-inline-block">
+							<a href="https://bellanatura.bio/our-food" class="nav_link w-inline-block">
 								<div>Unser Futter</div>
 							</a>
-							<a href="/how-it-works" class="nav_link w-inline-block">
+							<a href="https://bellanatura.bio/how-it-works" class="nav_link w-inline-block">
 								<div>So funktioniert&#x27;s</div>
 							</a>
 						</div>
@@ -74,26 +72,22 @@
 							>
 						</div>
 						<div class="nav_container-block">
-							<a href="/our-story" class="nav_link w-inline-block">
+							<a href="https://bellanatura.bio/our-story" class="nav_link w-inline-block">
 								<div>Über uns</div>
 							</a>
-							<a href="/log-in" class="nav_link w-inline-block">
+							<a href="https://bellanatura.bio/login" class="nav_link w-inline-block">
 								<div>Login</div>
 							</a>
 						</div>
 					</div>
 				{:else if showHeaderLayout}
-			
 					<div class="nav_content-mobile">
-					
 						<div class="nav_container-mobile">
-						
 							<div class="nav_container-block">
-
-								<a href="#" class="nav_link w-inline-block">
+								<a href="https://bellanatura.bio/our-food" class="nav_link w-inline-block">
 									<div>Unser Futter</div>
 								</a>
-								<a href="#" class="nav_link w-inline-block">
+								<a href="https://bellanatura.bio/how-it-works" class="nav_link w-inline-block">
 									<div>So funktioniert&#x27;s</div>
 								</a>
 							</div>
@@ -119,19 +113,33 @@
 							</div>
 						</div>
 						{#if displayMobileMenu}
-						
 							<div class="  nav_link-block-mobile !w-[220px] !bg-linen p-8 rounded-md">
-								<a href="/our-food" class="nav_link-mobile w-inline-block"
-								onclick={() => toggleMobileMenu()}>
+								<a
+									href="https://bellanatura.bio/our-food"
+									class="nav_link-mobile w-inline-block"
+									onclick={() => toggleMobileMenu()}
+								>
 									<div>Unser Futter</div>
 								</a>
-								<a href="/how-it-works" class="nav_link-mobile w-inline-block" onclick={() => toggleMobileMenu()}>
+								<a
+									href="https://bellanatura.bio/how-it-works"
+									class="nav_link-mobile w-inline-block"
+									onclick={() => toggleMobileMenu()}
+								>
 									<div>So funktioniert&#x27;s</div>
 								</a>
-								<a href="/our-story" class="nav_link-mobile w-inline-block" onclick={() => toggleMobileMenu()}>
+								<a
+									href="https://bellanatura.bio/our-story"
+									class="nav_link-mobile w-inline-block"
+									onclick={() => toggleMobileMenu()}
+								>
 									<div>Über uns</div>
 								</a>
-								<a href="/sign-up" class="nav_link-mobile w-inline-block" onclick={() => toggleMobileMenu()}>
+								<a
+									href="https://bellanatura.bio/login"
+									class="nav_link-mobile w-inline-block"
+									onclick={() => toggleMobileMenu()}
+								>
 									<div>Login</div>
 								</a>
 							</div>
