@@ -37,7 +37,7 @@
 <div class="signup-hero_item-wrapper">
 	<div class="margin-bottom-medium">
 		<div class="signup-hero_item">
-			<div class="font-weight-bold">
+			<div class="font-weight-medium">
 				<div fy-element="catOneNameLabel" class="signup-hero_field-text">
 					{localCat.name}
 				</div>
@@ -53,7 +53,8 @@
 				on:click={() => {
 					handleUpdate('rind');
 				}}
-				><img
+			>
+				<img
 					src="images/red.svg"
 					loading="eager"
 					style={localCat.likes?.includes('rind') ? 'display:block' : 'display:none'}
@@ -69,13 +70,12 @@
 					data-w-id="09031793-104c-6af3-16f2-b73fc49a2935"
 				></div>
 				<input
-				
 					name="catOneBeef"
 					data-name="catOneBeef"
 					type="checkbox"
 					id="catOneBeef"
 					style="opacity:0;position:absolute;z-index:-1"
-				/><span  class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneBeef"
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneBeef"
 					>Rind</span
 				>
 			</div>
@@ -109,7 +109,9 @@
 					style={localCat.likes?.includes('huhn') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneChicken">Huhn</span>
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneChicken"
+					>Huhn</span
+				>
 			</div>
 
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -129,7 +131,6 @@
 					data-w-id="7663beac-dd2f-b1c8-c960-574cdb53a4ca"
 				></div>
 				<input
-					
 					name="catOneTurkey"
 					data-name="catOneTurkey"
 					type="checkbox"
@@ -141,7 +142,9 @@
 					style={localCat.likes?.includes('pute') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneTurkey">Pute</span>
+				/><span class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOneTurkey"
+					>Pute</span
+				>
 			</div>
 
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -173,7 +176,10 @@
 					style={localCat.likes?.includes('schwein') ? 'display:block' : 'display:none'}
 					alt=""
 					class="signup-hero_checkmark"
-				/><div class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOnePork">Schwein</div>
+				/>
+				<div class="signup-hero_dislike-text w-form-label !font-Nunito" for="catOnePork">
+					Schwein
+				</div>
 			</div>
 		</div>
 	</div>

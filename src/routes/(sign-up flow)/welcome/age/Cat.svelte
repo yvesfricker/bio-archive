@@ -32,8 +32,8 @@
 		// console.log('errorMessages', errorMessages);
 
 		if (errorMessages?.length === 0) {
-			if (localCat.age){
-			catStore.updateCatAge(i, localCat.age);
+			if (localCat.age) {
+				catStore.updateCatAge(i, localCat.age);
 			}
 
 			if (localCat.weight) {
@@ -47,8 +47,8 @@
 
 <div class="margin-bottom-medium">
 	<div class="signup-hero_item">
-		<div class="font-weight-bold">
-			<div fy-element="catOneNameLabel" class="signup-hero_field-text "><b>{localCat.name}</b></div>
+		<div class="font-weight-medium">
+			<div fy-element="catOneNameLabel" class="signup-hero_field-text"><b>{localCat.name}</b></div>
 		</div>
 	</div>
 </div>
@@ -62,9 +62,9 @@
 						fy-element="catOneDecrementAgeButton"
 						class="button is-white w-button"
 						on:click={(event) => {
-							 event.preventDefault();
+							event.preventDefault();
 							localCat.age = localCat.age - 1;
-							handleUpdate()
+							handleUpdate();
 						}}>-</button
 					>
 					<div fy-element="catOneAgeLabel" class="signup-hero_age-text">{localCat.age}</div>
@@ -74,8 +74,7 @@
 						on:click={(event) => {
 							event.preventDefault();
 							localCat.age = localCat.age + 1;
-							handleUpdate()
-
+							handleUpdate();
 						}}>+</button
 					>
 				</div>
@@ -126,8 +125,7 @@
 						on:click={(event) => {
 							event.preventDefault();
 							localCat.weight = localCat.weight - 0.5;
-							handleUpdate()
-
+							handleUpdate();
 						}}>-</button
 					>
 					<div fy-element="catOneAgeLabel" class="signup-hero_age-text">{localCat.weight}</div>
@@ -137,8 +135,7 @@
 						on:click={(event) => {
 							event.preventDefault();
 							localCat.weight = localCat.weight + 0.5;
-							handleUpdate()
-
+							handleUpdate();
 						}}>+</button
 					>
 				</div>
@@ -148,7 +145,6 @@
 		</div>
 	</div>
 </div>
-
 
 <!-- <style lang="css">  moved this to bella-natura-webflow.css
 	.hide-arrows {

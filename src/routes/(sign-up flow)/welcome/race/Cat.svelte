@@ -61,7 +61,7 @@
 <div class="signup-hero_item-wrapper">
 	<div class="margin-bottom-medium">
 		<div class="signup-hero_item">
-			<div class="font-weight-bold">
+			<div class="font-weight-medium">
 				<div fy-element="catOneNameLabel" class="signup-hero_field-text">
 					{localCat.name}
 				</div>
@@ -70,7 +70,6 @@
 	</div>
 	<div class="margin-bottom-xxmedium">
 		<div class="signup-hero_dislike-wrapper">
-			
 			<div class="signup-hero_field-block is-color">
 				<div class="signup-hero_field-text">Farbe:</div>
 				<select bind:value={localCat.color} onchange={() => handleUpdateColor(localCat.color)}>

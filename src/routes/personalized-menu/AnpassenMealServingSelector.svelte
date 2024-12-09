@@ -15,15 +15,14 @@
 	// 	description: $catMealStore[i].description,
 	// 	portionSize: $catMealStore[i].portionSize,
 	// 	servings: $catMealStore[i].servings
-	// } as CatMealI;	
+	// } as CatMealI;
 
-$: console.log('catMeal', $catMealStore[i])
+	$: console.log('catMeal', $catMealStore[i]);
 
-$: mealType = capitalizeFirstLetter(meal?.type);
-	
+	$: mealType = capitalizeFirstLetter(meal?.type);
 </script>
 
-<div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item ">
+<div id="w-node-a492c5a3-de19-2aa1-548f-c3ca1fc7e080-78e5fb0b" class="signup-hero_tab-plan-item">
 	<img
 		sizes="100vw"
 		srcset={`images/${mealType}-p-500.png 500w, images/${mealType}.webp 700w`}
@@ -33,14 +32,14 @@ $: mealType = capitalizeFirstLetter(meal?.type);
 		class="signup-hero_tab-plan-image"
 	/>
 	<div class="signup-hero_tab-plan-text-block">
-		<div class="font-weight-bold">
+		<div class="font-weight-medium">
 			<div class="signup-hero_tab-title-tiny">
 				<span class="signup-hero_tab-text-number">{$catMealStore[i]?.servings}</span> x {mealType}
 			</div>
 		</div>
 		<div class="signup-hero_tab-text-sm">{$catMealStore[i]?.description}</div>
-	</div>	
-	<div class="signup-hero_quantity-btn 	">
+	</div>
+	<div class="signup-hero_quantity-btn">
 		<button
 			class="button is-light-pink w-button"
 			on:click|preventDefault={() => {

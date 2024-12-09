@@ -296,7 +296,7 @@
 
 	function callBackSaveMenuToCat(catIndex: number, localCatsMealStore: CatMealStore) {
 		// if (proMonatDisplay) {
-console.log("inc all back save menu ... ")
+		console.log('inc all back save menu ... ');
 		catStore.updateTotalMealPriceForCat(catIndex, proMonatDisplay);
 		let thismealsTestTotalPrice = 0;
 		let thismealsPromonatTotalPrice = 0;
@@ -311,7 +311,7 @@ console.log("inc all back save menu ... ")
 		mealsPromonatTotalPrice = thismealsPromonatTotalPrice;
 		mealsTestTotalPrice = thismealsTestTotalPrice * 0.75;
 
-// console.log("$catStore[catIndexForEditMenu]", $catStore[catIndexForEditMenu]);
+		// console.log("$catStore[catIndexForEditMenu]", $catStore[catIndexForEditMenu]);
 		// }
 	}
 
@@ -320,272 +320,257 @@ console.log("inc all back save menu ... ")
 		catIndexForEditMenu = i;
 	}
 
-$: console.log("mealsTestTotalPrice", mealsTestTotalPrice);
+	$: console.log('mealsTestTotalPrice', mealsTestTotalPrice);
 
-let y = 0
+	let y = 0;
 
-$: $appStore.showEditMenu === true ? y = 0 : null;
-
+	$: $appStore.showEditMenu === true ? (y = 0) : null;
 </script>
 
-
-
-
-<svelte:window bind:scrollY={y}/>
-
+<svelte:window bind:scrollY={y} />
 
 {#if $appStore.showEditMenu}
-<Anpassen
-	{localCatForEditMenu}
-	{callBackCloseAnpassenDisplay}
-	{callBackSaveMenuToCat}
-	
-	{proMonatDisplay}
-	catIndex={catIndexForEditMenu}
-	{callBackUpdateErrorMessage}
-	{callBackSetLocalCat}
-/>
+	<Anpassen
+		{localCatForEditMenu}
+		{callBackCloseAnpassenDisplay}
+		{callBackSaveMenuToCat}
+		{proMonatDisplay}
+		catIndex={catIndexForEditMenu}
+		{callBackUpdateErrorMessage}
+		{callBackSetLocalCat}
+	/>
 {/if}
-	<main id="Weiter" class="main-wrapper">
-		<div class="section_signup-hero">
+<main id="Weiter" class="main-wrapper">
+	<div class="section_signup-hero">
+		<div class="page-padding">
+			<div class="container-medium">
+				<div class="padding-vertical padding-huge">
+					<div class="signup-hero_form w-form">
+						<form
+							method="POST"
+							action={`?/submitPlans`}
+							use:enhance={{
+								validation: checkInput, // <- ADDED
+								result: async ({ data, form, response }) => {
+									// after successful submit
+								}
+							}}
+							id="email-form"
+							name="email-form"
+						>
+							<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />
+							<input type="hidden" value={'wgwge'} name="test" />
 
-			<div class="page-padding">
-				<div class="container-medium">
-					<div class="padding-vertical padding-huge">
-						<div class="signup-hero_form w-form">
-						
-							<form
-								method="POST"
-								action={`?/submitPlans`}
-								use:enhance={{
-									validation: checkInput, // <- ADDED
-									result: async ({ data, form, response }) => {
-										// after successful submit
-									}
-								}}
-								id="email-form"
-								name="email-form"
-							>
-								<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />
-								<input type="hidden" value={'wgwge'} name="test" />
-
-								<div class="signup-hero_component fifth-step">
-									<div class="margin-bottom-xxmedium">
-										<div class="text-align-center">
-											<h2 class="signup-hero_heading">Hier ist dein <br />personalisiertes Menü</h2>
-										</div>
+							<div class="signup-hero_component fifth-step">
+								<div class="margin-bottom-xxmedium">
+									<div class="text-align-center">
+										<h2 class="signup-hero_heading">Hier ist dein <br />personalisiertes Menü</h2>
 									</div>
-									<div
-										data-current="Tab 1"
-										data-easing="ease"
-										data-duration-in="0"
-										data-duration-out="0"
-										class="signup-hero_tabs w-tabs"
-									>
-										<div class="signup-hero_tabs-menu w-tab-menu">
-											<button
-												data-w-tab="Tab 1"
-												class="signup-hero_tab-link w-inline-block w-tab-link {proMonatDisplay
-													? ''
-													: 'w--current'}"
-												on:click={() => (proMonatDisplay = false)}
-											>
-												<div class="signup-hero_tab-heading">Testpreis</div>
-												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">
-														{mealsTestTotalPrice.toFixed(2)}
-													</div>
+								</div>
+								<div
+									data-current="Tab 1"
+									data-easing="ease"
+									data-duration-in="0"
+									data-duration-out="0"
+									class="signup-hero_tabs w-tabs"
+								>
+									<div class="signup-hero_tabs-menu w-tab-menu">
+										<button
+											data-w-tab="Tab 1"
+											class="signup-hero_tab-link w-inline-block w-tab-link {proMonatDisplay
+												? ''
+												: 'w--current'}"
+											on:click={() => (proMonatDisplay = false)}
+										>
+											<div class="signup-hero_tab-heading">Testpreis</div>
+											<div class="font-weight-medium">
+												<div class="signup-hero_tab-title-large">
+													{mealsTestTotalPrice.toFixed(2)}
 												</div>
-											</button>
-											<button
-												data-w-tab="Tab 2"
-												class="signup-hero_tab-link w-inline-block w-tab-link {proMonatDisplay
-													? 'w--current'
-													: ''}"
-												on:click={() => (proMonatDisplay = true)}
-											>
-												<div class="signup-hero_tab-heading">Pro Monat</div>
-												<div class="font-weight-bold">
-													<div class="signup-hero_tab-title-large">
-														{mealsPromonatTotalPrice.toFixed(2)}
-													</div>
-												</div>
-											</button>
-										</div>
-
-										<div class="signup-hero_tab-content w-tab-content">
-											{#if !proMonatDisplay}
-												<div
-													data-w-tab="Tab 1"
-													class="signup-hero_tab-pane w-tab-pane w--tab-active"
-												>
-													<div class="signup-hero_tab-wrapper">
-														<div class="signup-hero_text-info">
-															Teste Bella Natura zwei Wochen lang und erhalte einen 25%
-															Willkommensrabatt
-														</div>
-														{#each $catStore as cat, i}
-															<CatPlan
-																{cat}
-																{i}
-																{proMonatDisplay}
-																errorMessage={submitError ? errorMessages[i] : null}
-																{callBackUpdateErrorMessage}
-																{callBackSetLocalCat}
-															/>
-														{/each}
-														<div class="text-size-large text-color-white text-align-center">
-															Stimmt etwas nicht?
-														</div>
-														<a
-															href="/welcome/name"
-															class="text-align-center text-color-white text-size-medium w-inline-block"
-														>
-															<div class="underline">Erneut berechnen</div>
-														</a>
-													</div>
-												</div>
-											{/if}
-											{#if proMonatDisplay}
-												<div
-													data-w-tab="Tab 2"
-													class="signup-hero_tab-pane w-tab-pane w--tab-active"
-												>
-													<div class="signup-hero_tab-wrapper">
-														<div class="margin-bottom-medium">
-															<div class="text-align-center text-color-white">
-																<div class="signup-hero_tab-title-tiny">
-																	Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice.toFixed(
-																		2
-																	)} pro Monat
-																</div>
-															</div>
-														</div>
-														{#each $catStore as cat, i}
-															<CatPlan
-																{cat}
-																{i}
-																{proMonatDisplay}
-																errorMessage={errorMessages[i]}
-																{callBackUpdateErrorMessage}
-															/>
-														{/each}
-													</div>
-												</div>
-											{/if}
-										</div>
-										<div class="signup-hero_shipping-wrapper">
-											<div class="signup-hero_shipping-block">
-												<div class="signup-hero_shipping-line"></div>
-												<div class="signup-hero_shipping-item is-margin">
-													<div class="signup-hero_tab-heading">Total</div>
-													<div class="signup-hero_shipping-text-block">
-														<div class="signup-hero_tab-heading">
-															CHF {proMonatDisplay
-																? mealsPromonatTotalPrice.toFixed(2)
-																: mealsTestTotalPrice.toFixed(2)}
-														</div>
-													</div>
-												</div>
-												<div class="signup-hero_shipping-item is-margin">
-													<div class="signup-hero_tab-heading">Versand</div>
-													<div class="text-size-large">Kostenlos</div>
-												</div>
-												<div class="signup-hero_shipping-item">
-													<div class="signup-hero_tab-heading">Lieferdatum</div>
-													<div
-														class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start"
-													>
-														<!-- <div class="text-size-large">31/01/2023</div> -->
-														<div>
-															<Popover.Root portal={null} bind:open={popoverOpen}>
-																<Popover.Trigger asChild let:builder>
-																	<Button
-																		variant="outline"
-																		class={cn(
-																			'bg-transparent w-[200px] justify-end text-right font-normal underline',
-																			!value && 'text-muted-foreground'
-																		)}
-																		builders={[builder]}
-																	>
-																		<!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
-																		<div class="text-size-xmedium !tw-underline text-right">
-																			{value
-																				? df.format(value.toDate(getLocalTimeZone()))
-																				: 'Datum ändern'}
-																		</div>
-																	</Button>
-																</Popover.Trigger>
-
-																<Popover.Content class="w-80 z-[200]  bg-linen">
-																	<Calendar
-																		bind:value
-																		onValueChange={() => (popoverOpen = false)}
-																		initialFocus
-																		isDateDisabled={isAfterToday}
-																		class="rounded-md border bg-linen"
-																	/>
-																</Popover.Content>
-															</Popover.Root>
-														</div>
-													</div>
-												</div>
-												<div class="signup-hero_shipping-line"></div>
-												<div class="signup-hero_shipping-item is-wrap">
-													<div class="text-size-xmedium">
-														<div class="signup-hero_shipping-text-end">
-															Wenn deine Katze es liebt, bezahlst du in 12 Tagen 320 Chf/Monat. Du
-															kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
-														</div>
-													</div>
-													<button
-														class="mt-2 py-2 px-4 whitespace-nowrap text-white rounded-md hover:bg-red-500"
-														id="#main-submit"
-														aria-label="submit"
-														type="submit"
-														bind:this={formButtonElSubmitPlans}
-														on:click={() => {
-															submitTried = true;
-															!submitError && submitPlans();
-														}}
-														><div
-															class="signup-hero_checkout-button w-button !no-underline !text-white"
-														>
-															Zur Kasse
-														</div>
-													</button>
-												</div>
-												{#if submitTried === true}
-													{#if submitError}
-														{#each errorMessages as errorMessage}
-															<div class="!w-full !flex !flex-row !justify-end !items-right">
-																{#if errorMessage !== undefined}
-																	<div class=" !bg-transparent !text-red-600 !grow-0">
-																		<div>{errorMessage}</div>
-																	</div>
-																{/if}
-															</div>
-														{/each}
-													{/if}
-												{/if}
 											</div>
+										</button>
+										<button
+											data-w-tab="Tab 2"
+											class="signup-hero_tab-link w-inline-block w-tab-link {proMonatDisplay
+												? 'w--current'
+												: ''}"
+											on:click={() => (proMonatDisplay = true)}
+										>
+											<div class="signup-hero_tab-heading">Pro Monat</div>
+											<div class="font-weight-medium">
+												<div class="signup-hero_tab-title-large">
+													{mealsPromonatTotalPrice.toFixed(2)}
+												</div>
+											</div>
+										</button>
+									</div>
+
+									<div class="signup-hero_tab-content w-tab-content">
+										{#if !proMonatDisplay}
+											<div data-w-tab="Tab 1" class="signup-hero_tab-pane w-tab-pane w--tab-active">
+												<div class="signup-hero_tab-wrapper">
+													<div class="signup-hero_text-info">
+														Teste Bella Natura zwei Wochen lang und erhalte einen 25%
+														Willkommensrabatt
+													</div>
+													{#each $catStore as cat, i}
+														<CatPlan
+															{cat}
+															{i}
+															{proMonatDisplay}
+															errorMessage={submitError ? errorMessages[i] : null}
+															{callBackUpdateErrorMessage}
+															{callBackSetLocalCat}
+														/>
+													{/each}
+													<div class="text-size-large text-color-white text-align-center">
+														Stimmt etwas nicht?
+													</div>
+													<a
+														href="/welcome/name"
+														class="text-align-center text-color-white text-size-medium w-inline-block"
+													>
+														<div class="underline">Erneut berechnen</div>
+													</a>
+												</div>
+											</div>
+										{/if}
+										{#if proMonatDisplay}
+											<div data-w-tab="Tab 2" class="signup-hero_tab-pane w-tab-pane w--tab-active">
+												<div class="signup-hero_tab-wrapper">
+													<div class="margin-bottom-medium">
+														<div class="text-align-center text-color-white">
+															<div class="signup-hero_tab-title-tiny">
+																Danach beginnt Ihr Abonnement für {mealsPromonatTotalPrice.toFixed(
+																	2
+																)} pro Monat
+															</div>
+														</div>
+													</div>
+													{#each $catStore as cat, i}
+														<CatPlan
+															{cat}
+															{i}
+															{proMonatDisplay}
+															errorMessage={errorMessages[i]}
+															{callBackUpdateErrorMessage}
+														/>
+													{/each}
+												</div>
+											</div>
+										{/if}
+									</div>
+									<div class="signup-hero_shipping-wrapper">
+										<div class="signup-hero_shipping-block">
+											<div class="signup-hero_shipping-line"></div>
+											<div class="signup-hero_shipping-item is-margin">
+												<div class="signup-hero_tab-heading">Total</div>
+												<div class="signup-hero_shipping-text-block">
+													<div class="signup-hero_tab-heading">
+														CHF {proMonatDisplay
+															? mealsPromonatTotalPrice.toFixed(2)
+															: mealsTestTotalPrice.toFixed(2)}
+													</div>
+												</div>
+											</div>
+											<div class="signup-hero_shipping-item is-margin">
+												<div class="signup-hero_tab-heading">Versand</div>
+												<div class="text-size-large">Kostenlos</div>
+											</div>
+											<div class="signup-hero_shipping-item">
+												<div class="signup-hero_tab-heading">Lieferdatum</div>
+												<div
+													class="signup-hero_shipping-text-block is-vertical w-full md:w-auto !flex !flex-row !justify-start"
+												>
+													<!-- <div class="text-size-large">31/01/2023</div> -->
+													<div>
+														<Popover.Root portal={null} bind:open={popoverOpen}>
+															<Popover.Trigger asChild let:builder>
+																<Button
+																	variant="outline"
+																	class={cn(
+																		'bg-transparent w-[200px] justify-end text-right font-normal underline',
+																		!value && 'text-muted-foreground'
+																	)}
+																	builders={[builder]}
+																>
+																	<!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
+																	<div class="text-size-xmedium !tw-underline text-right">
+																		{value
+																			? df.format(value.toDate(getLocalTimeZone()))
+																			: 'Datum ändern'}
+																	</div>
+																</Button>
+															</Popover.Trigger>
+
+															<Popover.Content class="w-80 z-[200]  bg-linen">
+																<Calendar
+																	bind:value
+																	onValueChange={() => (popoverOpen = false)}
+																	initialFocus
+																	isDateDisabled={isAfterToday}
+																	class="rounded-md border bg-linen"
+																/>
+															</Popover.Content>
+														</Popover.Root>
+													</div>
+												</div>
+											</div>
+											<div class="signup-hero_shipping-line"></div>
+											<div class="signup-hero_shipping-item is-wrap">
+												<div class="text-size-xmedium">
+													<div class="signup-hero_shipping-text-end">
+														Wenn deine Katze es liebt, bezahlst du in 12 Tagen 320 Chf/Monat. Du
+														kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
+													</div>
+												</div>
+												<button
+													class="mt-2 py-2 px-4 whitespace-nowrap text-white rounded-md hover:bg-red-500"
+													id="#main-submit"
+													aria-label="submit"
+													type="submit"
+													bind:this={formButtonElSubmitPlans}
+													on:click={() => {
+														submitTried = true;
+														!submitError && submitPlans();
+													}}
+													><div
+														class="signup-hero_checkout-button w-button !no-underline !text-white"
+													>
+														Zur Kasse
+													</div>
+												</button>
+											</div>
+											{#if submitTried === true}
+												{#if submitError}
+													{#each errorMessages as errorMessage}
+														<div class="!w-full !flex !flex-row !justify-end !items-right">
+															{#if errorMessage !== undefined}
+																<div class=" !bg-transparent !text-red-600 !grow-0">
+																	<div>{errorMessage}</div>
+																</div>
+															{/if}
+														</div>
+													{/each}
+												{/if}
+											{/if}
 										</div>
 									</div>
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-			<img src="images/pink-left-svg.svg" loading="eager" alt="" class="bg-flower-left" /><img
-				src="images/pink-right-svg.svg"
-				loading="eager"
-				alt=""
-				class="bg-flower-right "
-			/>
 		</div>
-	</main>
-
+		<img src="images/pink-left-svg.svg" loading="eager" alt="" class="bg-flower-left" /><img
+			src="images/pink-right-svg.svg"
+			loading="eager"
+			alt=""
+			class="bg-flower-right"
+		/>
+	</div>
+</main>
 
 <!-- <form method="POST" action={`?/updateRules`} use:enhance bind:this={formElSubmitPlans}>
 	<input type="hidden" bind:this={formInputElSubmitPlans} name="rulesJson" />

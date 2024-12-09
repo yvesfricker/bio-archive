@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CatMealI } from '$lib/types';
 
-export let portionSize: number
+	export let portionSize: number;
 	export let meal: CatMealI;
 
 	$: localMeal = {
@@ -13,16 +13,16 @@ export let portionSize: number
 		totalMealPrice: meal.totalMealPrice
 	} as CatMealI;
 
-    function capitalizeFirstLetter(val) {
-    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-}
+	function capitalizeFirstLetter(val) {
+		return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+	}
 
-$: imageType = capitalizeFirstLetter(localMeal?.type);
+	$: imageType = capitalizeFirstLetter(localMeal?.type);
 
-// $: console.log("portionSize in CatMeal", portionSize)
-// console.log('imageType', imageType);
-// console.log("meal", meal)
-// console.log("localMeal", localMeal)
+	// $: console.log("portionSize in CatMeal", portionSize)
+	// console.log('imageType', imageType);
+	// console.log("meal", meal)
+	// console.log("localMeal", localMeal)
 </script>
 
 <div
@@ -39,7 +39,7 @@ $: imageType = capitalizeFirstLetter(localMeal?.type);
 		class="signup-hero_tab-plan-image"
 	/>
 	<div class="signup-hero_tab-plan-text-block">
-		<div class="font-weight-bold">
+		<div class="font-weight-medium">
 			<div class="signup-hero_tab-title-tiny">
 				{localMeal.servings} x <span fy-element="catOnePortionSize">{portionSize}</span>g {imageType}
 			</div>
