@@ -55,8 +55,8 @@
 <div class="margin-bottom-xxmedium">
 	<div class="signup-hero_item is-second-step">
 		<div class="signup-hero_field-block is-age">
-			<div class="signup-hero_field-text">Alter:</div>
 			<div class="signup-hero_item is-years">
+				<div class="signup-hero_field-text age-label">Alter:</div>
 				<div class="signup-hero_age-button">
 					<button
 						fy-element="catOneDecrementAgeButton"
@@ -78,11 +78,10 @@
 						}}>+</button
 					>
 				</div>
-				<div class="signup-hero_field-text">Jahr/e</div>
+				<div class="signup-hero_field-text age-unit">Jahr/e</div>
 			</div>
 		</div>
 		<div class="signup-hero_field-block is-weight">
-			<div class="signup-hero_field-text">Gewicht:</div>
 			<div class="signup-hero_item is-kg ~w-full">
 				<!-- <button
 					class="button is-white w-button"
@@ -117,7 +116,7 @@
 						handleUpdate();
 					}}>+</button
 				> -->
-
+				<div class="signup-hero_field-text weight-label">Gewicht:</div>
 				<div class="signup-hero_age-button">
 					<button
 						fy-element="catOneDecrementAgeButton"
@@ -140,24 +139,42 @@
 					>
 				</div>
 
-				<div class="signup-hero_field-text">kg</div>
+				<div class="signup-hero_field-text weight-unit">kg</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- <style lang="css">  moved this to bella-natura-webflow.css
-	.hide-arrows {
-		/* Chrome, Safari, Edge, Opera */
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
-
-		/* Firefox */
-		input[type='number'] {
-			-moz-appearance: textfield;
-		}
+<style lang="css">
+	.signup-hero_item.is-kg {
+		justify-content: space-between;
+		max-width: 100%;
 	}
-</style> -->
+
+	.signup-hero_field-text.weight-label {
+		flex-grow: 1;
+		flex-basis: 0;
+		text-align: right;
+	}
+
+	.signup-hero_field-text.weight-unit {
+		flex-grow: 1;
+		flex-basis: 0;
+	}
+
+	.signup-hero_item.is-years {
+		justify-content: space-between;
+		max-width: 100%;
+	}
+
+	.signup-hero_field-text.age-label {
+		flex-grow: 1;
+		flex-basis: 0;
+		text-align: right;
+	}
+
+	.signup-hero_field-text.age-unit {
+		flex-grow: 1;
+		flex-basis: 0;
+	}
+</style>
