@@ -1,0 +1,28 @@
+
+.signup-hero_item {   
+    font-size: 1.25rem;
+ }    
+
+.signup-hero_field-text {
+    font-size: 1.25rem;
+}
+
+/* Small devices (sm) */
+@media (max-width: 479px) {
+
+}
+
+/* Medium devices (md) */
+@media (max-width: 767px) {
+
+}
+
+/* Large devices (lg) */
+@media (max-width: 991px) {
+
+}
+
+/* Extra large devices (xl) */
+@media (max-width: 1440px) {
+
+}

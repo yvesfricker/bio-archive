@@ -1,7 +1,7 @@
 @import 'normalize.css';
 @import 'webflow.css';
 @import 'bella-natura.webflow.css';
-
+@import 'overrides.css';
 
 
 @tailwind base;
@@ -11,27 +11,27 @@
 
 @layer base {
 
-    @font-face {
-      font-family: 'Lora';
-      font-style: normal;
-      font-weight: 700;
-      font-display: swap;
-      src: url(/fonts/Lora-VariableFont_wght.woff2) format('woff2'),
-           url(/fonts/Lora-VariableFont_wght.woff) format('woff'),
-           url(/fonts/Lora-VariableFont_wght.ttf) format('truetype');
-    }
- 
+  @font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(/fonts/Lora-VariableFont_wght.woff2) format('woff2'),
+      url(/fonts/Lora-VariableFont_wght.woff) format('woff'),
+      url(/fonts/Lora-VariableFont_wght.ttf) format('truetype');
+  }
 
-    @font-face {
-      font-family: 'Nunito';
-      font-style: normal;
-      font-weight: 500;
-      font-display: swap;
-      src: url(/fonts/Nunito-VariableFont_wght.woff2) format('woff2'),
-           url(/fonts/Nunito-VariableFont_wght.woff) format('woff'),
-           url(/fonts/Nunito-VariableFont_wght.ttf) format('truetype');
-    }
- 
+
+  @font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(/fonts/Nunito-VariableFont_wght.woff2) format('woff2'),
+      url(/fonts/Nunito-VariableFont_wght.woff) format('woff'),
+      url(/fonts/Nunito-VariableFont_wght.ttf) format('truetype');
+  }
+
 
   :root {
     --background: 0 0% 100%;
@@ -102,7 +102,7 @@
 
     --ring: 212.7 26.8% 83.9%;
 
-    
+
   }
 }
 
