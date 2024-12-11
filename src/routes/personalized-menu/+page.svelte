@@ -581,3 +581,10 @@
 		bind:this={formButtonElSubmitPlans}><div class="text-md"></div></button
 	>
 </form> -->
+
+<style lang="css">
+	.signup-hero_tab-pane {
+		border-bottom-left-radius: 0.625rem;
+		border-bottom-right-radius: 0.625rem;
+	}
+</style>
