@@ -90,7 +90,7 @@
 	function handleCloseEditMenu() {
 		$appStore.showEditMenu = false;
 		$appStore.showHeader = true;
-		document.getElementsByTagName("body")[0].style = 'overflow: auto; height: auto;'
+		document.getElementsByTagName('body')[0].style = 'overflow: auto; height: auto;';
 		// $appStore.menuElement && $appStore.menuElement.scrollIntoView();
 	}
 
@@ -98,28 +98,27 @@
 	let element;
 	//dymm
 
-// 	function handleScroll(e) {
-// 		e.stopPropagation()
-// console.log('handleScroll', e);    // [other logic]
-//   }
+	// 	function handleScroll(e) {
+	// 		e.stopPropagation()
+	// console.log('handleScroll', e);    // [other logic]
+	//   }
 
-document.getElementsByTagName("body")[0].style = 'overflow: hidden; height: 100%;'
-
+	document.getElementsByTagName('body')[0].style = 'overflow: hidden; height: 100%;';
 </script>
 
 <!-- <svelte:window  onscroll={handleScroll}/> -->
 
-
-	<!-- <div
+<!-- <div
 	style="height: {h + 100}px !important; "
 	class="popup_wrapper !flex !flex-col !flex-justify-center z-30 !overflow-y-auto"
 >
 	<div bind:clientHeight={h} class="!grow-1 popup_block is-first is-visible z-40 "> -->
 
-<div style="height: 100% ; " class="popup_wrapper !flex !flex-col !flex-justify-center z-30 !overflow-y-scroll" >
-	<div bind:clientHeight={h}  class=" !grow-1 popup_block is-first is-visible z-50 ">
-
-
+<div
+	style="height: 100% ; "
+	class="popup_wrapper !flex !flex-col !flex-justify-center z-30 !overflow-y-scroll"
+>
+	<div bind:clientHeight={h} class=" !grow-1 popup_block is-first is-visible z-50">
 		<!-- svelte-ignore a11y_unknown_aria_attribute -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div class="z-50 sm:block absolute">
@@ -219,6 +218,13 @@ document.getElementsByTagName("body")[0].style = 'overflow: hidden; height: 100%
 
 <style lang="css" module>
 	@import '../../bella-natura.webflow.css';
+
+	/* Medium devices (md) */
+	@media (max-width: 767px) {
+		.popup_block {
+			border-radius: 0;
+		}
+	}
 
 	@media screen and (max-width: 479px) {
 		.stop-mobile-scrolling {
