@@ -39,13 +39,13 @@
 	});
 
 	let potionSizesAndPrices = $state([
-		{ size: 100, price: 4.0, checked: false },
-		{ size: 150, price: 4.4, checked: false },
-		{ size: 200, price: 4.8, checked: false },
-		{ size: 250, price: 5.2, checked: false },
-		{ size: 300, price: 5.6, checked: false },
-		{ size: 350, price: 6.0, checked: false },
-		{ size: 400, price: 6.4, checked: false }
+		{ size: 100, price: 2.0, checked: false },
+		{ size: 150, price: 2.4, checked: false },
+		{ size: 200, price: 2.8, checked: false },
+		{ size: 250, price: 3.2, checked: false },
+		{ size: 300, price: 3.6, checked: false },
+		{ size: 350, price: 4.0, checked: false },
+		{ size: 400, price: 4.4, checked: false }
 	]);
 
 	potionSizesAndPrices.find((potionSizeAndPrice) => {
