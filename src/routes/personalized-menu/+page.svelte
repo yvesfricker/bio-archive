@@ -109,13 +109,13 @@
 			catStore.updatePortionSize(index, recommendedPotionSize);
 
 			const potionSizesAndPrices = [
-				{ size: 100, price: 4.0 },
-				{ size: 150, price: 4.4 },
-				{ size: 200, price: 4.8 },
-				{ size: 250, price: 5.2 },
-				{ size: 300, price: 5.6 },
-				{ size: 350, price: 6.0 },
-				{ size: 400, price: 6.4 }
+				{ size: 100, price: 2.0 },
+				{ size: 150, price: 2.4 },
+				{ size: 200, price: 2.8 },
+				{ size: 250, price: 3.2 },
+				{ size: 300, price: 3.4 },
+				{ size: 350, price: 3.8 },
+				{ size: 400, price: 4.2 }
 			];
 
 			let mealPrice = 0;
