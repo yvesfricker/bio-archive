@@ -9,8 +9,6 @@ import type { PageServerLoad } from './$types';
 // import type { Indicator, Rule, Signal } from '$lib/types/dbschema';
 // import type { RuleI } from '$lib/types/data';
 
-import { supabase } from "$lib/clients/supabaseClient";
-
 
 export const load: PageServerLoad = async ({ cookies, url }) => {
     // const user = await db.getUserFromSession(cookies.get('sessionid'));
@@ -18,10 +16,10 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 
     try {
         // console.log("superbase client", supabase)
-        const { data } = await supabase.from("products").select();
+        
         // console.log("data", data)
         return {
-            products: data ?? [],
+            products: [],
         };
 
     } catch (err) {

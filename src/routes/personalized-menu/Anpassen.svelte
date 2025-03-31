@@ -172,7 +172,7 @@
 					>
 						<div class="popup_checkbox-text-block">
 							<div class="popup_checkbox-title">{potionSizeAndPrice.size} kcal / Portion</div>
-							<div class="popup_checkbox-title">CHF {potionSizeAndPrice.price.toFixed(2)}</div>
+							<div class="popup_checkbox-title">€ {potionSizeAndPrice.price.toFixed(2)}</div>
 						</div>
 
 						<div

@@ -476,7 +476,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">150 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 4.40</div>
+																		<div class="popup_checkbox-title">€ 4.40</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -504,7 +504,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">200 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 4.80</div>
+																		<div class="popup_checkbox-title">€ 4.80</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -534,7 +534,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">250 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 5.20</div>
+																		<div class="popup_checkbox-title">€ 5.20</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -562,7 +562,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">300 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 5.60</div>
+																		<div class="popup_checkbox-title">€ 5.60</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -590,7 +590,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">350 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 6.00</div>
+																		<div class="popup_checkbox-title">€ 6.00</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -618,7 +618,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">400 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 6.40</div>
+																		<div class="popup_checkbox-title">€ 6.40</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -785,7 +785,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">150 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 4.40</div>
+																		<div class="popup_checkbox-title">€ 4.40</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -813,7 +813,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">200 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 4.80</div>
+																		<div class="popup_checkbox-title">€ 4.80</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -843,7 +843,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">250 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 5.20</div>
+																		<div class="popup_checkbox-title">€ 5.20</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -871,7 +871,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">300 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 5.60</div>
+																		<div class="popup_checkbox-title">€ 5.60</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -899,7 +899,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">350 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 6.00</div>
+																		<div class="popup_checkbox-title">€ 6.00</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -927,7 +927,7 @@
 																>
 																	<div class="popup_checkbox-text-block">
 																		<div class="popup_checkbox-title">400 kcal / Portion</div>
-																		<div class="popup_checkbox-title">CHF 6.40</div>
+																		<div class="popup_checkbox-title">€ 6.40</div>
 																	</div>
 																	<div
 																		class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1242,7 +1242,7 @@
 											<div class="signup-hero_shipping-item is-margin">
 												<div class="signup-hero_tab-heading">Total</div>
 												<div class="signup-hero_shipping-text-block">
-													<div class="signup-hero_tab-heading">CHF 0</div>
+													<div class="signup-hero_tab-heading">€ 0</div>
 												</div>
 											</div>
 											<div class="signup-hero_shipping-item is-margin">
@@ -1262,7 +1262,7 @@
 											<div class="signup-hero_shipping-item is-wrap">
 												<div class="text-size-xmedium">
 													<div class="signup-hero_shipping-text-end">
-														Wenn deine Katze es liebt, bezahlst du in 12 Tagen 320 Chf/Monat. Du
+														Wenn deine Katze es liebt, bezahlst du in 12 Tagen 320 €/Monat. Du
 														kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
 													</div>
 												</div>
@@ -1400,7 +1400,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">150 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 4.40</div>
+														<div class="popup_checkbox-title">€ 4.40</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1427,7 +1427,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">200 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 4.80</div>
+														<div class="popup_checkbox-title">€ 4.80</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1456,7 +1456,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">250 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 5.20</div>
+														<div class="popup_checkbox-title">€ 5.20</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1483,7 +1483,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">300 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 5.60</div>
+														<div class="popup_checkbox-title">€ 5.60</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1510,7 +1510,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">350 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 6.00</div>
+														<div class="popup_checkbox-title">€ 6.00</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1537,7 +1537,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">400 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 6.40</div>
+														<div class="popup_checkbox-title">€ 6.40</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1697,7 +1697,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">150 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 4.40</div>
+														<div class="popup_checkbox-title">€ 4.40</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1724,7 +1724,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">200 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 4.80</div>
+														<div class="popup_checkbox-title">€ 4.80</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1753,7 +1753,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">250 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 5.20</div>
+														<div class="popup_checkbox-title">€ 5.20</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1780,7 +1780,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">300 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 5.60</div>
+														<div class="popup_checkbox-title">€ 5.60</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1807,7 +1807,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">350 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 6.00</div>
+														<div class="popup_checkbox-title">€ 6.00</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"
@@ -1834,7 +1834,7 @@
 												>
 													<div class="popup_checkbox-text-block">
 														<div class="popup_checkbox-title">400 kcal / Portion</div>
-														<div class="popup_checkbox-title">CHF 6.40</div>
+														<div class="popup_checkbox-title">€ 6.40</div>
 													</div>
 													<div
 														class="w-checkbox-input w-checkbox-input--inputType-custom popup_checkbox"

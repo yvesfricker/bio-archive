@@ -108,13 +108,13 @@
 		<div class="signup-hero_tab-title-tiny is-popup-trigger">Edit recipes</div>
 		<div class="signup-hero_tab-heading">
 			{#if proMonatDisplay}
-			CHF <span
+			€ <span
 					> {proMonatDisplay
 						? cat.mealsPromonatTotalPrice.toFixed(2)
 						: cat.mealsTestTotalPrice.toFixed(2)}</span
 				>
 			{:else}
-			CHF <span class="line-through"
+			€ <span class="line-through"
 					>  {cat.mealsTestTotalPrice.toFixed(2)}</span
 				> 
 				<span class=""

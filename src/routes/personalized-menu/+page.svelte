@@ -467,7 +467,7 @@
 												<div class="signup-hero_tab-heading">Total</div>
 												<div class="signup-hero_shipping-text-block">
 													<div class="signup-hero_tab-heading">
-														CHF {proMonatDisplay
+														€ {proMonatDisplay
 															? mealsPromonatTotalPrice.toFixed(2)
 															: mealsTestTotalPrice.toFixed(2)}
 													</div>
@@ -522,7 +522,7 @@
 													<div class="signup-hero_shipping-text-end">
 														Wenn deine Katze es liebt, bezahlst du in 12 Tagen {mealsPromonatTotalPrice.toFixed(
 															2
-														)} ChF/Monat. Du kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
+														)} €/Monat. Du kannst dein Abo jederzeit anpassen, pausieren oder kündigen.
 													</div>
 												</div>
 												<button
