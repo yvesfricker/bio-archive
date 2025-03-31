@@ -1,9 +1,6 @@
 
 export function getPortionSizeFromCatWeight(weight: number) {
     console.log("checking weight ! ", weight, weight <= 2);
-    if (weight <= 2) {
-        return 100;
-    }
     if (weight <= 3) {
         return 150;
 
@@ -18,7 +15,7 @@ export function getPortionSizeFromCatWeight(weight: number) {
     if (weight <= 6) {
         return 300;
     }
-    return 350;
+    return 300;
 }
 
 
